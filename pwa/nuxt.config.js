@@ -56,8 +56,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'bootstrap-vue/nuxt',
-    ['nuxt-matomo', { matomoUrl: 'https://track.djnd.si/', siteId: 12, doNotTrack: true, cookies: false }]
+    'bootstrap-vue/nuxt'
   ],
   /*
    ** Axios module configuration
@@ -80,7 +79,6 @@ export default {
   /*
    ** Router configuration
    */
-  router: {
-    middleware: 'matomo'
-  }
+  // router: {
+  // }
 }
