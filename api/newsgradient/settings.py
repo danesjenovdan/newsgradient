@@ -13,20 +13,35 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# read from env
+env = dict(
+    SECRET_KEY=os.getenv('DJANGO_SECRET_KEY', 'not-a-secret'),
+    DEBUG=os.getenv('DJANGO_DEBUG', True),
+    DATABASE_HOST=os.getenv('DJANGO_DATABASE_HOST', 'localhost'),
+    DATABASE_PORT=os.getenv('DJANGO_DATABASE_PORT', '5432'),
+    DATABASE_NAME=os.getenv('DJANGO_DATABASE_NAME', 'newsgradient'),
+    DATABASE_USER=os.getenv('DJANGO_DATABASE_USER', 'postgres'),
+    DATABASE_PASSWORD=os.getenv('DJANGO_DATABASE_PASSWORD', 'postgres'),
+    STATIC_ROOT=os.getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, '../static')),
+    STATIC_URL=os.getenv('DJANGO_STATIC_URL_BASE', '/static/'),
+    MEDIA_ROOT=os.getenv('DJANGO_MEDIA_ROOT', '/media/'),
+    MEDIA_URL=os.getenv('DJANGO_MEDIA_URL_BASE', '/media/'),
+    CACHE_LOCATION=os.getenv('DJANGO_CACHE_LOCATION', 'redis://cache:6379/1'),
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%9(-uv2((djj8=z3wl=#3w=0395k+k(64y-ubio-ibh)bf23fj'
+SECRET_KEY = env['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env['DEBUG']
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -43,12 +58,13 @@ INSTALLED_APPS = [
     'django_crontab',
 
     'news',
+    'backoffice',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -76,17 +92,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'newsgradient.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# Uncomment code bellow to use postgres with docker
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env['DATABASE_NAME'],
+        'USER': env['DATABASE_USER'],
+        'HOST': env['DATABASE_HOST'],
+        'PORT': env['DATABASE_PORT'],
+        'PASSWORD': env['DATABASE_PASSWORD']
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -106,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -120,11 +145,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = env['STATIC_URL']
+STATIC_ROOT = env['STATIC_ROOT']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -138,12 +163,35 @@ REST_FRAMEWORK = {
     ),
 }
 
-ORDER_TRASHOLD = 5 # THRESHOLD
+ORDER_TRASHOLD = 5  # THRESHOLD
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-ER_API_KEY = "bffa61a3-e09e-46de-bf9c-6966615bac71"
+ER_API_KEY = os.getenv('ER_API_KEY')
 
 CRONJOBS = [
-    ('*/30 * * * *', 'news.cron.get_new_news')
+    # ('*/30 * * * *', 'news.cron.get_new_news')
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env['CACHE_LOCATION'],
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+CORS_ORIGIN_WHITELIST = [
+    f'{os.getenv("ORIGIN_DOMAIN")}',
+    "https://newsgradient.org",
+    "https://bih.newsgradient.org",
+    'https://newsgradient-api.lb.djnd.si',
+    'https://newsgradient-pwa.lb.djnd.si'
+]
+
+LOGIN_URL = '/admin/login/'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print('Local settings not found')

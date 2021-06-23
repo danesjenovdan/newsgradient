@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newsgradient-api-deployment
+  labels:
+    app: newsgradient-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newsgradient-api
+  template:
+    metadata:
+      labels:
+        app: newsgradient-api
+    spec:
+      volumes:
+        - name: newsgradient-api-persistent-storage
+          persistentVolumeClaim:
+            claimName: newsgradient-api-pvc
+      initContainers:
+        - name: collectstatic
+          image: newsgradient-api
+          volumeMounts:
+            - name: newsgradient-api-persistent-storage
+              mountPath: /pvc
+          command:
+            - python
+            - manage.py
+            - collectstatic
+            - --no-input
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: newsgradient.settings
+          envFrom:
+            - secretRef:
+                name: newsgradient-api-credentials
+        - name: migrate
+          image: newsgradient-api
+          command:
+            - python
+            - manage.py
+            - migrate
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: newsgradient.settings
+          envFrom:
+            - secretRef:
+                name: newsgradient-api-credentials
+      containers:
+        - name: newsgradient-api
+          image: newsgradient-api
+          volumeMounts:
+            - name: newsgradient-api-persistent-storage
+              mountPath: /pvc
+          command:
+            - gunicorn
+            - newsgradient.wsgi:application
+            - -b
+            - 0.0.0.0:8000
+            - --log-level
+            - DEBUG
+          ports:
+            - containerPort: 8000
+          envFrom:
+              - secretRef:
+                  name: newsgradient-api-credentials
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: newsgradient.settings
+        - name: newsgradient-api-nginx
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          image: nginx:alpine
+          volumeMounts:
+            - name: newsgradient-api-persistent-storage
+              mountPath: /usr/share/nginx/html

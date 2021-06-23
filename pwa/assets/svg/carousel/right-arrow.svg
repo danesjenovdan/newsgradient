@@ -1,0 +1,6 @@
+<svg height='100px' width='100px' fill="#0177ff" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32"
+     enable-background="new 0 0 32 32" xml:space="preserve"><g><rect fill="none" width="32" height="32"></rect></g>
+  <g><g><path d="M16,31C7.729,31,1,24.271,1,16S7.729,1,16,1s15,6.729,15,15S24.271,31,16,31z M16,3C8.832,3,3,8.832,3,16s5.832,13,13,13    s13-5.832,13-13S23.168,3,16,3z"></path></g>
+    <g><g><rect x="14.733" y="7.108" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -4.3943 14.8509)" width="1.994" height="11.243"></rect></g></g>
+    <g><g><polygon points="20.41,16 19,17.41 12.46,23.95 11.05,22.54 17.59,16 19,14.59    "></polygon></g></g></g></svg>

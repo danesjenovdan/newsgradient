@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newsgradient-pwa
+  labels:
+    app: newsgradient-pwa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newsgradient-pwa
+  template:
+    metadata:
+      labels:
+        app: newsgradient-pwa
+    spec:
+      containers:
+      - name: newsgradient-pwa
+        image: newsgradient-pwa # kustomize thing
+        command:
+          - yarn
+          - start
+        env:
+          -
+            name: API_BASE_URL
+            value: https://newsgradient-api.lb.djnd.si
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 5

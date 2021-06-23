@@ -1,0 +1,75 @@
+@import 'variables';
+
+.more-button {
+  background-image: linear-gradient(180deg, #0177ff 0%, rgba(1,119,255,1) 100%);
+  height: 37px;
+  border-radius: 37px;
+  border: none;
+  color: white;
+  // width: 180px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 15px;
+  letter-spacing: 0.9px;
+  padding: 0 15px;
+  transition: background-image 0.15s ease-out;
+
+  &:hover {
+    background-image: linear-gradient(to right, #0076fe 0%, #e50001 100%)
+  }
+
+  @media (max-width:$medium) {
+    font-size: 10px;
+    height: auto;
+    border-radius: 12px;
+    // width: 150px;
+    justify-content: center;
+    padding: 5px 10px;
+  }
+}
+
+.newshouse-text {
+  color: #0177ff;
+  font-size: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.ng-header {
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0px -10px 20px 10px rgba(0, 0, 0, 0.25);
+  padding: 10px 20px;
+  z-index: 100;
+
+  @media (min-width: $small) {
+    padding: 15px 40px;
+  }
+
+  &__text {
+    @media (max-width: $medium) {
+      display: none;
+    }
+  }
+}
+
+.back-button {
+  transform: rotate(180deg);
+  cursor: pointer;
+
+  &--header {
+    width: 30px;
+  }
+}
+
+.header--title {
+  font-weight: 900;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1;
+  color: #3f3942;
+}

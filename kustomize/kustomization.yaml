@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: newsgradient
+resources:
+  - api/deployment.yaml
+  - api/service.yaml
+  - api/ingress.yaml
+  - api/pvc.yaml
+  - pwa/deployment.yaml
+  - pwa/service.yaml
+  - pwa/ingress.yaml
+images:
+  - name: newsgradient-api
+    newName: rg.fr-par.scw.cloud/djnd/newsgradient-api
+    newTag: 'latest'
+  - name: newsgradient-pwa
+    newName: rg.fr-par.scw.cloud/djnd/newsgradient-pwa
+    newTag: 'latest'

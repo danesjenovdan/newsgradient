@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: newsgradient
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  cache:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  api:
+    build: ./api
+    environment:
+      COMPOSE_HTTP_TIMEOUT: 300
+    command: python manage.py runserver 0.0.0.0:8000
+    # command: bash -c "gunicorn -c gunicorn.conf.py newsgradient.wsgi --access-logfile - --error-logfile - --log-level debug --timeout 120 --reload"
+    volumes:
+      - ./api:/app
+    environment:
+        ORIGIN_DOMAIN: http://localhost:3000
+        SECRET_KEY: something_secret
+        ER_API_KEY: 44a55940-be34-4712-8e93-146686cb87ab
+        DJANGO_SETTINGS_MODULE: newsgradient.settings
+        DJANGO_DATABASE_HOST: db
+        DJANGO_DATABASE_USER: postgres
+        DJANGO_DATABASE_PASSWORD: postgres
+        #ER_API_KEY=bffa61a3-e09e-46de-bf9c-6966615bac71
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
+
+  # pwa:
+  #   build: ./pwa
+  #   environment:
+  #     COMPOSE_HTTP_TIMEOUT: 300
+  #     NODE_ENV: production
+  #   command: sh -c "yarn build && yarn start"
+  #   ports:
+  #     - "3000:3000"
