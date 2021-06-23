@@ -53,8 +53,6 @@ import { mapMutations } from 'vuex';
         // @ts-ignore
         window.localStorage.setItem('ngPassword', this.password);
         // @ts-ignore
-        this.$matomo.trackEvent('loggedIn', 'usagm');
-        // @ts-ignore
         this.TOGGLE_LOGGED_IN();
       } else {
         alert('Sorry, this is a closed beta, you need the correct username and password. If you would like to try it out send an email to ziga@danesjenovdan.si');
