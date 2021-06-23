@@ -19,10 +19,10 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: api.newsgradient-api
+                name: newsgradient-api
                 port:
                   number: 8000
-    - host: newsgradient.org
+    - host: api.newsgradient.org
       http:
         paths:
           - path: /
