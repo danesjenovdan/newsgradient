@@ -28,7 +28,15 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://use.typekit.net/rwb3jbn.css' }
-    ]
+    ],
+    script: [
+      {
+        async: true,
+        defer: true,
+        'data-domain': 'newsgradient.org',
+        src: 'https://plausible.lb.djnd.si/js/plausible.js',
+      },
+    ],
   },
   /*
    ** Customize the progress-bar color
