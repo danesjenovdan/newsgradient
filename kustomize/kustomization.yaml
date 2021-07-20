@@ -6,6 +6,7 @@ resources:
   - api/service.yaml
   - api/ingress.yaml
   - api/pvc.yaml
+  - api/refresh_articles.yaml
   - pwa/deployment.yaml
   - pwa/service.yaml
   - pwa/ingress.yaml
