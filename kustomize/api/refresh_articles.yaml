@@ -28,5 +28,4 @@ spec:
               limits:
                 memory: 500Mi
                 cpu: 200m
-          restartPolicy: Never
-  backoffLimit: 1
+          restartPolicy: OnFailure
