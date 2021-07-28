@@ -132,3 +132,4 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(models.Medium, MediumAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Article, ArticleAdmin)
+admin.site.register(models.Tweet)
