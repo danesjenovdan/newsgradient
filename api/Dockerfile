@@ -13,6 +13,11 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
+# install twint
+# this is done with pip, because the --system
+# flag in pipenv can't be used on single dependencies
+RUN pip install git+https://github.com/twintproject/twint.git#egg=twint
+
 COPY . /app
 
 EXPOSE 8000
