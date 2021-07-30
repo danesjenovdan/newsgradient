@@ -20,16 +20,18 @@ class EventSerializer(serializers.ModelSerializer):
     # wgt = serializers.SerializerMethodField()
     # first_article = serializers.SerializerMethodField()
     # most = serializers.SerializerMethodField()
+    social_score = serializers.SerializerMethodField()
     class Meta:
         model = models.Event
         fields = [
-            'id',
+            'uri',
             'title',
             'summary',
             'date',
+            'social_score',
             # 'computed_time',
             # 'count',
-            'is_visible',
+            # 'is_visible',
             # 'counter',
             # 'first_article',
             # 'most',
@@ -62,10 +64,14 @@ class EventSerializer(serializers.ModelSerializer):
     def get_wgt(self, obj):
         return {'this_count': obj.this_count, 'all_count': obj.all_count, 'score': obj.this_count / obj.all_count}
 
+    def get_social_score(self, obj):
+        return models.Tweet.objects.filter(article__event=obj).count()
+
 
 class ArticleSerializer(serializers.ModelSerializer):
     medium = MediumSerializer()
     sentiment_bucket = serializers.SerializerMethodField()
+    social_score = serializers.SerializerMethodField()
 
     def calculate_bucket(self, value):
         return round(round((value + 1) * 5) / 2)
@@ -74,6 +80,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = models.Article
         fields = [
             'id',
+            'uri',
             'title',
             'content',
             'image',
@@ -85,8 +92,12 @@ class ArticleSerializer(serializers.ModelSerializer):
             'url',
             'og_title',
             'og_description',
-            'og_image'
+            'og_image',
+            'social_score',
         ]
 
     def get_sentiment_bucket(self, obj):
         return self.calculate_bucket(obj.sentiment)
+
+    def get_social_score(self, obj):
+        return obj.tweets.count()

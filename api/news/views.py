@@ -32,7 +32,7 @@ from news.services import get_most_popular_events_with_articles
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.EventSerializer
     queryset = models.Event.objects.all()
-    filter_fields = ('is_visible',)
+    #filter_fields = ('is_visible',)
 
     def get_permissions(self):
         if self.request.method in SAFE_METHODS:

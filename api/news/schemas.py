@@ -18,6 +18,7 @@ class ArticleSchema(Schema):
     url = fields.String(dump_only=True)
     title = fields.String(dump_only=True)
     content = fields.String(dump_only=True)
+    social_score = fields.Integer(dump_only=True)
     image = fields.String(dump_only=True)
     datetime = fields.DateTime(dump_only=True)
     medium = fields.Nested(MediumSchema)

@@ -66,7 +66,7 @@ def get_event_articles(event_uri):
     except Event.DoesNotExist:
         raise NotFound
     mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
-    articles = Article.objects.select_related('medium').filter(event_id=event_uri).values()
+    articles = Article.objects.select_related('medium').filter(event_id=event_uri).annotate(social_score=Count('tweets')).values()
     for article in articles:
         article['medium'] = mediums.get(article.get('medium_id'))
 
