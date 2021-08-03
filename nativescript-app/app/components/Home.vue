@@ -1,41 +1,51 @@
 <template>
-    <Page>
-        <ActionBar>
-            <Label text="Home"/>
-        </ActionBar>
+  <Page>
+    <ActionBar flat="true">
+      <Image src="res://logo_text" stretch="aspectFit" class="logo-text" />
+    </ActionBar>
 
-        <GridLayout>
-            <Label class="info">
-                <FormattedString>
-                    <Span class="fas" text.decode="&#xf135; "/>
-                    <Span :text="message"/>
-                </FormattedString>
-            </Label>
-        </GridLayout>
-    </Page>
+    <ScrollView>
+      <GridLayout rows="auto, *">
+        <Label
+          row="0"
+          text="Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji"
+          textWrap="true"
+          class="info"
+        />
+        <StackLayout row="1">
+          <HomeEventCard v-for="(event, i) in events" :key="i" />
+        </StackLayout>
+      </GridLayout>
+    </ScrollView>
+  </Page>
 </template>
 
 <script>
-  export default {
-    computed: {
-      message() {
-        return "Blank {N}-Vue app";
-      }
-    }
-  };
+import HomeEventCard from './HomeEventCard.vue';
+
+export default {
+  components: {
+    HomeEventCard,
+  },
+  data() {
+    return {
+      events: Array(50),
+    };
+  },
+};
 </script>
 
-<style scoped lang="scss">
-    @import '@nativescript/theme/scss/variables/blue';
+<style lang="scss" scoped>
+// @import '@nativescript/theme/scss/variables/blue';
 
-    // Custom styles
-    .fas {
-        @include colorize($color: accent);
-    }
+.logo-text {
+  margin: 18 0 0 0;
+  width: 175;
+  height: 25;
+}
 
-    .info {
-        font-size: 20;
-        horizontal-align: center;
-        vertical-align: center;
-    }
+.info {
+  margin: 15 60;
+  text-align: center;
+}
 </style>
