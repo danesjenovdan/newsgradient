@@ -13,7 +13,11 @@
           class="info"
         />
         <StackLayout row="1">
-          <HomeEventCard v-for="(event, i) in events" :key="i" />
+          <HomeEventCard
+            v-for="event in events"
+            :key="event.id"
+            :event="event"
+          />
         </StackLayout>
       </GridLayout>
     </ScrollView>
@@ -22,6 +26,7 @@
 
 <script>
 import HomeEventCard from './HomeEventCard.vue';
+import tempevents from './tempevents';
 
 export default {
   components: {
@@ -29,15 +34,13 @@ export default {
   },
   data() {
     return {
-      events: Array(50),
+      events: tempevents,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// @import '@nativescript/theme/scss/variables/blue';
-
 .logo-text {
   margin: 18 0 0 0;
   width: 175;
