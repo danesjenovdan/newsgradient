@@ -1,18 +1,18 @@
 <template>
-  <GridLayout columns="128, *" class="home-event-card" @tap="onTap">
+  <GridLayout columns="120, *" class="home-event-card" @tap="onTap">
     <GridLayout col="0" class="image-col">
       <Image :src="event.image" stretch="aspectFill" />
       <Image class="gradient" />
     </GridLayout>
-    <GridLayout col="1" rows="auto, *, auto" class="text-col">
-      <Label row="0" :text="event.title" textWrap="true" class="title" />
-      <Label row="1">
+    <GridLayout col="1" rows="auto, auto, *, auto" class="text-col">
+      <TruncatedLabel row="0" :text="event.title" :maxLines="3" class="title" />
+      <Label row="1" class="date">
         <FormattedString>
           <Span text="First published: " fontStyle="italic" />
           <Span :text="event.firstPublish" />
         </FormattedString>
       </Label>
-      <GridLayout row="2" columns="auto, *, auto" class="more-row">
+      <GridLayout row="3" columns="auto, *, auto" class="more-row">
         <Label
           col="0"
           :text="`${event.allArticlesCount} ${
@@ -20,7 +20,7 @@
           }`"
           class="num-articles"
         />
-        <Label col="2" text="UPOREDITE NASLOVE" class="more-button" />
+        <MoreButton col="2" text="Uporedite naslove" />
       </GridLayout>
     </GridLayout>
   </GridLayout>
@@ -28,8 +28,14 @@
 
 <script>
 import Event from './Event.vue';
+import MoreButton from './MoreButton.vue';
+import TruncatedLabel from './TruncatedLabel.vue';
 
 export default {
+  components: {
+    MoreButton,
+    TruncatedLabel,
+  },
   props: {
     event: {
       type: Object,
@@ -54,12 +60,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@nativescript/theme/scss/variables';
+
 .home-event-card {
-  margin: 0 8 10 8;
+  @include colorize($background-color: 'background');
+
+  margin: 0 8 8 8;
+  padding: 0;
+  height: 120;
 
   .image-col {
-    horizontal-alignment: left;
-
     &,
     .image,
     .gradient {
@@ -74,34 +84,24 @@ export default {
   }
 
   .text-col {
+    padding: 4 8 8 8;
     height: 120;
 
     .title {
+      padding: 0;
       font-size: 16;
       font-weight: 700;
     }
 
+    .date {
+      padding: 0;
+      margin-top: 2;
+    }
+
     .more-row {
-      .num-articles,
-      .more-button {
-        padding-top: 5;
-        padding-bottom: 5;
-      }
-
       .num-articles {
+        padding: 5 8 5 0;
         color: #e50001;
-        padding-right: 8;
-      }
-
-      .more-button {
-        border-radius: 12;
-        padding-left: 10;
-        padding-right: 25;
-        background-color: #0177ff;
-        background-image: url('res://arrow');
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: 52 25;
       }
     }
   }

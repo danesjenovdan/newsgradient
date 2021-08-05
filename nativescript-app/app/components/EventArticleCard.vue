@@ -2,10 +2,9 @@
   <GridLayout
     rows="auto, auto, auto, auto"
     class="event-article-card"
-    @loaded="onLoaded"
     @layoutChanged="onLayoutChanged"
   >
-    <Image row="0" class="gradient-line" />
+    <StackLayout row="0" class="gradient-line" />
     <GridLayout row="1" rows="auto, auto, auto" columns="24, *" class="heading">
       <Image
         row="0"
@@ -26,31 +25,34 @@
       />
     </GridLayout>
     <Image ref="image" row="2" :src="article.image" stretch="aspectFill" />
-    <GridLayout row="3" rows="auto, auto" class="content">
-      <Label
-        ref="text"
+    <GridLayout row="3" rows="auto, auto" columns="*, auto" class="content">
+      <TruncatedLabel
         row="0"
+        col="0"
+        colSpan="2"
         :text="articleText"
-        textWrap="true"
+        :maxLines="3"
         class="text"
       />
-      <Label row="1" text="Pročitaj više" class="read-more" />
+      <MoreButton row="1" col="1" text="Pročitaj više" class="read-more" />
     </GridLayout>
   </GridLayout>
 </template>
 
 <script>
+import MoreButton from './MoreButton.vue';
+import TruncatedLabel from './TruncatedLabel.vue';
+
 export default {
+  components: {
+    MoreButton,
+    TruncatedLabel,
+  },
   props: {
     article: {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      lastWidth: 0,
-    };
   },
   computed: {
     faviconUrl() {
@@ -74,26 +76,18 @@ export default {
         image.height = newImageHeight;
       }
     },
-    onLoaded() {
-      const maxLines = 3;
-      const text = this.$refs.text.nativeView;
-      if (text.android) {
-        // eslint-disable-next-line no-undef
-        const { TruncateAt } = android.text.TextUtils;
-        text.android.setEllipsize(TruncateAt.END);
-        text.android.setMaxLines(maxLines);
-      } else if (text.ios) {
-        text.ios.numberOfLines = maxLines;
-      }
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@nativescript/theme/scss/variables';
+
 .event-article-card {
-  margin-bottom: 10;
-  background-color: #fff;
+  @include colorize($background-color: 'background');
+
+  margin: 8 8 0 8;
+  padding: 0;
 
   .gradient-line {
     height: 2;
@@ -110,38 +104,31 @@ export default {
     }
 
     .medium-name {
+      padding: 0;
       font-style: italic;
     }
 
     .hr {
-      margin: 8 0;
+      margin: 8 0 6 0;
     }
 
     .title {
+      padding: 0;
       font-size: 16;
       font-weight: 700;
     }
   }
 
   .content {
-    padding: 8;
+    padding: 6 8 8 8;
 
     .text {
+      padding: 0;
       font-size: 14;
     }
 
     .read-more {
-      horizontal-alignment: right;
-      margin: 8 0 2 0;
-      border-radius: 12;
-      padding-left: 10;
-      padding-right: 25;
-      background-color: #0177ff;
-      background-image: url('res://arrow');
-      background-repeat: no-repeat;
-      background-position: right center;
-      background-size: 52 25;
-      text-transform: uppercase;
+      margin-top: 6;
     }
   }
 }

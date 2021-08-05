@@ -1,24 +1,27 @@
 <template>
   <Page>
-    <ActionBar flat="true">
+    <ActionBar flat="true" class="action-bar">
       <Label :text="event.title" textWrap="true" class="event-title" />
     </ActionBar>
-
-    <ScrollView>
-      <StackLayout class="article-list">
-        <EventArticleCard
-          v-for="article in articles"
-          :key="article.id"
-          :article="article"
-        />
-      </StackLayout>
-    </ScrollView>
+    <AbsoluteLayout class="main-view">
+      <ListView
+        for="article in articles"
+        separatorColor="transparent"
+        width="100%"
+        height="100%"
+      >
+        <v-template>
+          <StackLayout padding="0">
+            <EventArticleCard :article="article" />
+          </StackLayout>
+        </v-template>
+      </ListView>
+    </AbsoluteLayout>
   </Page>
 </template>
 
 <script>
 import EventArticleCard from './EventArticleCard.vue';
-import tempevents from './tempevents';
 import temparticles from './temparticles';
 
 export default {
@@ -28,7 +31,7 @@ export default {
   props: {
     event: {
       type: Object,
-      default: tempevents[0],
+      required: true,
     },
   },
   data() {
@@ -40,12 +43,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.event-title {
-  font-style: italic;
-  margin: 8 40 0 40;
+@import '@nativescript/theme/scss/variables';
+
+.action-bar {
+  @include colorize($background-color: 'background');
+
+  .event-title {
+    font-style: italic;
+    margin: 8 40 0 40;
+  }
 }
 
-.article-list {
-  padding: 10 8;
+.main-view {
+  @include colorize($background-color: 'background-alt-5');
 }
 </style>
