@@ -3,7 +3,9 @@
     <ActionBar flat="true" class="action-bar">
       <Label :text="event.title" textWrap="true" class="event-title" />
     </ActionBar>
+
     <AbsoluteLayout class="main-view">
+      <Spinner v-if="articles == null" />
       <ListView
         for="article in articles"
         separatorColor="transparent"
@@ -21,11 +23,13 @@
 </template>
 
 <script>
+import { fetchArticles } from '../services/api.service';
+import Spinner from './Spinner.vue';
 import EventArticleCard from './EventArticleCard.vue';
-import temparticles from './temparticles';
 
 export default {
   components: {
+    Spinner,
     EventArticleCard,
   },
   props: {
@@ -36,8 +40,14 @@ export default {
   },
   data() {
     return {
-      articles: temparticles.articles,
+      articles: null,
     };
+  },
+  async mounted() {
+    if (this.event && this.event.id) {
+      const data = await fetchArticles(this.event.id);
+      this.articles = (data && data.articles) || [];
+    }
   },
 };
 </script>

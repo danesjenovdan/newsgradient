@@ -11,6 +11,7 @@
         textWrap="true"
         class="info"
       />
+      <Spinner v-if="events == null" row="1" />
       <ListView row="1" for="event in events" separatorColor="transparent">
         <v-template>
           <StackLayout padding="0">
@@ -23,17 +24,23 @@
 </template>
 
 <script>
+import { fetchTopEvents } from '../services/api.service';
+import Spinner from './Spinner.vue';
 import HomeEventCard from './HomeEventCard.vue';
-import tempevents from './tempevents';
 
 export default {
   components: {
+    Spinner,
     HomeEventCard,
   },
   data() {
     return {
-      events: tempevents,
+      events: null,
     };
+  },
+  async mounted() {
+    const data = await fetchTopEvents();
+    this.events = data || [];
   },
 };
 </script>
