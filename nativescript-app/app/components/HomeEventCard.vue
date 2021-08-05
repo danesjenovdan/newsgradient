@@ -70,7 +70,6 @@ export default {
 .home-event-card {
   @include colorize($background-color: 'background');
 
-  margin: 0 8 8 8;
   padding: 0;
   height: 120;
 

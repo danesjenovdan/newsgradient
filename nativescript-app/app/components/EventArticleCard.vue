@@ -93,7 +93,6 @@ export default {
 .event-article-card {
   @include colorize($background-color: 'background');
 
-  margin: 8 8 0 8;
   padding: 0;
 
   .gradient-line {

@@ -14,7 +14,7 @@
       <Spinner v-if="events == null" row="1" />
       <ListView row="1" for="event in events" separatorColor="transparent">
         <v-template>
-          <StackLayout padding="0">
+          <StackLayout :padding="paddingForIndex($index)">
             <HomeEventCard :event="event" />
           </StackLayout>
         </v-template>
@@ -41,6 +41,17 @@ export default {
   async mounted() {
     const data = await fetchTopEvents();
     this.events = data || [];
+  },
+  methods: {
+    paddingForIndex(index) {
+      if (index === 0) {
+        return '8 8 4 8';
+      }
+      if (index === this.events.length - 1) {
+        return '4 8 8 8';
+      }
+      return '4 8 4 8';
+    },
   },
 };
 </script>
