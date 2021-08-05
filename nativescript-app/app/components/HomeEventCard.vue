@@ -1,8 +1,13 @@
 <template>
   <GridLayout columns="120, *" class="home-event-card" @tap="onTap">
     <GridLayout col="0" class="image-col">
-      <Image :src="event.image" stretch="aspectFill" />
-      <Image class="gradient" />
+      <NSImg
+        stretch="aspectFill"
+        placeholderImageUri="res://logo"
+        failureImageUri="res://logo"
+        :src="event.image"
+      />
+      <StackLayout class="gradient" />
     </GridLayout>
     <GridLayout col="1" rows="auto, auto, *, auto" class="text-col">
       <TruncatedLabel row="0" :text="event.title" :maxLines="3" class="title" />

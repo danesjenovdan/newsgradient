@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar flat="true" class="action-bar">
-      <Image src="res://logo_text" stretch="aspectFit" class="logo-text" />
+      <NSImg src="res://logo_text" stretch="aspectFit" class="logo-text" />
     </ActionBar>
 
     <GridLayout rows="auto, *" class="main-view">

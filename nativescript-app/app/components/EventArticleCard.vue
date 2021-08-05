@@ -6,7 +6,7 @@
   >
     <StackLayout row="0" class="gradient-line" />
     <GridLayout row="1" rows="auto, auto, auto" columns="24, *" class="heading">
-      <Image
+      <NSImg
         row="0"
         col="0"
         :src="faviconUrl"
@@ -24,7 +24,14 @@
         class="title"
       />
     </GridLayout>
-    <Image ref="image" row="2" :src="article.image" stretch="aspectFill" />
+    <NSImg
+      ref="image"
+      row="2"
+      stretch="aspectFill"
+      placeholderImageUri="res://logo"
+      failureImageUri="res://logo"
+      :src="article.image"
+    />
     <GridLayout row="3" rows="auto, auto" columns="*, auto" class="content">
       <TruncatedLabel
         row="0"
