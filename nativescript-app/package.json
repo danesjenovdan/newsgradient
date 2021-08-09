@@ -7,6 +7,7 @@
   "scripts": {
     "check": "ns doctor android",
     "dev": "ns run android --no-hmr",
+    "build": "ns build android",
     "lint": "eslint ./app --ext js,vue"
   },
   "dependencies": {
