@@ -93,9 +93,10 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+
 class Tweet(models.Model):
     updated_at = models.DateTimeField(db_index=True, auto_now=True)
-    article = models.ForeignKey('Article', on_delete=models.CASCADE, blank=True, null=True)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, blank=True, null=True, related_name='tweets')
     twitter_id = models.TextField(null=False, unique=True)
     timestamp = models.DateTimeField(null=True)
     text = models.TextField(null=False)
