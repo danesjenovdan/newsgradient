@@ -18,18 +18,23 @@
             :social-score="event.social_score"
           />
         </div>
-        <div v-for="event in otherEvents" :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
-          <EventWrapper
-            :title="event.title"
-            :articles="event.articles"
-            :is-main="false"
-            :event-uri="event.id"
-            :article-count="event.articleCount"
-            :all-articles-count="event.allArticlesCount"
-            :first-publish="event.firstPublish"
-            :social-score="event.social_score"
-          />
-        </div>
+        <template v-for="(event, i) in otherEvents">
+          <div :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
+            <EventWrapper
+              :title="event.title"
+              :articles="event.articles"
+              :is-main="false"
+              :event-uri="event.id"
+              :article-count="event.articleCount"
+              :all-articles-count="event.allArticlesCount"
+              :first-publish="event.firstPublish"
+              :social-score="event.social_score"
+            />
+          </div>
+          <div v-if="i === 0" :key="`${i}-newsletter-bar`" class="col col-12 mb30">
+            <NewsletterBar />
+          </div>
+        </template>
       </div>
       <div v-else>
         <div v-for="ev in allEvents" :key="ev.title">
@@ -57,8 +62,16 @@ import EventWrapper from '../components/EventWrapper'
 import Selector from '../components/Selector'
 import MobileEvent from '../components/MobileEvent'
 import Header from '../components/Header'
+import NewsletterBar from '../components/NewsletterBar'
+
 export default {
-  components: { Header, MobileEvent, Selector, EventWrapper },
+  components: {
+    Header,
+    MobileEvent,
+    Selector,
+    EventWrapper,
+    NewsletterBar,
+  },
   computed: {
     topEvents() {
       return this.$store.state.events.topEvents.slice(0, 1)
