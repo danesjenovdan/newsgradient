@@ -3,6 +3,7 @@
     rows="auto, auto, auto, auto"
     class="event-article-card"
     @layoutChanged="onLayoutChanged"
+    @tap="onTap"
   >
     <StackLayout row="0" class="gradient-line" />
     <GridLayout row="1" rows="auto, auto, auto" columns="24, *" class="heading">
@@ -47,6 +48,7 @@
 </template>
 
 <script>
+import { Utils } from '@nativescript/core';
 import MoreButton from './MoreButton.vue';
 import TruncatedLabel from './TruncatedLabel.vue';
 
@@ -81,6 +83,11 @@ export default {
       const newImageHeight = cardWidth * 0.5235; // og image ratio 1:1.91
       if (imageHeight !== newImageHeight) {
         image.height = newImageHeight;
+      }
+    },
+    onTap() {
+      if (this.article && this.article.url) {
+        Utils.openUrl(this.article.url);
       }
     },
   },
