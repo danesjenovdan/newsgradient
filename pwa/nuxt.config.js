@@ -1,7 +1,7 @@
 const OG_TITLE = 'Newsgradient BiH'
 const OG_DESCRIPTION =
   'Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji'
-const OG_IMAGE = 'https://bih.newsgradient.org/newsgradient-og.png'
+const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.png'
 
 export default {
   mode: 'spa',
@@ -23,11 +23,11 @@ export default {
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: OG_TITLE },
       { name: 'twitter:image', content: OG_IMAGE },
-      { name: 'twitter:description', content: OG_DESCRIPTION }
+      { name: 'twitter:description', content: OG_DESCRIPTION },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://use.typekit.net/rwb3jbn.css' }
+      { rel: 'stylesheet', href: 'https://use.typekit.net/rwb3jbn.css' },
     ],
     script: [
       {
@@ -55,7 +55,7 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
   ],
   /*
    ** Nuxt.js modules
@@ -64,7 +64,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
   ],
   /*
    ** Axios module configuration
@@ -72,7 +72,7 @@ export default {
    */
   axios: {
     proxy: false,
-    baseURL: 'https://newsgradient-api.lb.djnd.si/'
+    baseURL: 'https://newsgradient-api.lb.djnd.si/',
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
   /*
@@ -82,7 +82,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
   },
   /*
    ** Router configuration

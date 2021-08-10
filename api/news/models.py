@@ -92,3 +92,25 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Tweet(models.Model):
+    updated_at = models.DateTimeField(db_index=True, auto_now=True)
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, blank=True, null=True, related_name='tweets')
+    twitter_id = models.TextField(null=False, unique=True)
+    timestamp = models.DateTimeField(null=True)
+    text = models.TextField(null=False)
+
+    retweet = models.BooleanField(default=False)
+    retweet_timestamp = models.DateTimeField(null=True)
+    retweet_id = models.TextField(null=True)
+    retweet_quote = models.BooleanField(default=False)
+    retweet_quote_url = models.URLField(null=True)
+
+    quote = models.BooleanField(default=False)
+    quote_url = models.URLField(null=True)
+
+    favorite_count = models.IntegerField(null=True)
+    retweet_count = models.IntegerField(null=True)
+
+    user_handle = models.TextField(null=False)

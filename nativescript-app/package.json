@@ -1,0 +1,35 @@
+{
+  "name": "newsgradient-app",
+  "version": "0.0.0",
+  "author": "Danes je nov dan",
+  "license": "Unlicense",
+  "main": "app/app.js",
+  "scripts": {
+    "check": "ns doctor android",
+    "dev": "ns run android --no-hmr",
+    "build": "ns build android",
+    "lint": "eslint ./app --ext js,vue"
+  },
+  "dependencies": {
+    "@nativescript-community/ui-image": "^4.0.24",
+    "@nativescript/core": "~8.0.0",
+    "@nativescript/theme": "~3.0.1",
+    "nativescript": "^8.0.2",
+    "nativescript-vue": "~2.9.0"
+  },
+  "devDependencies": {
+    "@nativescript/android": "8.0.0",
+    "@nativescript/eslint-plugin": "^0.0.4",
+    "@nativescript/webpack": "beta",
+    "@typescript-eslint/parser": "^4.29.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.15.1",
+    "nativescript-vue-template-compiler": "~2.9.0",
+    "prettier": "^2.1.1",
+    "sass": "^1.32.8"
+  }
+}

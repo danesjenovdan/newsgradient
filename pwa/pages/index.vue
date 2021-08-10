@@ -1,7 +1,7 @@
 <template>
   <div class="container--fluid flex flex-align--center flex-justify--center flex--column">
     <Header />
-    <div class="container-landing ">
+    <div class="container-landing">
       <div v-if="isMobile" class="description-container">
         Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji
       </div>
@@ -15,19 +15,26 @@
             :event-uri="event.id"
             :is-main="index === 0"
             :first-publish="event.firstPublish"
+            :social-score="event.social_score"
           />
         </div>
-        <div v-for="event in otherEvents" :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
-          <EventWrapper
-            :title="event.title"
-            :articles="event.articles"
-            :is-main="false"
-            :event-uri="event.id"
-            :article-count="event.articleCount"
-            :all-articles-count="event.allArticlesCount"
-            :first-publish="event.firstPublish"
-          />
-        </div>
+        <template v-for="(event, i) in otherEvents">
+          <div :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
+            <EventWrapper
+              :title="event.title"
+              :articles="event.articles"
+              :is-main="false"
+              :event-uri="event.id"
+              :article-count="event.articleCount"
+              :all-articles-count="event.allArticlesCount"
+              :first-publish="event.firstPublish"
+              :social-score="event.social_score"
+            />
+          </div>
+          <div v-if="i === 0" :key="`${i}-newsletter-bar`" class="col col-12 mb30">
+            <NewsletterBar />
+          </div>
+        </template>
       </div>
       <div v-else>
         <div v-for="ev in allEvents" :key="ev.title">
@@ -39,6 +46,7 @@
             :article-count="ev.articleCount"
             :all-articles-count="ev.allArticlesCount"
             :event-uri="ev.id"
+            :social-score="ev.social_score"
           />
         </div>
       </div>
@@ -54,8 +62,16 @@ import EventWrapper from '../components/EventWrapper'
 import Selector from '../components/Selector'
 import MobileEvent from '../components/MobileEvent'
 import Header from '../components/Header'
+import NewsletterBar from '../components/NewsletterBar'
+
 export default {
-  components: { Header, MobileEvent, Selector, EventWrapper },
+  components: {
+    Header,
+    MobileEvent,
+    Selector,
+    EventWrapper,
+    NewsletterBar,
+  },
   computed: {
     topEvents() {
       return this.$store.state.events.topEvents.slice(0, 1)
@@ -74,7 +90,7 @@ export default {
     },
     isMobile() {
       return this.$store.state.sizing.windowWidth <= 768
-    }
+    },
   },
   watch: {
     currentSlant() {
@@ -84,7 +100,7 @@ export default {
     currentTimerange() {
       const params = { slant: this.$store.state.carousel.selectedSlant, timerange: this.$store.state.events.timerange }
       this.getEvents(params)
-    }
+    },
   },
   mounted() {
     const params = { slant: this.$store.state.carousel.selectedSlant, timerange: this.$store.state.events.timerange }
@@ -99,10 +115,11 @@ export default {
     },
     slantChanged(slant) {
       this.$store.dispatch('carousel/setSlant', slant)
-    }
-  }
+    },
+  },
 }
 </script>
+
 <style scoped lang="scss">
 @import '@/assets/style/variables';
 
