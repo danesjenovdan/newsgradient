@@ -79,7 +79,7 @@ export default {
       const card = arg.object;
       const image = this.$refs.image.nativeView;
       const cardWidth = card.getActualSize().width;
-      const imageHeight = this.$refs.image.nativeView.getActualSize().height;
+      const imageHeight = image.getActualSize().height;
       const newImageHeight = cardWidth * 0.5235; // og image ratio 1:1.91
       if (imageHeight !== newImageHeight) {
         image.height = newImageHeight;
