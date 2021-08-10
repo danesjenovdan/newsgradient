@@ -52,3 +52,15 @@ services:
   #   command: sh -c "yarn build && yarn start"
   #   ports:
   #     - "3000:3000"
+
+  ns:
+    build: ./nativescript-app
+    volumes:
+      - ./nativescript-app:/src/
+    # can't run npm run dev because it complains about sudo
+    command: ns run android --no-hmr
+    privileged: true
+    # depends_on:
+    #   - db
+    #   - cache
+    #   - api
