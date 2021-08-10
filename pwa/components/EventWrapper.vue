@@ -3,7 +3,7 @@
     <Divider class="w-100" />
     <div class="content-wrapper-custom">
       <div class="flex flex--column flex-justify--center">
-        <div :class="{ 'title--small': !isMain }" @click="$router.push('/events/' + eventUri)" class="title">
+        <div :class="{ 'title--small': !isMain }" class="title" @click="$router.push('/events/' + eventUri)">
           {{ title }}
         </div>
         <div class="mt-1">
@@ -17,6 +17,10 @@
           <a :href="'/events/' + eventUri" class="articles">{{
             `${allArticlesCount} ${allArticlesCount === 1 ? 'članak' : 'članaka'}`
           }}</a>
+          <span class="social-score-badge badge float-right"
+            >{{ socialScore }}
+            <i class="icon" />
+          </span>
         </div>
         <div v-if="isMain" :class="['mt-2', { empty__wrapper: !articleCount, row: articleCount }]">
           <template v-if="articleCount">
@@ -30,6 +34,7 @@
                 :favicon-url="article.medium.favicon"
                 :medium-url="article.medium.uri"
                 :medium-name="article.medium.title"
+                :social-score="article.social_score"
                 class="article-wrapper"
               />
             </div>
@@ -57,6 +62,7 @@
               :medium-url="article.medium.uri"
               :medium-name="article.medium.title"
               :only-one="articles.length === 1"
+              :social-score="article.social_score"
               class="article-wrapper"
             />
           </template>
@@ -74,8 +80,8 @@
         <div v-if="articleCount" class="w-100 flex flex-justify--flex-end text--uppercase mt-4">
           <button
             :to="'/events/' + eventUri"
-            @click="$router.push('/events/' + eventUri)"
             class="more-button text--uppercase"
+            @click="$router.push('/events/' + eventUri)"
           >
             Više članaka <img src="@/assets/svg/puscica-bela.svg" style="vertical-align: inherit; width: 15px" />
           </button>
@@ -95,40 +101,44 @@ export default {
   props: {
     isMain: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: 'No title'
+      default: 'No title',
     },
     firstPublish: {
       type: String,
-      default: '20 hours ago'
+      default: '20 hours ago',
     },
     articleCount: {
       type: Number,
-      default: 0
+      default: 0,
     },
     allArticlesCount: {
       type: Number,
-      default: 0
+      default: 0,
     },
     eventUri: {
       default: 'uri',
       type: String,
-      required: true
+      required: true,
     },
     articles: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
+    socialScore: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     selectedSlantString() {
       const slant = this.$store.state.carousel.selectedSlant
       return slant === 2 ? 'neutralan' : slant < 2 ? 'lijevo orijentiran' : 'desno orijentiran'
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -235,5 +245,23 @@ export default {
 
 .missing-icon {
   width: 70px;
+}
+
+.social-score-badge {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 5em;
+  padding: 6px 8px;
+  font-size: 16px;
+  font-weight: 400;
+
+  .icon {
+    display: inline-block;
+    margin-left: 6px;
+    width: 16px;
+    height: 16px;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M18.9 7c.8-.5 1.3-1.2 1.6-2-.8.4-1.6.7-2.4.9-.7-.8-1.6-1.1-2.7-1.1-1 0-1.9.4-2.6 1.1a3.63 3.63 0 00-1 3.4c-3-.2-5.5-1.5-7.5-3.9-.4.6-.6 1.2-.6 1.8 0 1.3.5 2.3 1.6 3.1-.6-.1-1.2-.2-1.6-.5 0 .9.3 1.7.8 2.4s1.3 1.1 2.1 1.3c-.3.1-.6.1-1 .1-.3 0-.5 0-.7-.1.2.8.7 1.4 1.3 1.8.6.5 1.3.7 2.2.7-1.3 1-2.9 1.6-4.6 1.6h-.9c1.7 1.1 3.6 1.6 5.7 1.6a10.23 10.23 0 009.3-5.6c.8-1.6 1.2-3.2 1.2-4.9v-.4c.8-.6 1.4-1.2 1.8-1.9-.6.3-1.3.5-2 .6z"/></svg>');
+  }
 }
 </style>

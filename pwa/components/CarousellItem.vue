@@ -9,6 +9,7 @@
         :article-url="article.url"
         :favicon-url="article.medium.favicon"
         :medium-name="article.medium.title"
+        :social-score="article.social_score"
         class="item__sub"
       />
     </div>
@@ -23,9 +24,9 @@ export default {
   props: {
     articles: {
       type: Array,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 }
 </script>
 

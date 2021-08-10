@@ -2,15 +2,15 @@
   <transition :name="slideDirection ? 'slide-left' : 'slide-right'">
     <div :key="selectedSlantString" class="carousel__container flex flex-justify--center flex-align--center">
       <template v-if="!isMobile">
-        <div v-if="this.$store.state.carousel.selectedSlant !== 1" class="carousel__subitem carousel__item--left">
+        <div v-if="$store.state.carousel.selectedSlant !== 1" class="carousel__subitem carousel__item--left">
           <CarousellItem
-            :articles="getArticles(this.$store.state.carousel.selectedSlant - 1)"
+            :articles="getArticles($store.state.carousel.selectedSlant - 1)"
             class="carousel-item-selector"
           />
         </div>
-        <div @click="decrement" class="carousel__arrow carousel__arrow--left">
+        <div class="carousel__arrow carousel__arrow--left" @click="decrement">
           <svg
-            v-if="this.$store.state.carousel.selectedSlant !== 1"
+            v-if="$store.state.carousel.selectedSlant !== 1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="3.1 3.1 93.8 93.8"
           >
@@ -36,7 +36,7 @@
               <path d="M40.6 45.6L45 50l20.5 20.4-4.4 4.4-20.5-20.4-4.4-4.4 4.4-4.4z" />
             </g>
           </svg>
-          <span v-if="this.$store.state.carousel.selectedSlant !== 1">
+          <span v-if="$store.state.carousel.selectedSlant !== 1">
             {{ getLeftArrowText }}
           </span>
         </div>
@@ -49,13 +49,13 @@
           </template>
           <CarousellItem
             v-else
-            :articles="getArticles(this.$store.state.carousel.selectedSlant)"
+            :articles="getArticles($store.state.carousel.selectedSlant)"
             class="carousel-item-selector"
           />
         </div>
-        <div @click="increment" class="carousel__arrow carousel__arrow--right">
+        <div class="carousel__arrow carousel__arrow--right" @click="increment">
           <svg
-            v-if="this.$store.state.carousel.selectedSlant !== 3"
+            v-if="$store.state.carousel.selectedSlant !== 3"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="3.1 3.1 93.8 93.8"
             transform="scale(-1 1)"
@@ -82,13 +82,13 @@
               <path d="M40.6 45.6L45 50l20.5 20.4-4.4 4.4-20.5-20.4-4.4-4.4 4.4-4.4z" />
             </g>
           </svg>
-          <span v-if="this.$store.state.carousel.selectedSlant !== 3">
+          <span v-if="$store.state.carousel.selectedSlant !== 3">
             {{ getRightArrowText }}
           </span>
         </div>
-        <div v-if="this.$store.state.carousel.selectedSlant !== 3" class="carousel__subitem carousel__item--right">
+        <div v-if="$store.state.carousel.selectedSlant !== 3" class="carousel__subitem carousel__item--right">
           <CarousellItem
-            :articles="getArticles(this.$store.state.carousel.selectedSlant + 1)"
+            :articles="getArticles($store.state.carousel.selectedSlant + 1)"
             class="carousel-item-selector-item"
           />
         </div>
@@ -102,7 +102,7 @@
             </div>
           </template>
           <CarousellItemMobile
-            :articles="getArticles(this.$store.state.carousel.selectedSlant)"
+            :articles="getArticles($store.state.carousel.selectedSlant)"
             class="carousel-item-selector"
           />
         </div>
@@ -122,12 +122,12 @@ export default {
   props: {
     isMobile: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      slideDirection: false
+      slideDirection: false,
     }
   },
   computed: {
@@ -158,7 +158,7 @@ export default {
     selectedSlantString() {
       const slant = this.$store.state.carousel.selectedSlant
       return slant === 2 ? 'neutralan' : slant < 2 ? 'lijevo orijentiran' : 'desno orijentiran'
-    }
+    },
   },
   methods: {
     decrement() {
@@ -174,8 +174,8 @@ export default {
       //   return []
       // }
       return this.$store.state.events.articles[slant]
-    }
-  }
+    },
+  },
 }
 </script>
 

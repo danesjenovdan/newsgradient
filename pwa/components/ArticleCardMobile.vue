@@ -7,6 +7,10 @@
           <img :src="`https://www.google.com/s2/favicons?sz=32&domain_url=${mediumUrl}`" class="favicon" />
           <a :href="mediumUrl" class="medium-name" target="_blank">{{ fixedMediumName }}</a>
         </div>
+        <span class="social-score-badge badge"
+          >{{ socialScore }}
+          <i class="icon" />
+        </span>
       </div>
       <hr />
       <h4 class="article-title">{{ title }}</h4>
@@ -20,9 +24,7 @@
           {{ content | trim }}
         </div>
         <div>
-          <a :href="articleUrl" class="read-more stretched-link" target="_blank">
-            Pročitaj više
-          </a>
+          <a :href="articleUrl" class="read-more stretched-link" target="_blank"> Pročitaj više </a>
         </div>
       </div>
     </div>
@@ -37,41 +39,45 @@ export default {
   filters: {
     trim(value) {
       return value.toString().slice(0, 150) + ' ...'
-    }
+    },
   },
   props: {
     imageUrl: {
       type: String,
-      default: ''
+      default: '',
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     content: {
       type: String,
-      default: ''
+      default: '',
     },
     sourceTitle: {
       type: String,
-      default: 'NewsHouse'
+      default: 'NewsHouse',
     },
     articleUrl: {
       type: String,
-      default: ''
+      default: '',
     },
     faviconUrl: {
       type: String,
-      default: ''
+      default: '',
     },
     mediumName: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
     // mediumUrl: {
     //   type: String,
     //   default: ''
-    // }
+    // },
+    socialScore: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     mediumUrl() {
@@ -86,8 +92,8 @@ export default {
         imageUrl = imageUrl.replace('https://', 'http://')
       }
       return `https://images.weserv.nl/?url=${encodeURIComponent(imageUrl)}&w=359`
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -135,6 +141,23 @@ export default {
         font-size: 12px;
         font-style: italic;
         line-height: 1.25rem;
+      }
+    }
+    .social-score-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 5em;
+      padding: 4px 6px;
+      font-size: 12px;
+      font-weight: 400;
+
+      .icon {
+        display: inline-block;
+        margin-left: 4px;
+        width: 14px;
+        height: 14px;
+        background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M18.9 7c.8-.5 1.3-1.2 1.6-2-.8.4-1.6.7-2.4.9-.7-.8-1.6-1.1-2.7-1.1-1 0-1.9.4-2.6 1.1a3.63 3.63 0 00-1 3.4c-3-.2-5.5-1.5-7.5-3.9-.4.6-.6 1.2-.6 1.8 0 1.3.5 2.3 1.6 3.1-.6-.1-1.2-.2-1.6-.5 0 .9.3 1.7.8 2.4s1.3 1.1 2.1 1.3c-.3.1-.6.1-1 .1-.3 0-.5 0-.7-.1.2.8.7 1.4 1.3 1.8.6.5 1.3.7 2.2.7-1.3 1-2.9 1.6-4.6 1.6h-.9c1.7 1.1 3.6 1.6 5.7 1.6a10.23 10.23 0 009.3-5.6c.8-1.6 1.2-3.2 1.2-4.9v-.4c.8-.6 1.4-1.2 1.8-1.9-.6.3-1.3.5-2 .6z"/></svg>');
       }
     }
     .medium-link {

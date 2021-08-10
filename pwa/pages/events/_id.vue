@@ -5,9 +5,9 @@
         <div class="flex flex-align--center">
           <div class="flex--1">
             <img
-              @click="$router.push('/')"
               src="@/assets/svg/carousel/right-arrow.svg"
               class="back-button back-button--header"
+              @click="$router.push('/')"
             />
           </div>
           <div class="flex--5 text--center header--title">{{ $store.state.events.eventTitle }}</div>
@@ -32,6 +32,37 @@
     </b-row>
   </div>
 </template>
+
+<script>
+import Selector from '../../components/Selector'
+import Carousell from '../../components/Carousell'
+import SubHeader from '../../components/SubHeader'
+import Header from '../../components/Header'
+import Divider from '../../components/Divider'
+
+export default {
+  components: {
+    Divider,
+    Header,
+    SubHeader,
+    Carousell,
+    Selector,
+  },
+  computed: {
+    isMobile() {
+      return this.$store.state.sizing.windowWidth <= 768
+    },
+  },
+  mounted() {
+    this.$store.dispatch('events/getEventArticles', { eventId: this.$route.params.id })
+  },
+  methods: {
+    slantChanged(slant) {
+      this.$store.dispatch('carousel/setSlant', slant)
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 @import '@/assets/style/variables';
@@ -68,26 +99,3 @@ h1 {
   max-width: 60vw;
 }
 </style>
-<script>
-import Selector from '../../components/Selector'
-import Carousell from '../../components/Carousell'
-import SubHeader from '../../components/SubHeader'
-import Header from '../../components/Header'
-import Divider from '../../components/Divider'
-export default {
-  components: { Divider, Header, SubHeader, Carousell, Selector },
-  computed: {
-    isMobile() {
-      return this.$store.state.sizing.windowWidth <= 768
-    }
-  },
-  mounted() {
-    this.$store.dispatch('events/getEventArticles', { eventId: this.$route.params.id })
-  },
-  methods: {
-    slantChanged(slant) {
-      this.$store.dispatch('carousel/setSlant', slant)
-    }
-  }
-}
-</script>
