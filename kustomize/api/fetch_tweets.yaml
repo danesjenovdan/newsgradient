@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: newsgradient-fetch-tweets
 spec:
-  schedule: "0 5,7,12,14,16,18 * * *"
+  schedule: "5 * * * *" # every hour
   jobTemplate:
     spec:
       template:
