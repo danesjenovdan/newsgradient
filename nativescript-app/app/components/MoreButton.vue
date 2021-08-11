@@ -1,5 +1,8 @@
 <template>
-  <Label :text="text" class="more-button" />
+  <GridLayout columns="auto, auto" class="more-button">
+    <Label col="0" :text="text" class="text" />
+    <NSImg col="1" stretch="aspectFit" src="res://arrow" class="image" />
+  </GridLayout>
 </template>
 
 <script>
@@ -15,14 +18,20 @@ export default {
 
 <style lang="scss" scoped>
 .more-button {
-  padding: 5 25 5 10;
+  padding: 0 8 0 10;
   border-radius: 12;
   background-color: #0177ff;
-  background-image: url('res://arrow');
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 52 25;
-  text-transform: uppercase;
-  color: #fff;
+
+  .image {
+    width: 13;
+    height: 10;
+    margin-left: 6;
+  }
+
+  .text {
+    padding: 5 0;
+    text-transform: uppercase;
+    color: #fff;
+  }
 }
 </style>
