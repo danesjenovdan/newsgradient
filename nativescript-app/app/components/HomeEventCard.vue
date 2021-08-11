@@ -1,10 +1,5 @@
 <template>
-  <GridLayout
-    columns="auto, *"
-    class="home-event-card"
-    @layoutChanged="onLayoutChanged"
-    @tap="onTap"
-  >
+  <GridLayout columns="auto, *" class="home-event-card" @tap="onTap">
     <GridLayout col="0" class="image-col" :width="imageWidth">
       <NSImg
         stretch="aspectFill"
@@ -38,6 +33,7 @@
 </template>
 
 <script>
+import { Screen } from '@nativescript/core';
 import Event from './Event.vue';
 import MoreButton from './MoreButton.vue';
 import TruncatedLabel from './TruncatedLabel.vue';
@@ -54,21 +50,12 @@ export default {
     },
   },
   data() {
+    const isSmallScreen = Screen.mainScreen.widthDIPs <= 360;
     return {
-      imageWidth: 120,
+      imageWidth: isSmallScreen ? 100 : 120,
     };
   },
-  mounted() {
-    this.onLayoutChanged({ object: this.nativeView });
-  },
   methods: {
-    onLayoutChanged(arg) {
-      const card = arg.object;
-      const cardWidth = card.getActualSize().width;
-      if (cardWidth <= 360) {
-        this.imageWidth = 100;
-      }
-    },
     onTap() {
       this.$navigateTo(Event, {
         transition: {

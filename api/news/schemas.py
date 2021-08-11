@@ -27,6 +27,7 @@ class ArticleSchema(Schema):
 class EventArticlesSchema(Schema):
     articles = fields.Nested(ArticleSchema, many=True)
     title = fields.String(dump_only=True)
+    social_score = fields.Integer(dump_only=True)
 
 
 class EventSchema(Schema):
@@ -39,6 +40,7 @@ class EventSchema(Schema):
     articles = fields.Nested(ArticleSchema, many=True)
     articles_count = fields.Int(dump_only=True, data_key='articleCount')
     all_articles_count = fields.Int(dump_only=True, data_key='allArticlesCount')
+    social_score = fields.Integer(dump_only=True)
 
 
 class TopEventQPSchema(Schema):
