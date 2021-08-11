@@ -1,19 +1,25 @@
 <template>
-  <GridLayout columns="120, *" class="home-event-card" @tap="onTap">
-    <GridLayout col="0" class="image-col">
+  <GridLayout
+    columns="auto, *"
+    class="home-event-card"
+    @layoutChanged="onLayoutChanged"
+    @tap="onTap"
+  >
+    <GridLayout col="0" class="image-col" :width="imageWidth">
       <NSImg
         stretch="aspectFill"
         placeholderImageUri="res://logo"
         failureImageUri="res://logo"
         :src="event.image"
+        :width="imageWidth"
       />
-      <StackLayout class="gradient" />
+      <StackLayout class="gradient" :width="imageWidth" />
     </GridLayout>
     <GridLayout col="1" rows="auto, auto, *, auto" class="text-col">
       <TruncatedLabel row="0" :text="event.title" :maxLines="3" class="title" />
       <Label row="1" class="date">
         <FormattedString>
-          <Span text="First published: " fontStyle="italic" />
+          <Span text="Prvi put objavljeno: " fontStyle="italic" />
           <Span :text="event.firstPublish" />
         </FormattedString>
       </Label>
@@ -47,7 +53,22 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      imageWidth: 120,
+    };
+  },
+  mounted() {
+    this.onLayoutChanged({ object: this.nativeView });
+  },
   methods: {
+    onLayoutChanged(arg) {
+      const card = arg.object;
+      const cardWidth = card.getActualSize().width;
+      if (cardWidth <= 360) {
+        this.imageWidth = 100;
+      }
+    },
     onTap() {
       this.$navigateTo(Event, {
         transition: {
@@ -77,7 +98,7 @@ export default {
     &,
     .image,
     .gradient {
-      width: 120;
+      // width: 120;
       height: 120;
     }
 

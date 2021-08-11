@@ -24,15 +24,26 @@ def get_most_popular_events_with_articles(slant: int = Orientations.NEUTRAL):
     for event in final_events:
         articles = Article.objects.select_related('medium') \
                        .filter(event_id=event.get('uri'), medium__slant=slant) \
-                       .order_by('-medium__reliability') \
-            .values('uri', 'url', 'title', 'content', 'image', 'datetime', 'medium_id')
+                       .order_by('-medium__reliability')
+        articles_for_output = []
         for article in articles:
-            article['medium'] = mediums.get(article.get('medium_id'))
-            event['image'] = article.get('image') if article.get('image') else None
-        event['articles'] = articles[:3]
+            article_for_output = {
+                'uri': article.uri,
+                'url': article.url,
+                'title': article.title,
+                'content': article.content,
+                'image': article.image,
+                'datetime': article.datetime,
+                'medium_id': article.medium.id,
+            }
+            article_for_output['medium'] = mediums.get(article.medium.id)
+            event['image'] = article.image if article.image else None
+            article_for_output['social_score'] = article.tweets.count()
+            articles_for_output.append(article_for_output)
+        event['articles'] = articles_for_output[:3]
         event['articles_count'] = articles.count()
         if len(articles):
-            d = datetime.utcnow() - articles[0].get('datetime').replace(tzinfo=None)
+            d = datetime.utcnow() - articles[0].datetime.replace(tzinfo=None)
             hours = int(d.total_seconds() // 3600)
             if hours <= 1:
                 event['first_publish'] = f'Prije sat vremena'

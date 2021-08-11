@@ -27,14 +27,18 @@ jobs:
         with:
           context: ./api
           push: true
-          tags: rg.fr-par.scw.cloud/djnd/newsgradient-api:${{ github.sha }}
+          tags: |
+            rg.fr-par.scw.cloud/djnd/newsgradient-api:${{ github.sha }}
+            rg.fr-par.scw.cloud/djnd/newsgradient-api:latest
       -
         name: Build and push PWA
         uses: docker/build-push-action@v2
         with:
           context: ./pwa
           push: true
-          tags: rg.fr-par.scw.cloud/djnd/newsgradient-pwa:${{ github.sha }}
+          tags: |
+            rg.fr-par.scw.cloud/djnd/newsgradient-pwa:${{ github.sha }}
+            rg.fr-par.scw.cloud/djnd/newsgradient-pwa:latest
       -
         name: Update image versions in kustomize/kustomization.yaml
         run: |
