@@ -14,6 +14,4 @@ class Command(BaseCommand):
                 key = f'{CacheKeys.TOP_EVENTS}::{time_range.value}::{slant.value}'
                 keys.append(key)
 
-        # cache.clear()
-
         cache.delete_many(keys)

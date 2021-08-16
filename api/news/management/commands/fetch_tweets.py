@@ -1,11 +1,25 @@
 from datetime import datetime
 
+from django.core.cache import cache
 from django.core.management import BaseCommand
 
 from news.models import Tweet, Article, Event
 
 import twint
 
+from constants import CacheKeys
+from constants import Orientations
+from constants import TimeRange
+
+# TODO refactor this out of here
+def clear_cache():
+    keys = []
+    for time_range in TimeRange:
+        for slant in Orientations:
+            key = f'{CacheKeys.TOP_EVENTS}::{time_range.value}::{slant.value}'
+            keys.append(key)
+
+    cache.delete_many(keys)
 
 def get_datetime_from_twint_datestring(datestring):
     return datetime.strptime(datestring, '%Y-%m-%d %H:%M:%S %Z')
@@ -57,8 +71,11 @@ def find_tweets(article):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        todays_events = Event.objects.filter(date=datetime.now().date())
-        for event in todays_events:
+        # only fetch tweets for currently promoted events
+        promoted_events = Event.objects.filter(is_promoted=True)
+        for event in promoted_events:
             articles = Article.objects.filter(event=event)
             for article in articles:
                 find_tweets(article)
+        # once done, clear cache
+        clear_cache()
