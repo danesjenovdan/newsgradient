@@ -9,6 +9,9 @@
         :width="imageWidth"
       />
       <StackLayout class="gradient" :width="imageWidth" />
+      <GridLayout rows="*, auto" columns="*, auto" class="overlay">
+        <SocialScoreBadge row="1" col="1" :text="event.social_score" />
+      </GridLayout>
     </GridLayout>
     <GridLayout col="1" rows="auto, auto, *, auto" class="text-col">
       <TruncatedLabel row="0" :text="event.title" :maxLines="3" class="title" />
@@ -37,11 +40,13 @@ import { Screen } from '@nativescript/core';
 import Event from './Event.vue';
 import MoreButton from './MoreButton.vue';
 import TruncatedLabel from './TruncatedLabel.vue';
+import SocialScoreBadge from './SocialScoreBadge.vue';
 
 export default {
   components: {
     MoreButton,
     TruncatedLabel,
+    SocialScoreBadge,
   },
   props: {
     event: {
@@ -92,6 +97,10 @@ export default {
     .gradient {
       background-image: linear-gradient(to right, #e40001 0%, #4199fe 100%);
       opacity: 0.6;
+    }
+
+    .overlay {
+      padding: 8;
     }
   }
 
