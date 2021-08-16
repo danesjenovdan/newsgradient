@@ -9,8 +9,9 @@ import Home from './components/Home.vue';
 Vue.use(ImagePlugin);
 Application.on(Application.exitEvent, () => shutDown());
 
-Theme.setMode(Theme.Dark);
+// Theme.setMode(Theme.Dark);
 // Theme.setMode(Theme.Light);
+Theme.setMode(Theme.Auto);
 
 new Vue({
   render: (h) => h('frame', [h(Home)]),
