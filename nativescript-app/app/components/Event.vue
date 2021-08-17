@@ -148,8 +148,10 @@ export default {
   @include colorize($background-color: 'background');
 
   .event-title {
-    font-style: italic;
     margin: 8 40 0 40;
+    padding: 0;
+    font-style: italic;
+    text-align: center;
   }
 }
 
