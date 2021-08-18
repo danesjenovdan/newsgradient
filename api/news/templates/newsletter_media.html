@@ -1,0 +1,19 @@
+{% load newsletter %}
+
+<div style="text-align: center;">
+  <div>
+    <div style="max-width: 90px; margin: 0 auto;">
+      {% for url in urls %}
+        <a href="{{ url|base_url }}" style="display: inline-block; text-decoration: none;">
+          <img src="https://www.google.com/s2/favicons?sz=32&amp;domain_url={{ url|base_url }}" style="display: inline-block; width: 16px; height: 16px;" />
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div style="color: #222; font-size: 16px; font-weight: 700; line-height: 1.2;">
+    {{ urls|length }} {{ urls|length|pluralize:"članak,članaka" }}
+  </div>
+  <div style="color: #222; font-size: 11px; font-weight: 600;">
+    {{ media_slant_text }}
+  </div>
+</div>
