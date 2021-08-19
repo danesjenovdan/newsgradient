@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "796120275536",
+    "project_id": "newsgradient",
+    "storage_bucket": "newsgradient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796120275536:android:0e98f10e6cb87a21e40f55",
+        "android_client_info": {
+          "package_name": "si.danesjenovdan.newsgradient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796120275536-308n0h417b40e78tncsqalu7nn8254k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbNm9sfs2BNA_ST2-G0uZ2naGWLmZNitU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796120275536-308n0h417b40e78tncsqalu7nn8254k0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
