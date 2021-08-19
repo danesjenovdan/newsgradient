@@ -11,10 +11,10 @@ import Home from './components/Home.vue';
 
 firebase.init({ ...firebaseInitParams });
 
-// firebase.getCurrentPushToken().then((token) => {
-//   // may be null if not known yet
-//   console.log(`Current push token: ${token}`);
-// });
+firebase.getCurrentPushToken().then((token) => {
+  // eslint-disable-next-line no-console
+  console.log(`push token: ${token}`);
+});
 
 Vue.use(Pager);
 Vue.use(ImagePlugin);

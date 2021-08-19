@@ -8,6 +8,11 @@
         android.position="popup"
         @tap="toggleTheme"
       />
+      <ActionItem
+        text="Refresh events"
+        android.position="popup"
+        @tap="refreshEvents"
+      />
     </ActionBar>
 
     <GridLayout rows="auto, *" class="main-view">
@@ -32,6 +37,7 @@
 <script>
 import { loadAndSetTheme, toggleAndSaveTheme } from '../services/theme.service';
 import { fetchTopEvents } from '../services/api.service';
+import { setMessageReceivedListener } from '../services/notifications.service';
 import About from './About.vue';
 import Spinner from './Spinner.vue';
 import HomeEventCard from './HomeEventCard.vue';
@@ -49,10 +55,18 @@ export default {
   async mounted() {
     loadAndSetTheme();
 
-    const data = await fetchTopEvents();
-    this.events = data || [];
+    await this.refreshEvents();
+
+    setMessageReceivedListener(() => {
+      this.refreshEvents();
+    });
   },
   methods: {
+    async refreshEvents() {
+      this.events = null;
+      const data = await fetchTopEvents();
+      this.events = data || [];
+    },
     paddingForIndex(index) {
       if (index === 0) {
         return '8 8 4 8';
