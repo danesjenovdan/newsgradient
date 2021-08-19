@@ -1,0 +1,80 @@
+{% load static newsletter %}
+
+<html>
+
+<body style="margin: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif">
+  <div style="background-color: #ededed;">
+    <div style="width: 600px; margin: 0 auto; padding: 1px;">
+      <div style="padding: 40px 25px 15px;">
+        <div style="color: #222; font-size: 13px; font-style: italic; line-height: 1.2; margin-bottom: 8px;">{{ date }}</div>
+        <div>
+          <img src="{% static "newsletter/logo_text.png" %}" alt="{{ title }}" style="width: 445px;" />
+        </div>
+        <div style="color: #222; font-size: 48px; font-weight: 300; font-style: italic; line-height: 1;">{{ subtitle }}</div>
+      </div>
+      <div style="margin: 10px 0;">
+        <div style="text-align: right;">
+          <a href="{{ page_link_url }}" style="color: #222; font-size: 13px; line-height: 1.2; text-decoration: underline;">
+            {{ page_link_label }}
+          </a>
+        </div>
+      </div>
+      {% for event in events %}
+        <div style="margin-bottom: 40px;">
+          <div style="background-image: linear-gradient(to right, #0076fe 0%, #e50001 100%); height: 5px;"></div>
+          <div style="background-color: #f6f6f6; padding: 25px;">
+            <div style="color: #222; font-size: 27px; font-weight: 700; font-style: italic; line-height: 1.2; margin-bottom: 25px;">{{ event.title }}</div>
+            <div style="margin: 0 -10px;">
+              <table style="width: 100%; border: 0; table-layout: fixed;">
+                <tr>
+                  <td style="padding: 0 10px; vertical-align: top;">
+                    <div style="color: #222; font-size: 18px; font-style: italic; line-height: 1.2; margin-bottom: 15px;">{{ articles_slant_1 }}</div>
+                    {% for article in event.articles_slant_1 %}
+                      {% include "newsletter_article.html" %}
+                    {% endfor %}
+                  </td>
+                  <td style="padding: 0 10px; vertical-align: top;">
+                    <div style="color: #222; font-size: 18px; font-style: italic; line-height: 1.2; margin-bottom: 15px;">{{ articles_slant_3 }}</div>
+                    {% for article in event.articles_slant_3 %}
+                      {% include "newsletter_article.html" %}
+                    {% endfor %}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <hr style="border-color: #222; border-width: 1px 0 0 0; height: 0; width: 100%; margin: 30px 0;">
+            <div>
+              <div style="color: #222; font-size: 18px; font-style: italic; line-height: 1.2; text-align: center; margin: 30px 0;">{{ media_title }}</div>
+              <table style="width: 100%; border: 0; table-layout: fixed;">
+                <tr>
+                  <td style="padding: 0; vertical-align: bottom;">
+                    {% include "newsletter_media.html" with articles=event.all_articles_slant_1 media_slant_text=media_slant_1 %}
+                  </td>
+                  <td style="padding: 0; vertical-align: bottom;">
+                    {% include "newsletter_media.html" with articles=event.all_articles_slant_2 media_slant_text=media_slant_2 %}
+                  </td>
+                  <td style="padding: 0; vertical-align: bottom;">
+                    {% include "newsletter_media.html" with articles=event.all_articles_slant_3 media_slant_text=media_slant_3 %}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div style="text-align: center; margin: 25px auto; width: 300px;">
+        <div style="">
+          <img src="{% static "newsletter/logo_text.png" %}" alt="{{ title }}" style="width: 187px;" />
+        </div>
+        {% comment %} <div style="color: #222; font-size: 12px; font-style: italic; line-height: 1.2; margin: 10px 0;">
+          {{ social_media_share }}
+        </div>
+        <div>TODO: social share buttons</div> {% endcomment %}
+        <hr style="border-color: #222; border-width: 1px 0 0 0; height: 0; width: 100%; margin: 30px 0;">
+        <div style="color: #222; font-size: 11px; line-height: 1.2; margin: 15px 0;">{{ unsubscribe }}</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

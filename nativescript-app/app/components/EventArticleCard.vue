@@ -6,7 +6,12 @@
     @tap="onTap"
   >
     <StackLayout row="0" class="gradient-line" />
-    <GridLayout row="1" rows="auto, auto, auto" columns="24, *" class="heading">
+    <GridLayout
+      row="1"
+      rows="auto, auto, auto"
+      columns="24, *, auto"
+      class="heading"
+    >
       <NSImg
         row="0"
         col="0"
@@ -15,7 +20,8 @@
         class="medium-icon"
       />
       <Label row="0" col="1" :text="article.medium.title" class="medium-name" />
-      <StackLayout row="1" col="0" colSpan="2" class="hr" />
+      <SocialScoreBadge row="0" col="2" :text="article.social_score" />
+      <StackLayout row="1" col="0" colSpan="3" class="hr" />
       <Label
         row="2"
         col="0"
@@ -51,11 +57,13 @@
 import { Utils } from '@nativescript/core';
 import MoreButton from './MoreButton.vue';
 import TruncatedLabel from './TruncatedLabel.vue';
+import SocialScoreBadge from './SocialScoreBadge.vue';
 
 export default {
   components: {
     MoreButton,
     TruncatedLabel,
+    SocialScoreBadge,
   },
   props: {
     article: {
@@ -108,7 +116,7 @@ export default {
   }
 
   .heading {
-    padding: 8;
+    padding: 6;
 
     .medium-icon {
       horizontal-alignment: left;
@@ -122,7 +130,7 @@ export default {
     }
 
     .hr {
-      margin: 8 0 6 0;
+      margin: 6 0;
     }
 
     .title {

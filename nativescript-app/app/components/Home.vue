@@ -2,6 +2,12 @@
   <Page>
     <ActionBar flat="true" class="action-bar">
       <NSImg src="res://logo_text" stretch="aspectFit" class="logo-text" />
+      <ActionItem text="Više o" android.position="popup" @tap="onAboutTap" />
+      <ActionItem
+        text="Toggle dark mode"
+        android.position="popup"
+        @tap="toggleTheme"
+      />
     </ActionBar>
 
     <GridLayout rows="auto, *" class="main-view">
@@ -24,7 +30,9 @@
 </template>
 
 <script>
+import { loadAndSetTheme, toggleAndSaveTheme } from '../services/theme.service';
 import { fetchTopEvents } from '../services/api.service';
+import About from './About.vue';
 import Spinner from './Spinner.vue';
 import HomeEventCard from './HomeEventCard.vue';
 
@@ -39,6 +47,8 @@ export default {
     };
   },
   async mounted() {
+    loadAndSetTheme();
+
     const data = await fetchTopEvents();
     this.events = data || [];
   },
@@ -51,6 +61,18 @@ export default {
         return '4 8 8 8';
       }
       return '4 8 4 8';
+    },
+    onAboutTap() {
+      this.$navigateTo(About, {
+        transition: {
+          name: 'slideLeft',
+          duration: 200,
+          curve: 'easeInOut',
+        },
+      });
+    },
+    toggleTheme() {
+      toggleAndSaveTheme();
     },
   },
 };

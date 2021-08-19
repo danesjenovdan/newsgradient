@@ -167,6 +167,8 @@ ORDER_TRASHOLD = 5  # THRESHOLD
 
 ER_API_KEY = os.getenv('ER_API_KEY')
 
+MAUTIC_SECRET = os.getenv('MAUTIC_SECRET')
+
 CRONJOBS = [
     # ('*/30 * * * *', 'news.cron.get_new_news')
 ]

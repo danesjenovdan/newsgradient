@@ -1,13 +1,17 @@
 import typing
+import requests
 from datetime import datetime
 from datetime import timedelta
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Count
 from django.db.models import F
 from django.db.models import FloatField
 from django.db.models import Q
 from django.db.models.functions import Cast
+from django.views.generic import TemplateView
+from django.template.loader import render_to_string
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
@@ -142,3 +146,75 @@ class EventDetailView(APIView):
         schema = EventSchema()
         data = schema.dump(event)
         return Response(data)
+
+
+class NewsletterView(TemplateView):
+    template_name = "newsletter.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # header data
+        context['date'] = datetime.today().strftime('%-d. %-m. %Y')
+
+        context['title'] = 'Newsgradient'
+        context['subtitle'] = 'Obvestilnik'
+        context['page_link_label'] = 'Newsgradient'
+        context['page_link_url'] = 'https://newsgradient.org'
+
+        # misc
+        context['articles_slant_1'] = 'Najpopularniji clanak iz lijevo orientisanih medija'
+        context['articles_slant_2'] = 'Najpopularniji clanak iz neutralnih medija'
+        context['articles_slant_3'] = 'Najpopularniji clanak iz desno orientisanih medija'
+        context['read_more'] = 'Pročitaj više'
+        context['media_title'] = 'Koji su mediji pisali o dogadaju?'
+        context['media_slant_1'] = 'lijevo orientisani mediji'
+        context['media_slant_2'] = 'neutralni mediji'
+        context['media_slant_3'] = 'desno orientisani mediji'
+        context['social_media_share'] = 'Deli na društvenim mrežama'
+        context['unsubscribe'] = 'Ako se želiš odjaviti od ovog newslettera klikni ovde.'
+
+        events = models.Event.objects \
+            .select_related('articles') \
+            .annotate(all_articles_count=Count('articles')) \
+            .values('uri', 'title', 'all_articles_count') \
+            .filter(is_promoted=True) \
+            .order_by('-all_articles_count')
+
+        def articles_for_event_slant(event, slant):
+            return models.Article.objects \
+                .select_related('medium') \
+                .annotate(social_score=Count('tweets')) \
+                .values('url', 'image', 'title', 'medium__title', 'social_score') \
+                .filter(event_id=event.get('uri'), medium__slant=slant) \
+                .order_by('-medium__reliability')
+
+        # events
+        context['events'] = [{
+            'title': event.get('title'),
+            'articles_slant_1': [article for article in articles_for_event_slant(event, 1)[:1]],
+            'articles_slant_3': [article for article in articles_for_event_slant(event, 3)[:1]],
+            'all_articles_slant_1': [article for article in articles_for_event_slant(event, 1)],
+            'all_articles_slant_2': [article for article in articles_for_event_slant(event, 2)],
+            'all_articles_slant_3': [article for article in articles_for_event_slant(event, 3)],
+        } for event in events]
+
+        # html_content = render_to_string('newsletter.html', context=context).strip()
+
+        # send_mail = True
+        # if send_mail and settings.MAUTIC_SECRET:
+        #     response = requests.post(
+        #         'https://podpri.djnd.si/api/create-and-send-custom-email/',
+        #         headers={'Authorization': settings.MAUTIC_SECRET},
+        #         json={
+        #             'title': f'{context["title"]} {context["subtitle"]} {context["date"]}',
+        #             'description': f'{context["title"]} {context["subtitle"]} {context["date"]}',
+        #             'content': html_content,
+        #             'segments': [19]
+        #         },
+        #     )
+        #     print(response.text)
+
+        # print(html_content)
+
+        return context

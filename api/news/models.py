@@ -7,9 +7,9 @@ from constants import Reliability
 
 class Medium(models.Model):
     ORIENTATIONS = (
-        (Orientations.LEFT, 'Left'),
-        (Orientations.NEUTRAL, 'Neutral'),
-        (Orientations.RIGHT, 'Right'),
+        (Orientations.LEFT.value, 'Left'),
+        (Orientations.NEUTRAL.value, 'Neutral'),
+        (Orientations.RIGHT.value, 'Right'),
     )
     title = models.CharField(max_length=128)
     uri = models.CharField(max_length=128, db_index=True)

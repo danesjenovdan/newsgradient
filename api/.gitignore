@@ -61,7 +61,7 @@ docs/_build/
 target/
 
 # Static
-static/
+/static/
 staticfiles/
 .vscode/
 

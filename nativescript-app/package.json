@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@nativescript-community/ui-image": "^4.0.24",
+    "@nativescript-community/ui-pager": "^13.0.26",
     "@nativescript/core": "~8.0.0",
     "@nativescript/theme": "~3.0.1",
+    "lodash-es": "^4.17.21",
     "nativescript": "^8.0.2",
     "nativescript-vue": "~2.9.0"
   },
