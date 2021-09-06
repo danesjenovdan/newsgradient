@@ -65,7 +65,7 @@ class Event(models.Model):
 
 
 class Article(models.Model):
-    uri = models.TextField(max_length=25, primary_key=True)
+    uri = models.TextField(primary_key=True)
     title = models.TextField( default='')
     content = models.TextField(default='')
     url = models.URLField(max_length=512)

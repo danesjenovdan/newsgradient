@@ -10,9 +10,6 @@ from news.models import Medium
 import datetime
 import os
 import traceback
-import favicon
-import requests
-from pprint import pprint
 
 
 def get_medium_uris():
@@ -61,10 +58,7 @@ class Command(BaseCommand):
         newEventsCount = 0
         newArticlesCount = 0
 
-        count = 0
         for article in results:
-            count += 1
-
             articleUrl = article.get('url', '')
             if 'index.hr/oglasi' in articleUrl:
                 continue
@@ -80,13 +74,12 @@ class Command(BaseCommand):
 
             eventUri = article.get('eventUri', '')
             articleUrl = articleUrl
-            articleTitle = (article.get('title', '') or '')
-            articleImage = (article.get('image', '') or '')
+            articleTitle = article.get('title', '')
+            articleImage = article.get('image', '')
             articleBody = article.get('body', '')
-            articleDateTime = article.get('dateTime')
+            articleDateTime = article.get('dateTime', None)
 
             if eventUri and not Event.objects.filter(uri=eventUri).exists() and articleDateTime:
-
                 Event.objects.create(
                     uri=eventUri,
                     title=articleTitle,
