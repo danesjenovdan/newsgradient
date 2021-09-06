@@ -1,7 +1,7 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'si.danesjenovdan.newsgradient',
+  id: 'org.newsgradient.app',
   appPath: 'app',
   appResourcesPath: 'App_Resources',
   android: {
