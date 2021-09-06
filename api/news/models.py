@@ -46,13 +46,9 @@ class Event(models.Model):
     uri = models.TextField(primary_key=True)
     updated_at = models.DateTimeField(db_index=True, auto_now=True)
     title = models.TextField(default='')
-    summary = models.TextField(default='')
     date = models.DateField(db_index=True)
     images = models.TextField(default='')
     is_promoted = models.BooleanField(default=False, db_index=True)
-    #article_count = models.PositiveIntegerField(db_index=True)
-    sentiment = models.FloatField(null=True, blank=True)
-    wgt = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.title

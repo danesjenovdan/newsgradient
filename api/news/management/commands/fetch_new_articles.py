@@ -73,19 +73,20 @@ class Command(BaseCommand):
                 continue
 
             eventUri = article.get('eventUri', '')
-            articleUrl = articleUrl
             articleTitle = article.get('title', '')
             articleImage = article.get('image', '')
             articleBody = article.get('body', '')
             articleDateTime = article.get('dateTime', None)
 
-            if eventUri and not Event.objects.filter(uri=eventUri).exists() and articleDateTime:
+            if eventUri and not Event.objects.filter(uri=eventUri).exists() and articleDateTime and articleTitle:
                 Event.objects.create(
                     uri=eventUri,
                     title=articleTitle,
                     date=articleDateTime.split('T')[0]
                 )
                 newEventsCount += 1
+            else:
+                print('Skip addin event', articleTitle, articleDateTime)
 
             Article.objects.create(
                 uri=articleUri,

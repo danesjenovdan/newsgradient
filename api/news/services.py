@@ -17,7 +17,7 @@ def get_most_popular_events_with_articles(slant: int = Orientations.NEUTRAL):
     promoted_events = Event.objects \
         .select_related('articles') \
         .annotate(all_articles_count=Count('articles')) \
-        .values('uri', 'title', 'summary', 'date', 'all_articles_count') \
+        .values('uri', 'title', 'date', 'all_articles_count') \
         .filter(is_promoted=True) \
         .order_by('-all_articles_count')
 
