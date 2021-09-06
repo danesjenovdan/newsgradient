@@ -86,7 +86,7 @@ class Command(BaseCommand):
                 )
                 newEventsCount += 1
             else:
-                print('Skip addin event', articleTitle, articleDateTime)
+                print('Skip adding event', articleTitle, articleDateTime)
 
             Article.objects.create(
                 uri=articleUri,
