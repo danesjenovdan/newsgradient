@@ -40,17 +40,17 @@ class Medium(models.Model):
 
 
 class Event(models.Model):
-    class Meta:
-        ordering = ['-article_count']
+    #class Meta:
+    #    ordering = ['-article_count']
 
-    uri = models.CharField(max_length=25, primary_key=True)
+    uri = models.TextField(primary_key=True)
     updated_at = models.DateTimeField(db_index=True, auto_now=True)
-    title = models.CharField(max_length=512, default='')
+    title = models.TextField(default='')
     summary = models.TextField(default='')
     date = models.DateField(db_index=True)
     images = models.TextField(default='')
     is_promoted = models.BooleanField(default=False, db_index=True)
-    article_count = models.PositiveIntegerField(db_index=True)
+    #article_count = models.PositiveIntegerField(db_index=True)
     sentiment = models.FloatField(null=True, blank=True)
     wgt = models.PositiveIntegerField(null=True, blank=True)
 
@@ -60,10 +60,13 @@ class Event(models.Model):
     def __repr__(self):
         return self.title
 
+    def article_count(self):
+        return self.articles.count()
+
 
 class Article(models.Model):
-    uri = models.CharField(max_length=25, primary_key=True)
-    title = models.CharField(max_length=512, default='')
+    uri = models.TextField(primary_key=True)
+    title = models.TextField( default='')
     content = models.TextField(default='')
     url = models.URLField(max_length=512)
     datetime = models.DateTimeField()
