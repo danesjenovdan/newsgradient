@@ -10,9 +10,6 @@ from news.models import Medium
 import datetime
 import os
 import traceback
-import favicon
-import requests
-from pprint import pprint
 
 
 def get_medium_uris():
@@ -29,7 +26,7 @@ class Command(BaseCommand):
         try:
             cache.set(constants.NEW_ARTICLES_FETCH_KEY, constants.CommandStatus.RUNNING.value)
             self.handle_impl()
-            call_command('update_event_uris')
+            #call_command('update_event_uris')
             call_command('clear_cache')
         except Exception as e:
             self.stderr.write(f'Exception: {e}')
@@ -48,26 +45,20 @@ class Command(BaseCommand):
         q = QueryArticlesIter(
             sourceUri=QueryItems.OR(medium_uris),
             lang=QueryItems.OR(['hrv', 'srp']),
-            dateStart=datetime.datetime.now() - datetime.timedelta(days=7),
+            dateStart=datetime.datetime.now() - datetime.timedelta(days=1),
             isDuplicateFilter='skipDuplicates',
         )
-        all_articles_count = q.count(er)
-        self.stdout.write(f'Got articles: {all_articles_count}')
-        self.stdout.write('-' * 80)
 
         results = q.execQuery(
             er,
+            sortBy="date"
             # maxItems=10,
         )
 
         newEventsCount = 0
         newArticlesCount = 0
 
-        count = 0
         for article in results:
-            count += 1
-            self.stdout.write(f'{count} / {all_articles_count}')
-
             articleUrl = article.get('url', '')
             if 'index.hr/oglasi' in articleUrl:
                 continue
@@ -82,50 +73,19 @@ class Command(BaseCommand):
                 continue
 
             eventUri = article.get('eventUri', '')
-            # some fields have max length so truncate to prevent db errors
-            articleUrl = articleUrl[:512]
-            articleTitle = (article.get('title', '') or '')[:512]
-            articleImage = (article.get('image', '') or '')[:512]
+            articleUrl = articleUrl
+            articleTitle = article.get('title', '')
+            articleImage = article.get('image', '')
             articleBody = article.get('body', '')
-            articleDateTime = article.get('dateTime')
+            articleDateTime = article.get('dateTime', None)
 
-            # self.stdout.write(f'articleTitle = {articleTitle}')
-            # self.stdout.write(f'articleUrl   = {articleUrl}')
-            # self.stdout.write(f'eventUri     = {eventUri}')
-
-            if eventUri and not Event.objects.filter(uri=eventUri).exists():
-                q = QueryEvent(eventUri)
-                q.setRequestedResult(RequestEventInfo())
-                res = er.execQuery(q)
-
-                while True:
-                    newEventUri = res.get(eventUri, {}).get('newEventUri')
-                    if not newEventUri:
-                        break
-                    self.stdout.write(f'newEventUri: {newEventUri} from {eventUri}')
-                    eventUri = newEventUri
-                    q = QueryEvent(eventUri)
-                    q.setRequestedResult(RequestEventInfo())
-                    res = er.execQuery(q)
-
-                if not Event.objects.filter(uri=eventUri).exists():
-                    eventInfo = res.get(eventUri, {}).get('info')
-                    if not eventInfo:
-                        pprint(res)
-
-                    eventTitle = (eventInfo.get('title').get('hrv', '') or eventInfo.get('title').get('srp', '') or '')[:512]
-                    eventSummary = eventInfo.get('summary').get('hrv', '') or eventInfo.get('summary').get('srp', '') or ''
-                    eventDate = datetime.datetime.strptime(eventInfo.get('eventDate'), '%Y-%m-%d')
-
-                    Event.objects.create(
-                        uri=eventUri,
-                        title=eventTitle,
-                        summary=eventSummary,
-                        article_count=0,
-                        date=eventDate,
-                    )
-                    self.stdout.write(f'NEW EVENT: {eventUri} - {eventTitle}')
-                    newEventsCount += 1
+            if eventUri and not Event.objects.filter(uri=eventUri).exists() and articleDateTime:
+                Event.objects.create(
+                    uri=eventUri,
+                    title=articleTitle,
+                    date=articleDateTime.split('T')[0]
+                )
+                newEventsCount += 1
 
             Article.objects.create(
                 uri=articleUri,

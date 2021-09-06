@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="__PACKAGE__"
 	android:versionCode="10000"
-	android:versionName="1.0">
+	android:versionName="1.0.0">
 
 	<supports-screens
 		android:smallScreens="true"
@@ -22,6 +22,9 @@
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme">
+
+		<meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/notification_icon" />
+		<meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/ns_primary" />
 
 		<activity
 			android:name="com.tns.NativeScriptActivity"
