@@ -114,7 +114,12 @@
             </div>
             <div class="row">
               <div
-                class="col-12 col-md-4 col-lg-6 d-flex align-items-center justify-content-center justify-content-md-start"
+                class="
+                  col-12 col-md-4 col-lg-6
+                  d-flex
+                  align-items-center
+                  justify-content-center justify-content-md-start
+                "
               >
                 <a href="https://www.ned.org/" target="_blank" class="d-inline-block mb-4 mb-md-0"
                   ><img src="@/assets/img/ned-logo.png" alt="ned logo" class="img-fluid"
@@ -123,6 +128,13 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="card flex flex--column">
+        <p class="subtitle mb-0" style="text-align: center">
+          Kontaktirajte nas preko emaila
+          <a href="mailto:newsgradient@danesjenovdan.si" target="_blank">newsgradient@danesjenovdan.si</a> ili telefona
+          <a href="tel:+38664147823" target="_blank" class="d-inline-block mb-4 mb-md-0">+38664147823</a>.
+        </p>
       </div>
     </div>
   </div>
@@ -137,8 +149,8 @@ export default {
   computed: {
     isMobile() {
       return this.$store.state.sizing.windowWidth <= 768
-    }
-  }
+    },
+  },
 }
 </script>
 
