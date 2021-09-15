@@ -1,6 +1,6 @@
 const OG_TITLE = 'Newsgradient BiH'
 const OG_DESCRIPTION =
-  'Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji'
+  'Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.'
 const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.png'
 
 export default {
@@ -72,7 +72,8 @@ export default {
    */
   axios: {
     proxy: false,
-    baseURL: 'https://newsgradient-api.lb.djnd.si/',
+    // baseURL: 'https://newsgradient-api.lb.djnd.si/',
+    baseURL: 'http://localhost:8000/'
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
   /*
