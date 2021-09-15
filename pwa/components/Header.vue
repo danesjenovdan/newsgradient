@@ -7,8 +7,8 @@
           <img src="@/assets/svg/logo-text.svg" class="logo-image" />
         </nuxt-link>
         <h2 class="ng-header__text">
-          Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih <br />
-          medija, poredanih po ideološkoj orijentaciji
+          Najaktuelnije vijesti u izvještajima bosanskohercegovačkih <br />
+          medija grupisane po ideološkoj orijentaciji.
         </h2>
         <!--        <TimingSelect @change="timerangeChanged" class="timing-container" />-->
       </div>
@@ -19,6 +19,9 @@
         <nuxt-link :class="['link', { 'link--active': '/about' === $route.path }]" to="/about" class="link">
           Više o
         </nuxt-link>
+        <a href="https://play.google.com/store/apps/details?id=org.newsgradient.app" class="link events-link">
+          Android aplikacija
+        </a>
       </div>
     </div>
   </div>
@@ -30,15 +33,15 @@ export default {
     return {
       links: [
         { to: '/', title: 'Vijesti' },
-        { to: '/about', title: 'Više o' }
-      ]
+        { to: '/about', title: 'Više o' },
+      ],
     }
   },
   methods: {
     timerangeChanged(value) {
       this.$store.dispatch('events/setTimerange', value)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -93,8 +96,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 20%;
-  max-width: 240px;
+  max-width: 400px;
+  min-width: 300px;
 
   @media (max-width: $medium) {
     justify-content: flex-end;

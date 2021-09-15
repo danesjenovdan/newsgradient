@@ -3,7 +3,7 @@
     <Header />
     <div class="container-landing">
       <div v-if="isMobile" class="description-container">
-        Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji
+        Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.
       </div>
       <div v-if="!isMobile" class="flex flex--wrap">
         <div v-for="(event, index) in topEvents" :key="event.id" class="col-xl-8 col-12 mb30">

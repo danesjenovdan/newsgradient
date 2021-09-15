@@ -151,6 +151,22 @@ class EventDetailView(APIView):
 class NewsletterView(TemplateView):
     template_name = "newsletter.html"
 
+    @staticmethod
+    def get_locale_date(date):
+        days_map = {
+            'Monday': 'ponedeljak',
+            'Tuesday': 'utorek',
+            'Wednesday': 'srijeda',
+            'Thursday': 'četvrtak',
+            'Friday': 'petak',
+            'Saturday': 'subota',
+            'Sunday': 'nedjelja'
+        }
+
+        day = days_map.get(date.strftime('%A'), 'ERROR')
+
+        return f'{day}, {date.strftime("%d. %m.")}'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -158,7 +174,7 @@ class NewsletterView(TemplateView):
         context['date'] = datetime.today().strftime('%-d. %-m. %Y')
 
         context['title'] = 'Newsgradient'
-        context['subtitle'] = 'Obvestilnik'
+        context['subtitle'] = 'Pregled sedmice'
         context['page_link_label'] = 'Newsgradient'
         context['page_link_url'] = 'https://newsgradient.org'
 
@@ -167,17 +183,18 @@ class NewsletterView(TemplateView):
         context['articles_slant_2'] = 'Najpopularniji clanak iz neutralnih medija'
         context['articles_slant_3'] = 'Najpopularniji clanak iz desno orientisanih medija'
         context['read_more'] = 'Pročitaj više'
-        context['media_title'] = 'Koji su mediji pisali o dogadaju?'
+        context['media_title'] = 'Pogledaj kako su mediji izvještavali o događaju.'
         context['media_slant_1'] = 'lijevo orientisani mediji'
         context['media_slant_2'] = 'neutralni mediji'
         context['media_slant_3'] = 'desno orientisani mediji'
         context['social_media_share'] = 'Deli na društvenim mrežama'
         context['unsubscribe'] = 'Ako se želiš odjaviti od ovog newslettera klikni ovde.'
+        context['download_app'] = 'Preuzmi Android aplikaciju Newsgradient.'
 
         events = models.Event.objects \
             .select_related('articles') \
             .annotate(all_articles_count=Count('articles')) \
-            .values('uri', 'title', 'all_articles_count') \
+            .values('uri', 'title', 'all_articles_count', 'date') \
             .filter(is_promoted=True) \
             .order_by('-all_articles_count')
 
@@ -191,7 +208,9 @@ class NewsletterView(TemplateView):
 
         # events
         context['events'] = [{
-            'title': event.get('title'),
+            'title': event.get('title', ''),
+            'date': self.get_locale_date(event.get('date', datetime.today())),
+            'uri': event.get('uri', ''),
             'articles_slant_1': [article for article in articles_for_event_slant(event, 1)[:1]],
             'articles_slant_3': [article for article in articles_for_event_slant(event, 3)[:1]],
             'all_articles_slant_1': [article for article in articles_for_event_slant(event, 1)],
