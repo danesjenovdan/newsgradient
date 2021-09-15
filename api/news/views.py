@@ -155,7 +155,7 @@ class NewsletterView(TemplateView):
     def get_locale_date(date):
         days_map = {
             'Monday': 'ponedeljak',
-            'Tuesday': 'utorek',
+            'Tuesday': 'utorak',
             'Wednesday': 'srijeda',
             'Thursday': 'četvrtak',
             'Friday': 'petak',
