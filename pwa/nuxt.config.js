@@ -72,8 +72,8 @@ export default {
    */
   axios: {
     proxy: false,
-    // baseURL: 'https://newsgradient-api.lb.djnd.si/',
-    baseURL: 'http://localhost:8000/'
+    baseURL: 'https://newsgradient-api.lb.djnd.si/',
+    // baseURL: 'http://localhost:8000/'
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
   /*
