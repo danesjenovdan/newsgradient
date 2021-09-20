@@ -47,7 +47,7 @@ class Event(models.Model):
     updated_at = models.DateTimeField(db_index=True, auto_now=True)
     title = models.TextField(default='')
     date = models.DateField(db_index=True)
-    images = models.TextField(default='')
+    images = models.TextField(default='', blank=True)
     is_promoted = models.BooleanField(default=False, db_index=True)
 
     def __str__(self):
