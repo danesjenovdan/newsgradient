@@ -18,11 +18,25 @@ class MediumAdmin(admin.ModelAdmin):
     list_editable = ('slant',)
 
 
+class ArticleInline(admin.TabularInline):
+    def slant(options, instance):
+        return models.Medium.ORIENTATIONS[instance.medium.slant - 1][1]
+
+    exclude = ['content', 'url', 'uri', 'datetime', 'image', 'sentiment', 'sentimentRNN', 'og_title', 'og_image', 'og_description']
+    readonly_fields = ['title', 'medium', 'slant']
+    model = models.Article
+    show_change_link = True
+    extra = 0
+    can_delete = False
+
 class EventAdmin(admin.ModelAdmin):
     list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count']
     search_fields = ['title', 'summary']
     list_filter = ['date', 'is_promoted']
     list_editable = ('is_promoted',)
+    inlines = [
+        ArticleInline
+    ]
 
     def get_queryset(self, request):
         return models.Event.objects.prefetch_related('articles').all().annotate(
