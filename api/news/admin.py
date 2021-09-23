@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Cast
 from django.template.response import TemplateResponse
 from django.utils.translation import ngettext
+from django.utils.safestring import mark_safe
 
 from constants import Orientations
 from news import models
@@ -22,8 +23,11 @@ class ArticleInline(admin.TabularInline):
     def slant(options, instance):
         return models.Medium.ORIENTATIONS[instance.medium.slant - 1][1]
 
+    def clickable_url(options, instance):
+        return mark_safe(f'<a href="{instance.url}">{instance.url}</a>')
+
     exclude = ['content', 'url', 'uri', 'datetime', 'image', 'sentiment', 'sentimentRNN', 'og_title', 'og_image', 'og_description']
-    readonly_fields = ['title', 'medium', 'slant']
+    readonly_fields = ['title', 'medium', 'slant', 'clickable_url']
     model = models.Article
     show_change_link = True
     extra = 0
