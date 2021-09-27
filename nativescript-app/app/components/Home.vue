@@ -3,13 +3,14 @@
     <ActionBar flat="true" class="action-bar">
       <NSImg src="res://logo_text" stretch="aspectFit" class="logo-text" />
       <ActionItem text="Više o" android.position="popup" @tap="onAboutTap" />
-      <ActionItem
+      <ActionItem text="Kontakt" android.position="popup" @tap="onContactTap" />
+      <!-- <ActionItem
         text="Toggle dark mode"
         android.position="popup"
         @tap="toggleTheme"
-      />
+      /> -->
       <ActionItem
-        text="Refresh events"
+        text="Osvježi izvještaje"
         android.position="popup"
         @tap="refreshEvents"
       />
@@ -18,7 +19,7 @@
     <GridLayout rows="auto, *" class="main-view">
       <Label
         row="0"
-        text="Pet najaktuelnijih vijesti u izvještajima bosanskohercegovačkih medija, poredanih po ideološkoj orijentaciji"
+        text="Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji."
         textWrap="true"
         class="info"
       />
@@ -39,6 +40,7 @@ import { loadAndSetTheme, toggleAndSaveTheme } from '../services/theme.service';
 import { fetchTopEvents } from '../services/api.service';
 import { setMessageReceivedListener } from '../services/notifications.service';
 import About from './About.vue';
+import Contact from './Contact.vue';
 import Spinner from './Spinner.vue';
 import HomeEventCard from './HomeEventCard.vue';
 
@@ -80,6 +82,15 @@ export default {
       this.$navigateTo(About, {
         transition: {
           name: 'slideLeft',
+          duration: 200,
+          curve: 'easeInOut',
+        },
+      });
+    },
+    onContactTap() {
+      this.$navigateTo(Contact, {
+        transition: {
+          name: 'slideleft',
           duration: 200,
           curve: 'easeInOut',
         },

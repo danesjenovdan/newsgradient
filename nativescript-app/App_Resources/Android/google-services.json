@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:796120275536:android:0e98f10e6cb87a21e40f55",
         "android_client_info": {
-          "package_name": "si.danesjenovdan.newsgradient"
+          "package_name": "org.newsgradient.app"
         }
       },
       "oauth_client": [

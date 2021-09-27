@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar flat="true" class="action-bar">
-      <Label text="About Newsgradient" textWrap="true" class="title" />
+      <Label text="O Newsgradientu" textWrap="true" class="title" />
     </ActionBar>
     <ScrollView>
       <StackLayout class="main-view">

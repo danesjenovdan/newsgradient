@@ -1,15 +1,15 @@
 <template>
   <div class="newsletter-bar">
     <div v-if="!submitted" class="text-center">
-      <h2>Naroči se na dnevne objave!</h2>
-      <p>Želim, da mi objave vsak dan dostavite na mejl!</p>
+      <h2>Želiš li uvijek biti u toku sa pregledom objava?</h2>
+      <p>Prijavi se na newsletter tako što ćeš unijeti svoj email!</p>
       <form @submit.prevent="onSubmit">
         <input v-model="email" type="email" placeholder="email" required :disabled="submitting" />
         <input type="submit" value="Prijavi se" :disabled="submitting" />
         <div v-if="error">Nekaj je šlo narobe, poskusite ponovno :(</div>
       </form>
     </div>
-    <div v-else class="text-center">Hvala za prijavo!</div>
+    <div v-else class="text-center">Hvala na prijavi. Za potvrdu registracije provjerite Vaš e-mail.</div>
   </div>
 </template>
 

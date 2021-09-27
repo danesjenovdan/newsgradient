@@ -18,6 +18,9 @@
             :social-score="event.social_score"
           />
         </div>
+        <div class="col col-12 mb30">
+          <NewsletterBar />
+        </div>
         <template v-for="(event, i) in otherEvents">
           <div :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
             <EventWrapper
@@ -30,9 +33,6 @@
               :first-publish="event.firstPublish"
               :social-score="event.social_score"
             />
-          </div>
-          <div v-if="i === 0" :key="`${i}-newsletter-bar`" class="col col-12 mb30">
-            <NewsletterBar />
           </div>
         </template>
       </div>
