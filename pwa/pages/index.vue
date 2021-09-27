@@ -5,6 +5,9 @@
       <div v-if="isMobile" class="description-container">
         Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.
       </div>
+      <div class="col col-12 mb30">
+        <NewsletterBar />
+      </div>
       <div v-if="!isMobile" class="flex flex--wrap">
         <div v-for="(event, index) in topEvents" :key="event.id" class="col-xl-8 col-12 mb30">
           <EventWrapper
@@ -17,9 +20,6 @@
             :first-publish="event.firstPublish"
             :social-score="event.social_score"
           />
-        </div>
-        <div class="col col-12 mb30">
-          <NewsletterBar />
         </div>
         <template v-for="(event, i) in otherEvents">
           <div :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
