@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+{% block object-tools %}
+    <table style="margin-bottom: 20px;">
+        <tr>
+            <th>Article title</th>
+            <th>Medium</th>
+            <th>Slant</th>
+            <th>URL</th>
+        </tr>
+        {% for article in original.articles.all %}
+        <tr>
+            <td><b>{{ article.title }}</b></td>
+            <td>{{ article.medium.title }}</td>
+            <td>{{ article.medium.slant }}</td>
+            <td><a target="_blank" href="{{ article.url }}">{{ article.url }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
