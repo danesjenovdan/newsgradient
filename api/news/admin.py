@@ -1,11 +1,12 @@
 from django.contrib import admin, messages
-from django.db.models import Count
-from django.db.models import IntegerField
-from django.db.models import Q
+from django.db.models import Count, IntegerField, Q, ManyToManyField
 from django.db.models.functions import Cast
 from django.template.response import TemplateResponse
 from django.utils.translation import ngettext
 from django.utils.safestring import mark_safe
+from django import forms
+
+from datetime import datetime, timedelta
 
 from constants import Orientations
 from news import models
@@ -131,7 +132,37 @@ class ArticleAdmin(admin.ModelAdmin):
     autocomplete_fields = ['event']
 
 
+class NewsletterForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.date:
+            event_date_limit = self.instance.date - timedelta(days=7)
+        else:
+            event_date_limit = datetime.now().date() - timedelta(days=7)
+        self.fields['events'].queryset = models.Event.objects.filter(
+            date__gte=event_date_limit,
+        ).annotate(
+            _all_count=Cast(
+                Count(
+                    'articles',
+                    filter=Q(articles__medium__slant__isnull=False),
+                    distinct=True
+                ),
+                IntegerField()
+            )
+        ).filter(
+            _all_count__gte=10
+        )
+
+
+class NewsletterAdmin(admin.ModelAdmin):
+    form = NewsletterForm
+    formfield_overrides = {
+        ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'style': 'margin-right: 10px'})},
+    }
+
 admin.site.register(models.Medium, MediumAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Article, ArticleAdmin)
 admin.site.register(models.Tweet)
+admin.site.register(models.Newsletter, NewsletterAdmin)
