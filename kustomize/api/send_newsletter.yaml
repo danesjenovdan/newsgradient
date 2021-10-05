@@ -1,0 +1,31 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: newsgradient-send-newsletter
+spec:
+  schedule: "0 9 * * 7" # sunday 9 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: newsgradient-fetch-tweets
+            image: newsgradient-api
+            env:
+              - name: DJANGO_SETTINGS_MODULE
+                value: newsgradient.settings
+            envFrom:
+              - secretRef:
+                  name: newsgradient-api-credentials
+            command:
+              - python
+              - manage.py
+              - send_newsletter
+            resources:
+              requests:
+                memory: 300Mi
+                cpu: 50m
+              limits:
+                memory: 300Mi
+                cpu: 50m
+          restartPolicy: OnFailure

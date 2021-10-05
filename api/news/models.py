@@ -113,3 +113,19 @@ class Tweet(models.Model):
     retweet_count = models.IntegerField(null=True)
 
     user_handle = models.TextField(null=False)
+
+class Newsletter(models.Model):
+    date = models.DateField()
+    events = models.ManyToManyField(
+        'Event',
+        blank=True,
+        help_text='Events to include in the newsletter',
+    )
+    sent = models.BooleanField(
+        blank=False,
+        null=False,
+        default=False,
+    )
+
+    def __str__(self):
+        return self.date.strftime('%-d. %-m. %Y')
