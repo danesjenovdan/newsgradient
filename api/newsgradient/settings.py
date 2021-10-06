@@ -56,9 +56,11 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'django_crontab',
+    'martor',
 
     'news',
     'backoffice',
+    'blog',
 ]
 
 MIDDLEWARE = [
