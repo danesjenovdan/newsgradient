@@ -85,7 +85,7 @@ export default {
   }
 
   form {
-    margin: 0 10px;
+    margin: 10px;
 
     input {
       border: 1px solid #555058;
