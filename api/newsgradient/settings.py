@@ -28,8 +28,8 @@ env = dict(
     DATABASE_PASSWORD=os.getenv('DJANGO_DATABASE_PASSWORD', 'postgres'),
     STATIC_ROOT=os.getenv('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, '../static')),
     STATIC_URL=os.getenv('DJANGO_STATIC_URL_BASE', '/static/'),
-    # MEDIA_ROOT=os.getenv('DJANGO_MEDIA_ROOT', '/media/'),
-    # MEDIA_URL=os.getenv('DJANGO_MEDIA_URL_BASE', '/media/'),
+    MEDIA_ROOT=os.getenv('DJANGO_MEDIA_ROOT', '/media/'),
+    MEDIA_URL=os.getenv('DJANGO_MEDIA_URL_BASE', '/media/'),
     CACHE_LOCATION=os.getenv('DJANGO_CACHE_LOCATION', 'redis://cache:6379/1'),
 )
 
@@ -148,6 +148,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+BASE_URL = os.getenv('BASE_API_URL', 'http://localhost:8000')
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
@@ -178,7 +180,7 @@ MARTOR_ENABLE_CONFIGS = {
 
 # Upload to locale storage
 MARTOR_UPLOAD_PATH = 'images/uploads/{}'.format(time.strftime("%Y/%m/%d/"))
-MARTOR_UPLOAD_URL = '/api/v1/blog/api/uploader/'  # change to local uploader
+MARTOR_UPLOAD_URL = '/api/v1/blog/api/uploader/'
 
 # Maximum Upload Image
 # 2.5MB - 2621440
