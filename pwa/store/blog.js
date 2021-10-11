@@ -22,13 +22,6 @@ export const actions = {
   async getBlogPosts(context, payload) {
     try {
       const url = API.blog.blogPosts + '?page=' + payload.page
-      // const qp = {}
-      /*
-      const params = new URLSearchParams(qp).toString()
-      if (params) {
-        url += '?' + params
-      }
-      */
       const response = await this.$axios.get(url)
       context.commit('SET_BLOG_POSTS', response.data.results)
       const pageCount = Math.ceil(parseInt(response.data.count) / 9)

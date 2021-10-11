@@ -4,6 +4,6 @@ export const API = {
     articles: '/api/v1/news/articles/',
   },
   blog: {
-    blogPosts: 'http://localhost:8000/api/v1/blog/',
+    blogPosts: '/api/v1/blog/',
   },
 }
