@@ -64,7 +64,7 @@ target/
 /static/
 staticfiles/
 .vscode/
-
+media/
 *.sqlite3
 
 *.djcache

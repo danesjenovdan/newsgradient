@@ -9,24 +9,31 @@
     <Divider v-if="!isMobile" class="w-100" />
     <div class="container">
       <b-row class="my-4">
-        <div v-for="(bp, i) in blogPosts" :key="i" class="col-lg-4 col-md-6 mb-4">
+        <div v-for="(bp, i) in blogPosts" :key="i" class="col-lg-4 col-md-6 article-card-wrapper">
           <div class="event-article-preview">
             <div class="image-ratio">
               <!--              <div :style="{ backgroundImage: `url(${fixedImageUrl}), url(/missing-image.png)` }" class="article-image"></div>-->
-              <div :style="{ backgroundImage: `url(/missing-image.png)` }" class="article-image"></div>
+              <div :style="{ backgroundImage: `url(${bp.image}), url(/missing-image.png)` }" class="article-image"></div>
             </div>
             <div class="article-info">
-              <div class="">5. 10. 2021</div>
+              <div class="text--italic pb-2">{{ bp.date | formatDate }}</div>
               <div class="article-content">
                 <span class="article-title">{{ bp.title }} /</span>
                 <span class="article-description">
-                  Tuki pride krajsi opis iz modela bloga, ki ga bo treba posebi napisati.
+                  {{ bp.short_description }}
                 </span>
-                <div><a href="blog/1/" class="read-more stretched-link" target="_blank"> Pročitaj više </a></div>
+                <div>
+                  <a :href="`blog/${bp.id}/`" class="read-more stretched-link"> Pročitaj više </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </b-row>
+      <b-row v-if="blogPosts && count > 1">
+        <b-col cols="12">
+          <Pagination :page="page" @select-page="selectPage" />
+        </b-col>
       </b-row>
     </div>
   </div>
@@ -35,9 +42,11 @@
 <script>
 import Header from '../../components/Header'
 import Divider from '../../components/Divider'
+import Pagination from '../../components/Pagination'
 
 export default {
   components: {
+    Pagination,
     Header,
     Divider,
   },
@@ -45,6 +54,15 @@ export default {
     trim(value) {
       return value.toString().slice(0, 150) + ' ...'
     },
+    formatDate(value) {
+      const d = new Date(value)
+      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
+    },
+  },
+  data() {
+    return {
+      page: 1,
+    }
   },
   computed: {
     isMobile() {
@@ -53,13 +71,27 @@ export default {
     blogPosts() {
       return this.$store.state.blog.blogPosts
     },
+    count() {
+      return this.$store.state.blog.pageCount
+    },
   },
   mounted() {
+    if (this.$route.query.page) {
+      const page = parseInt(this.$route.query.page)
+      if (Number.isInteger(page) && page > 0) {
+        this.page = page
+      }
+    }
     this.getBlogPosts()
   },
   methods: {
     getBlogPosts() {
-      this.$store.dispatch('blog/getBlogPosts')
+      this.$store.dispatch('blog/getBlogPosts', { page: this.page })
+    },
+    selectPage(value) {
+      this.page = value
+      this.$router.push({ path: '', query: { page: value } })
+      this.getBlogPosts()
     },
   },
 }
@@ -74,6 +106,12 @@ h1 {
   font-size: 36px;
   color: #3f3942;
   max-width: 60vw;
+}
+
+.article-card-wrapper {
+  margin-bottom: 16px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 .event-article-preview {
   border: 1px solid #a8a5a9;

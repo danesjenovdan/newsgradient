@@ -23,4 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('backoffice/', include('backoffice.urls')),
     path('api/v1/', include('api_versioning.urls_v1')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('martor/', include('martor.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

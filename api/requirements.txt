@@ -8,6 +8,7 @@ eventregistry==8.9
 marshmallow==3.12.1
 Markdown==3.3.4
 martor==1.6.4
+Pillow==8.3.2
 psycopg2-binary==2.9.1
 pytest==6.2.4
 pytz==2021.1

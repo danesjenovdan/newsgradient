@@ -3,6 +3,12 @@ from martor.models import MartorField
 
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.TextField()
+    short_description = models.TextField()
     date = models.DateField(db_index=True)
+    image = models.ImageField(
+        upload_to='media/blog-images',
+        null=True,
+        blank=True
+    )
     text = MartorField()
