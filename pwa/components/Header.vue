@@ -16,6 +16,9 @@
         <nuxt-link :class="['link', { 'link--active': '/' === $route.path }]" to="/" class="link events-link">
           Vijesti
         </nuxt-link>
+        <nuxt-link :class="['link', { 'link--active': '/blog' === $route.path }]" to="/blog" class="link">
+          Blog
+        </nuxt-link>
         <nuxt-link :class="['link', { 'link--active': '/about' === $route.path }]" to="/about" class="link">
           Više o
         </nuxt-link>
@@ -96,8 +99,8 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 400px;
-  min-width: 300px;
+  max-width: 450px;
+  min-width: 350px;
 
   @media (max-width: $medium) {
     justify-content: flex-end;

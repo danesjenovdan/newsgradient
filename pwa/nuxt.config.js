@@ -1,7 +1,7 @@
-const OG_TITLE = 'Newsgradient BiH'
+const OG_TITLE = 'Newsgradient'
 const OG_DESCRIPTION =
   'Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.'
-const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.png'
+const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.jpg'
 
 export default {
   mode: 'spa',

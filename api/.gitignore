@@ -64,7 +64,7 @@ target/
 /static/
 staticfiles/
 .vscode/
-
+media/
 *.sqlite3
 
 *.djcache
@@ -73,4 +73,4 @@ staticfiles/
 
 .env
 local_settings.py
-.idea
+.idea/
