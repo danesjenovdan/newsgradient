@@ -20,6 +20,7 @@ export default {
       { property: 'og:image:height', content: '628' },
       { property: 'og:title', content: OG_TITLE },
       { property: 'og:description', content: OG_DESCRIPTION },
+      { property: 'og:url', content: 'https://newsgradient.org/' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: OG_TITLE },
       { name: 'twitter:image', content: OG_IMAGE },

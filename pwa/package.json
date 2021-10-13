@@ -1,8 +1,8 @@
 {
-  "name": "newsgradientfront",
+  "name": "Newsgradient",
   "version": "1.0.0",
-  "description": "My striking Nuxt.js project",
-  "author": "Klemen Štrajhar",
+  "description": "Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.",
+  "author": "Danes je nov dan",
   "private": true,
   "scripts": {
     "dev": "nuxt",
