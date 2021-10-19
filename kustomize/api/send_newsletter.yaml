@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: newsgradient-send-newsletter
 spec:
-  schedule: "0 9 * * 7" # sunday 9 AM
+  schedule: "0 9 * * 6" # sunday 9 AM
   jobTemplate:
     spec:
       template:

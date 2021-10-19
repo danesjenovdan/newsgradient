@@ -10,15 +10,6 @@ import constants
 from news.models import Article, Event, Medium, Newsletter
 
 from datetime import datetime, timedelta
-import os
-import traceback
-
-
-def get_medium_uris():
-    mediums = Medium.objects.all()
-    return [medium.uri for medium in mediums]
-    # return {medium.uri: medium.id for medium in mediums}
-
 
 class Command(BaseCommand):
     @staticmethod

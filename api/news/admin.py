@@ -116,6 +116,29 @@ class EventAdmin(admin.ModelAdmin):
             }
             return TemplateResponse(request, "admin/action_confirmation.html", context=lala)
 
+    def save_model(self, request, obj, form, change):
+        # check if is_promoted was turned on
+        # and if it was, add the event to the newsletter
+        if (
+            'is_promoted' in form.initial.keys()
+        ) and (
+            form.initial.get('is_promoted', None) == False
+        ) and (
+            change == True
+        ):
+            newsletter = models.Newsletter.objects.filter(
+                sent=False
+            ).order_by(
+                '-date'
+            ).first()
+            # if there is no valid newsletter raise a ValueError
+            if not newsletter:
+                raise ValueError('YOU NEED TO SET UP A NEWSLETTER MOFO!')
+
+            #  add events to the newsletter
+            newsletter.events.add(obj)
+        super().save_model(request, obj, form, change)
+
     actions = [merge_to_oldest, merge_to_most_popular]
 
     number_of_articles.admin_order_field = '_all_count'
@@ -135,24 +158,9 @@ class ArticleAdmin(admin.ModelAdmin):
 class NewsletterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance.date:
-            event_date_limit = self.instance.date - timedelta(days=7)
-        else:
-            event_date_limit = datetime.now().date() - timedelta(days=7)
-        self.fields['events'].queryset = models.Event.objects.filter(
-            date__gte=event_date_limit,
-        ).annotate(
-            _all_count=Cast(
-                Count(
-                    'articles',
-                    filter=Q(articles__medium__slant__isnull=False),
-                    distinct=True
-                ),
-                IntegerField()
-            )
-        ).filter(
-            _all_count__gte=10
-        )
+        self.fields['events'].queryset = models.Newsletter.objects.get(
+            id=kwargs['instance'].id
+        ).events.all()
 
 
 class NewsletterAdmin(admin.ModelAdmin):
