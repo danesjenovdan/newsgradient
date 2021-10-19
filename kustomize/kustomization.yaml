@@ -8,6 +8,7 @@ resources:
   - api/pvc.yaml
   - api/refresh_articles.yaml
   - api/fetch_tweets.yaml
+  - api/send_newsletter.yaml
   - pwa/deployment.yaml
   - pwa/service.yaml
   - pwa/ingress.yaml
