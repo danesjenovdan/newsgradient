@@ -14,16 +14,9 @@ spec:
       labels:
         app: newsgradient-api
     spec:
-      volumes:
-        - name: newsgradient-api-persistent-storage
-          persistentVolumeClaim:
-            claimName: newsgradient-api-pvc
       initContainers:
         - name: collectstatic
           image: newsgradient-api
-          volumeMounts:
-            - name: newsgradient-api-persistent-storage
-              mountPath: /pvc
           command:
             - python
             - manage.py
@@ -37,11 +30,11 @@ spec:
                 name: newsgradient-api-credentials
           resources:
             requests:
-              memory: 500Mi
-              cpu: 200m
+              memory: 400Mi
+              cpu: 100m
             limits:
-              memory: 500Mi
-              cpu: 200m
+              memory: 400Mi
+              cpu: 100m
         - name: migrate
           image: newsgradient-api
           command:
@@ -56,17 +49,14 @@ spec:
                 name: newsgradient-api-credentials
           resources:
             requests:
-              memory: 500Mi
-              cpu: 200m
+              memory: 400Mi
+              cpu: 100m
             limits:
-              memory: 500Mi
-              cpu: 200m
+              memory: 400Mi
+              cpu: 100m
       containers:
         - name: newsgradient-api
           image: newsgradient-api
-          volumeMounts:
-            - name: newsgradient-api-persistent-storage
-              mountPath: /pvc
           command:
             - gunicorn
             - newsgradient.wsgi:application
@@ -84,24 +74,8 @@ spec:
               value: newsgradient.settings
           resources:
             requests:
-              memory: 500Mi
-              cpu: 500m
+              memory: 400Mi
+              cpu: 100m
             limits:
-              memory: 500Mi
-              cpu: 500m
-        - name: newsgradient-api-nginx
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          image: nginx:alpine
-          volumeMounts:
-            - name: newsgradient-api-persistent-storage
-              mountPath: /usr/share/nginx/html
-          resources:
-            requests:
-              memory: 100Mi
-              cpu: 200m
-            limits:
-              memory: 100Mi
-              cpu: 200m
+              memory: 400Mi
+              cpu: 100m
