@@ -12,14 +12,12 @@
         </li>
       </ul>
     </div>
-    <div v-if="!isInfoSeen" @click="checkSeen" class="notification">
+    <div v-if="!isInfoSeen" class="notification" @click="checkSeen">
       <div class="notification--icon">
         <img src="@/assets/img/info-icon.png" class="notification--icon-img" />
       </div>
       <div class="text--center notification__text">
-        <p class="notification__text--title">
-          Izaberi perspektivu za pregled priča!
-        </p>
+        <p class="notification__text--title">Izaberi perspektivu za pregled priča!</p>
         <p class="notification__text--desc">
           Pretražite različite perspektive istog događaja odabirom jedne od opcija u nastavku.
         </p>
@@ -37,10 +35,10 @@ export default {
       choices: Object.keys(SLANTS).map((slantKey) => {
         return {
           key: parseInt(slantKey),
-          name: SLANTS[slantKey]
+          name: SLANTS[slantKey],
         }
       }),
-      isInfoSeen: false
+      isInfoSeen: false,
     }
   },
   mounted() {
@@ -57,8 +55,8 @@ export default {
     checkSeen() {
       localStorage.isInfoSeen = true
       this.isInfoSeen = localStorage.isInfoSeen
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -4,27 +4,30 @@ const OG_DESCRIPTION =
 const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.jpg'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
   head: {
-    title: OG_TITLE,
+    titleTemplate: (titleChunk) => {
+      return titleChunk ? `${titleChunk} - Newsgradient` : 'Newsgradient'
+    },
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'description', content: OG_DESCRIPTION },
-      { name: 'author', content: 'Danes je nov dan' },
-      { property: 'og:image', content: OG_IMAGE },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '628' },
-      { property: 'og:title', content: OG_TITLE },
-      { property: 'og:description', content: OG_DESCRIPTION },
-      { property: 'og:url', content: 'https://newsgradient.org/' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: OG_TITLE },
-      { name: 'twitter:image', content: OG_IMAGE },
-      { name: 'twitter:description', content: OG_DESCRIPTION },
+      // hid is used as unique identifier; use the same hid if you want to replace the tag in a component
+      { hid: 'charset', charset: 'utf-8' },
+      { hid: 'viewport', name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: OG_DESCRIPTION },
+      { hid: 'author', name: 'author', content: 'Danes je nov dan' },
+      { hid: 'og:image', property: 'og:image', content: OG_IMAGE },
+      // { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
+      // { hid: 'og:image:height', property: 'og:image:height', content: '628' },
+      { hid: 'og:title', property: 'og:title', content: OG_TITLE },
+      { hid: 'og:description', property: 'og:description', content: OG_DESCRIPTION },
+      { hid: 'og:url', property: 'og:url', content: 'https://newsgradient.org/' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+      { hid: 'twitter:title', name: 'twitter:title', content: OG_TITLE },
+      { hid: 'twitter:image', name: 'twitter:image', content: OG_IMAGE },
+      { hid: 'twitter:description', name: 'twitter:description', content: OG_DESCRIPTION },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -64,7 +67,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     'bootstrap-vue/nuxt',
   ],
   /*
@@ -74,6 +77,7 @@ export default {
   axios: {
     proxy: false,
     baseURL: 'https://newsgradient-api.lb.djnd.si/',
+    // baseURL: 'https://cors-anywhere.djnd.si/https://newsgradient-api.lb.djnd.si/',
     // baseURL: 'http://localhost:8000/'
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
@@ -85,6 +89,11 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {},
+    postcss: {
+      plugins: {
+        autoprefixer: {},
+      },
+    },
   },
   /*
    ** Router configuration

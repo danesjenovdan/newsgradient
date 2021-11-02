@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow-x: hidden;">
+  <div style="overflow-x: hidden">
     <nuxt />
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      windowWidth: window.innerWidth
+      windowWidth: null,
     }
   },
   mounted() {
@@ -21,8 +21,8 @@ export default {
   methods: {
     calcWidth() {
       this.$store.commit('sizing/SET_WIDTH', window.innerWidth)
-    }
-  }
+    },
+  },
 }
 </script>
 

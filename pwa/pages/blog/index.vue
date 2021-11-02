@@ -8,7 +8,7 @@
     </div>
     <Divider v-if="!isMobile" class="w-100" />
     <div class="container">
-      <b-row class="my-4">
+      <b-row v-if="blogPostsLoaded" class="my-4">
         <div v-for="(bp, i) in blogPosts" :key="i" class="col-lg-4 col-md-6 article-card-wrapper">
           <div class="event-article-preview">
             <div class="image-ratio">
@@ -16,7 +16,7 @@
               <div :style="{ backgroundImage: `url(${bp.image}), url(/missing-image.png)` }" class="article-image"></div>
             </div>
             <div class="article-info">
-              <div class="text--italic pb-2">{{ bp.date | formatDate }}</div>
+              <div class="text--italic pb-2">{{ formatDate(bp.date) }}</div>
               <div class="article-content">
                 <span class="article-title">{{ bp.title }} /</span>
                 <span class="article-description">
@@ -30,7 +30,10 @@
           </div>
         </div>
       </b-row>
-      <b-row v-if="blogPosts && count > 1">
+      <b-row v-else class="justify-content-center">
+        <animated-loader />
+      </b-row>
+      <b-row v-if="blogPostsLoaded && blogPosts && count > 1">
         <b-col cols="12">
           <Pagination :page="page" @select-page="selectPage" />
         </b-col>
@@ -43,21 +46,14 @@
 import Header from '../../components/Header'
 import Divider from '../../components/Divider'
 import Pagination from '../../components/Pagination'
+import AnimatedLoader from '../../components/AnimatedLoader'
 
 export default {
   components: {
     Pagination,
     Header,
     Divider,
-  },
-  filters: {
-    trim(value) {
-      return value.toString().slice(0, 150) + ' ...'
-    },
-    formatDate(value) {
-      const d = new Date(value)
-      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
-    },
+    AnimatedLoader,
   },
   data() {
     return {
@@ -70,6 +66,9 @@ export default {
     },
     blogPosts() {
       return this.$store.state.blog.blogPosts
+    },
+    blogPostsLoaded() {
+      return this.$store.state.blog.blogPostsLoaded
     },
     count() {
       return this.$store.state.blog.pageCount
@@ -92,6 +91,10 @@ export default {
       this.page = value
       this.$router.push({ path: '', query: { page: value } })
       this.getBlogPosts()
+    },
+    formatDate(value) {
+      const d = new Date(value)
+      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
     },
   },
 }

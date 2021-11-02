@@ -23,7 +23,7 @@
       <Divider v-if="!isMobile" />
     </div>
     <div class="mt24">
-      <Carousell :is-mobile="isMobile" />
+      <Carousell :is-mobile="isMobile" @change="slantChanged" />
     </div>
     <b-row>
       <b-col>
@@ -48,18 +48,47 @@ export default {
     Carousell,
     Selector,
   },
+  async asyncData({ store, route }) {
+    const slant = ['1', '2', '3'].includes(route.query.slant)
+      ? Number(route.query.slant)
+      : store.state.carousel.selectedSlant
+    await store.dispatch('carousel/setSlant', slant)
+    await store.dispatch('events/getEventArticles', { eventId: route.params.id })
+  },
   computed: {
     isMobile() {
       return this.$store.state.sizing.windowWidth <= 768
     },
   },
   mounted() {
-    this.$store.dispatch('events/getEventArticles', { eventId: this.$route.params.id })
+    this.updateSlantUrl()
   },
   methods: {
     slantChanged(slant) {
       this.$store.dispatch('carousel/setSlant', slant)
+      this.updateSlantUrl()
     },
+    updateSlantUrl() {
+      const slant = this.$store.state.carousel.selectedSlant
+      const url = new URL(window.location)
+      if (!url.searchParams.has('slant') || url.searchParams.get('slant') !== String(slant)) {
+        url.searchParams.set('slant', slant)
+        window.history.replaceState(null, '', `${url.pathname}${url.search}`)
+      }
+    },
+  },
+  head() {
+    const image = this.$store.state.events.articles['2']?.[0]?.image
+    const title = this.$store.state.events.eventTitle
+    return {
+      title,
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: `${title} - Newsgradient` },
+        { hid: 'twitter:title', name: 'twitter:title', content: `${title} - Newsgradient` },
+        { hid: 'og:image', property: 'og:image', content: image },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
+      ],
+    }
   },
 }
 </script>

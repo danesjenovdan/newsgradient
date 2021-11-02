@@ -1,5 +1,5 @@
 export const state = () => ({
-  selectedSlant: 2
+  selectedSlant: 2,
 })
 
 export const mutations = {
@@ -15,11 +15,11 @@ export const mutations = {
     if (state.selectedSlant <= 4) {
       state.selectedSlant++
     }
-  }
+  },
 }
 
 export const actions = {
   setSlant({ commit }, slant) {
     commit('SET_SLANT', slant)
-  }
+  },
 }
