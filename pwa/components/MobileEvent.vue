@@ -84,7 +84,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('carousel/setSlant', 2)
+    // this.$store.dispatch('carousel/setSlant', 2)
   },
 }
 </script>

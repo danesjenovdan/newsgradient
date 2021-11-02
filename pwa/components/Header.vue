@@ -10,7 +10,6 @@
           Najaktuelnije vijesti u izvještajima bosanskohercegovačkih <br />
           medija grupisane po ideološkoj orijentaciji.
         </h2>
-        <!--        <TimingSelect @change="timerangeChanged" class="timing-container" />-->
       </div>
       <div class="links-container">
         <nuxt-link :class="['link', { 'link--active': '/' === $route.path }]" to="/" class="link events-link">

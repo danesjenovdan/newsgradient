@@ -1,37 +1,42 @@
 <template>
   <div class="container--fluid flex flex-align--center flex-justify--center flex--column">
     <Header />
-    <div class="container--fluid">
-      <div v-if="!isMobile" class="text-center">
-        <h1 class="blog-title">{{ blogPost.title }}</h1>
-        <p class="text--italic">{{ blogPost.date | formatDate }}</p>
-      </div>
-    </div>
-    <Divider v-if="!isMobile" class="w-100" />
-    <div class="container">
-      <b-row>
-        <div class="col-12 my-4 blog-content">
-          <div class="blog-text m-5" v-html="blogPost.text"></div>
+    <template v-if="aBlogPostLoaded">
+      <div class="container--fluid">
+        <div v-if="!isMobile" class="text-center">
+          <h1 class="blog-title">{{ blogPost.title }}</h1>
+          <p class="text--italic">{{ formatDate(blogPost.date) }}</p>
         </div>
-      </b-row>
-    </div>
+      </div>
+      <Divider v-if="!isMobile" class="w-100" />
+      <div class="container">
+        <b-row>
+          <div class="col-12 my-4 blog-content">
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div class="blog-text m-5" v-html="blogPost.text"></div>
+          </div>
+        </b-row>
+      </div>
+    </template>
+    <template v-else>
+      <animated-loader />
+    </template>
   </div>
 </template>
 
 <script>
 import Header from '../../components/Header'
 import Divider from '../../components/Divider'
+import AnimatedLoader from '../../components/AnimatedLoader'
 
 export default {
   components: {
     Header,
     Divider,
+    AnimatedLoader,
   },
-  filters: {
-    formatDate(value) {
-      const d = new Date(value)
-      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
-    },
+  async asyncData({ store, route }) {
+    await store.dispatch('blog/getABlogPost', { blogPostId: route.params.id })
   },
   computed: {
     isMobile() {
@@ -40,14 +45,26 @@ export default {
     blogPost() {
       return this.$store.state.blog.aBlogPost
     },
-  },
-  mounted() {
-    this.getABlogPost()
+    aBlogPostLoaded() {
+      return this.$store.state.blog.aBlogPostLoaded
+    },
   },
   methods: {
-    getABlogPost() {
-      this.$store.dispatch('blog/getABlogPost', { blogPostId: this.$route.params.id })
+    formatDate(value) {
+      const d = new Date(value)
+      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
     },
+  },
+  head() {
+    return {
+      title: this.blogPost.title,
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: `${this.blogPost.title} - Newsgradient` },
+        { hid: 'twitter:title', name: 'twitter:title', content: `${this.blogPost.title} - Newsgradient` },
+        { hid: 'og:image', property: 'og:image', content: this.blogPost.image },
+        { hid: 'twitter:image', name: 'twitter:image', content: this.blogPost.image },
+      ],
+    }
   },
 }
 </script>

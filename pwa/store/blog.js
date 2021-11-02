@@ -2,19 +2,23 @@ import { API } from '../api'
 
 export const state = () => ({
   blogPosts: [],
+  blogPostsLoaded: false,
   aBlogPost: {},
+  aBlogPostLoaded: false,
   pageCount: 1,
 })
 
 export const mutations = {
   SET_BLOG_POSTS(state, payload) {
     state.blogPosts = payload
+    state.blogPostsLoaded = true
   },
   SET_PAGE_COUNT(state, payload) {
     state.pageCount = payload
   },
   SET_A_BLOG_POST(state, payload) {
     state.aBlogPost = payload
+    state.aBlogPostLoaded = true
   },
 }
 

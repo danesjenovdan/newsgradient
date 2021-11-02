@@ -21,7 +21,7 @@
             :social-score="event.social_score"
           />
         </div>
-        <template v-for="(event, i) in otherEvents">
+        <template v-for="event in otherEvents">
           <div :key="event.id" class="col-xl-4 col-lg-6 col-12 mb30">
             <EventWrapper
               :title="event.title"
@@ -72,6 +72,13 @@ export default {
     EventWrapper,
     NewsletterBar,
   },
+  async asyncData({ store, route }) {
+    const slant = ['1', '2', '3'].includes(route.query.slant)
+      ? Number(route.query.slant)
+      : store.state.carousel.selectedSlant
+    await store.dispatch('carousel/setSlant', slant)
+    await store.dispatch('events/getTopEvents', { slant, timerange: store.state.events.timerange })
+  },
   computed: {
     topEvents() {
       return this.$store.state.events.topEvents.slice(0, 1)
@@ -82,39 +89,26 @@ export default {
     otherEvents() {
       return this.$store.state.events.topEvents.slice(1)
     },
-    currentSlant() {
-      return this.$store.state.carousel.selectedSlant
-    },
-    currentTimerange() {
-      return this.$store.state.events.timerange
-    },
     isMobile() {
       return this.$store.state.sizing.windowWidth <= 768
     },
   },
-  watch: {
-    currentSlant() {
-      const params = { slant: this.$store.state.carousel.selectedSlant, timerange: this.$store.state.events.timerange }
-      this.getEvents(params)
-    },
-    currentTimerange() {
-      const params = { slant: this.$store.state.carousel.selectedSlant, timerange: this.$store.state.events.timerange }
-      this.getEvents(params)
-    },
-  },
   mounted() {
-    const params = { slant: this.$store.state.carousel.selectedSlant, timerange: this.$store.state.events.timerange }
-    this.getEvents(params)
+    this.updateSlantUrl()
   },
   methods: {
-    getEvents(params) {
-      this.$store.dispatch('events/getTopEvents', params)
-    },
-    timerangeChanged(value) {
-      this.$store.dispatch('events/setTimerange', value)
-    },
     slantChanged(slant) {
       this.$store.dispatch('carousel/setSlant', slant)
+      this.$store.dispatch('events/getTopEvents', { slant, timerange: this.$store.state.events.timerange })
+      this.updateSlantUrl()
+    },
+    updateSlantUrl() {
+      const slant = this.$store.state.carousel.selectedSlant
+      const url = new URL(window.location)
+      if (!url.searchParams.has('slant') || url.searchParams.get('slant') !== String(slant)) {
+        url.searchParams.set('slant', slant)
+        window.history.replaceState(null, '', `${url.pathname}${url.search}`)
+      }
     },
   },
 }

@@ -164,10 +164,12 @@ export default {
     decrement() {
       this.slideDirection = false
       this.$store.commit('carousel/DECREMENT_ITEM')
+      this.$emit('change', this.$store.state.carousel.selectedSlant)
     },
     increment() {
       this.slideDirection = true
       this.$store.commit('carousel/INCREMENT_ITEM')
+      this.$emit('change', this.$store.state.carousel.selectedSlant)
     },
     getArticles(slant) {
       // if (slant - 1 < 1 || slant + 1 > 3) {

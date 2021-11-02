@@ -5,7 +5,7 @@ export const state = () => ({
   topEvents: [],
   articles: {},
   timerange: TIMERANGE.TODAY,
-  eventTitle: ''
+  eventTitle: '',
 })
 
 export const mutations = {
@@ -20,7 +20,7 @@ export const mutations = {
   },
   SET_EVENT_TITLE(state, payload) {
     state.eventTitle = payload
-  }
+  },
 }
 
 export const actions = {
@@ -51,7 +51,7 @@ export const actions = {
         2: [],
         3: [],
         4: [],
-        5: []
+        5: [],
       }
       data.articles.forEach((article) => {
         result[parseInt(article.medium.slant)].push(article)
@@ -62,5 +62,5 @@ export const actions = {
   },
   setTimerange(context, payload) {
     context.commit('SET_TIMERANGE', payload)
-  }
+  },
 }
