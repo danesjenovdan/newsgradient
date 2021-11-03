@@ -23,9 +23,12 @@ class MediumAdmin(admin.ModelAdmin):
 class EventForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['og_image_article'].queryset = models.Event.objects.get(
-            uri=kwargs['instance'].uri
-        ).articles.all()
+        if kwargs.get('instance', None):
+            self.fields['og_image_article'].queryset = models.Event.objects.get(
+                uri=kwargs['instance'].uri
+            ).articles.all()
+        else:
+            self.fields['og_image_article'].queryset = models.Event.objects.none()
 
 
 class EventAdmin(admin.ModelAdmin):

@@ -1,7 +1,8 @@
 from django.db import models
+from django.core.cache import cache
 
 # Create your models here.
-from constants import Orientations
+from constants import CacheKeys, Orientations
 from constants import Reliability
 
 
@@ -66,6 +67,13 @@ class Event(models.Model):
 
     def article_count(self):
         return self.articles.count()
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            cache_key = f'{CacheKeys.EVENT_ARTICLES}::{self.pk}'
+            cache.delete(cache_key)
+
+        super().save(*args, **kwargs)
 
 
 class Article(models.Model):
