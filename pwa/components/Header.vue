@@ -1,8 +1,8 @@
 <template>
   <div class="ng-header container--fluid">
-    <div class="flex flex-justify--space-between w-90 mx-auto px-3">
-      <div class="flex">
-        <nuxt-link to="/" class="flex flex--1 mr8">
+    <div class="flex flex-justify--space-between flex-wrap flex-lg-nowrap w-90 mx-auto px-3">
+      <div class="flex header-container">
+        <nuxt-link to="/" class="flex mr8">
           <h1 hidden>NEWSGRADIENT</h1>
           <img src="@/assets/svg/logo-text.svg" class="logo-image" />
         </nuxt-link>
@@ -77,11 +77,11 @@ export default {
 .logo-image {
   width: 150px;
 
-  @media (min-width: $small) and (max-width: $large) {
-    width: 200px;
+  @media (min-width: $small) and (max-width: $xlarge) {
+    width: 300px;
   }
 
-  @media (min-width: $large) {
+  @media (min-width: $xlarge) {
     width: 408px;
   }
 }
@@ -94,6 +94,13 @@ h2 {
   margin: 0 0 0 0.5rem;
 }
 
+.header-container {
+  @media (max-width: $small) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .links-container {
   display: flex;
   justify-content: space-between;
@@ -101,8 +108,15 @@ h2 {
   max-width: 450px;
   min-width: 350px;
 
-  @media (max-width: $medium) {
-    justify-content: flex-end;
+  // @media (max-width: $medium) {
+  //   justify-content: flex-end;
+  // }
+
+  @media (max-width: $large) {
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    margin-top: 1em;
   }
 }
 
@@ -112,7 +126,7 @@ h2 {
   font-weight: 900;
   border-bottom: 4px solid white;
 
-  @media (max-width: $medium) {
+  @media (max-width: $small) {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,7 +134,10 @@ h2 {
     font-size: 10px;
     background-color: #ea4243;
     color: white;
-    width: 80%;
+    // width: 20%;
+    // flex-grow: 0;
+    // flex-shrink: 0;
+    // flex-basis: 0%;
     border-radius: 12px;
     border: none;
     font-weight: 400;
@@ -131,7 +148,7 @@ h2 {
     color: #ea4243;
     border-bottom: 4px solid #ea4243;
 
-    @media (max-width: $medium) {
+    @media (max-width: $small) {
       color: white;
       text-decoration: none;
       border: none;
@@ -141,24 +158,30 @@ h2 {
   &--active {
     color: #ea4243;
     border-bottom: 4px solid #ea4243;
+
+    @media (max-width: $small) {
+      color: white;
+      text-decoration: none;
+      border: none;
+    }
   }
 }
 
-.events-link {
-  display: none;
+// .events-link {
+//   display: none;
 
-  @media (min-width: $large) {
-    display: block;
-  }
-}
+//   @media (min-width: $large) {
+//     display: block;
+//   }
+// }
 
-.timing-container {
-  display: block;
+// .timing-container {
+//   display: block;
 
-  @media (min-width: $large) {
-    display: none;
-  }
-}
+//   @media (min-width: $large) {
+//     display: none;
+//   }
+// }
 
 a {
   text-decoration: none;
