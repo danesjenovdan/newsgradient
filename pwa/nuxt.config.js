@@ -23,7 +23,7 @@ export default {
       // { hid: 'og:image:height', property: 'og:image:height', content: '628' },
       { hid: 'og:title', property: 'og:title', content: OG_TITLE },
       { hid: 'og:description', property: 'og:description', content: OG_DESCRIPTION },
-      { hid: 'og:url', property: 'og:url', content: 'https://newsgradient.org/' },
+      // { hid: 'og:url', property: 'og:url', content: 'https://newsgradient.org/' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: OG_TITLE },
       { hid: 'twitter:image', name: 'twitter:image', content: OG_IMAGE },
