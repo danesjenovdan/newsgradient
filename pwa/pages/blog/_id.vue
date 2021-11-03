@@ -61,6 +61,8 @@ export default {
       meta: [
         { hid: 'og:title', property: 'og:title', content: `${this.blogPost.title} - Newsgradient` },
         { hid: 'twitter:title', name: 'twitter:title', content: `${this.blogPost.title} - Newsgradient` },
+        { hid: 'og:description', property: 'og:description', content: this.blogPost.short_description },
+        { hid: 'twitter:description', name: 'twitter:description', content: this.blogPost.short_description },
         { hid: 'og:image', property: 'og:image', content: this.blogPost.image },
         { hid: 'twitter:image', name: 'twitter:image', content: this.blogPost.image },
       ],

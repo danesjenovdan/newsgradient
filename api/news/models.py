@@ -49,6 +49,14 @@ class Event(models.Model):
     date = models.DateField(db_index=True)
     images = models.TextField(default='', blank=True)
     is_promoted = models.BooleanField(default=False, db_index=True)
+    description = models.TextField(null=True, blank=True)
+    og_image_article = models.ForeignKey(
+        'Article',
+        related_name='+',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.title

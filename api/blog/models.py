@@ -12,3 +12,6 @@ class BlogPost(models.Model):
         blank=True
     )
     text = MartorField()
+
+    def __str__(self):
+        return self.title
