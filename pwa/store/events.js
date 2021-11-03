@@ -6,6 +6,8 @@ export const state = () => ({
   articles: {},
   timerange: TIMERANGE.TODAY,
   eventTitle: '',
+  eventDescription: '',
+  eventImage: '',
 })
 
 export const mutations = {
@@ -20,6 +22,12 @@ export const mutations = {
   },
   SET_EVENT_TITLE(state, payload) {
     state.eventTitle = payload
+  },
+  SET_EVENT_DESCRIPTION(state, payload) {
+    state.eventDescription = payload
+  },
+  SET_EVENT_IMAGE(state, payload) {
+    state.eventImage = payload
   },
 }
 
@@ -58,6 +66,8 @@ export const actions = {
       })
       context.commit('SET_ARTICLES', result)
       context.commit('SET_EVENT_TITLE', data.title)
+      context.commit('SET_EVENT_DESCRIPTION', data.description)
+      context.commit('SET_EVENT_IMAGE', data.og_image)
     } catch (e) {}
   },
   setTimerange(context, payload) {

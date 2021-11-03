@@ -78,13 +78,16 @@ export default {
     },
   },
   head() {
-    const image = this.$store.state.events.articles['2']?.[0]?.image
     const title = this.$store.state.events.eventTitle
+    const description = this.$store.state.events.eventDescription
+    const image = this.$store.state.events.eventImage || this.$store.state.events.articles['2']?.[0]?.image
     return {
       title,
       meta: [
         { hid: 'og:title', property: 'og:title', content: `${title} - Newsgradient` },
         { hid: 'twitter:title', name: 'twitter:title', content: `${title} - Newsgradient` },
+        { hid: 'og:description', property: 'og:description', content: description },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
         { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],

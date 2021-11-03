@@ -27,6 +27,8 @@ class ArticleSchema(Schema):
 class EventArticlesSchema(Schema):
     articles = fields.Nested(ArticleSchema, many=True)
     title = fields.String(dump_only=True)
+    description = fields.String(dump_only=True)
+    og_image = fields.String(dump_only=True)
     social_score = fields.Integer(dump_only=True)
 
 

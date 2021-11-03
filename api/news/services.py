@@ -75,7 +75,7 @@ def get_most_popular_events_with_articles(slant: int = Orientations.NEUTRAL):
 
 def get_event_articles(event_uri):
     try:
-        event = Event.objects.values('title').get(uri=event_uri)
+        event = Event.objects.values('title', 'description', 'og_image_article').get(uri=event_uri)
     except Event.DoesNotExist:
         raise NotFound
     mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
@@ -83,8 +83,15 @@ def get_event_articles(event_uri):
     for article in articles:
         article['medium'] = mediums.get(article.get('medium_id'))
 
+    og_image = None
+    if event.get('og_image_article'):
+        og_image_article = Article.objects.values('image').get(uri=event.get('og_image_article'))
+        og_image = og_image_article.get('image')
+
     data = {
         'title': event.get('title'),
+        'description': event.get('description'),
+        'og_image': og_image,
         'articles': list(articles)
     }
     return data

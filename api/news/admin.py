@@ -20,7 +20,16 @@ class MediumAdmin(admin.ModelAdmin):
     list_editable = ('slant',)
 
 
+class EventForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['og_image_article'].queryset = models.Event.objects.get(
+            uri=kwargs['instance'].uri
+        ).articles.all()
+
+
 class EventAdmin(admin.ModelAdmin):
+    form = EventForm
     list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count']
     search_fields = ['title', 'summary']
     list_filter = ['date', 'is_promoted']
