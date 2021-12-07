@@ -107,7 +107,8 @@ class Command(BaseCommand):
                     'title': f'{context["title"]} {context["subtitle"]} {context["date"]}',
                     'description': f'{context["title"]} {context["subtitle"]} {context["date"]}',
                     'content': html_content,
-                    'segments': [19]
+                    'segments': [19],
+                    'fromName': 'Newsgradient'
                 },
             )
             print('Newsletter submitted, API response follows:')
