@@ -4,6 +4,7 @@ from django.db.models.functions import Cast
 from django.template.response import TemplateResponse
 from django.utils.translation import ngettext
 from django.utils.safestring import mark_safe
+from django.utils.crypto import get_random_string
 from django import forms
 
 from datetime import datetime, timedelta
@@ -28,7 +29,7 @@ class EventForm(forms.ModelForm):
                 uri=kwargs['instance'].uri
             ).articles.all()
         else:
-            self.fields['og_image_article'].queryset = models.Event.objects.none()
+            self.fields['og_image_article'].queryset = models.Article.objects.none()
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -149,6 +150,10 @@ class EventAdmin(admin.ModelAdmin):
 
             #  add events to the newsletter
             newsletter.events.add(obj)
+
+        if (not obj.uri):
+            obj.uri = get_random_string(length=32)
+        
         super().save_model(request, obj, form, change)
 
     actions = [merge_to_oldest, merge_to_most_popular]
@@ -170,9 +175,12 @@ class ArticleAdmin(admin.ModelAdmin):
 class NewsletterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['events'].queryset = models.Newsletter.objects.get(
-            id=kwargs['instance'].id
-        ).events.all()
+        if kwargs.get('instance', None):
+            self.fields['events'].queryset = models.Newsletter.objects.get(
+                id=kwargs['instance'].id
+            ).events.all()
+        else:
+            self.fields['events'].queryset = models.Event.objects.none()
 
 
 class NewsletterAdmin(admin.ModelAdmin):
