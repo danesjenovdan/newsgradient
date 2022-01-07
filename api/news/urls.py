@@ -13,4 +13,5 @@ urlpatterns = [
     path('articles/<str:event_id>/', views.ArticleView.as_view()),
     path('event/<str:event_id>/', views.EventDetailView.as_view()),
     path('newsletter-preview/', views.NewsletterView.as_view()),
+    path('newsletter-api/', views.NewsletterApiView.as_view()),
 ]

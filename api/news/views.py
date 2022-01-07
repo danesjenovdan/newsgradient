@@ -1,5 +1,6 @@
 import typing
 import requests
+import json
 from datetime import datetime
 from datetime import timedelta
 
@@ -146,6 +147,56 @@ class EventDetailView(APIView):
         schema = EventSchema()
         data = schema.dump(event)
         return Response(data)
+
+
+class NewsletterApiView(APIView):
+    permission_classes = (AllowAny,)
+
+    @staticmethod
+    def get_locale_date(date):
+        days_map = {
+            'Monday': 'ponedeljak',
+            'Tuesday': 'utorak',
+            'Wednesday': 'srijeda',
+            'Thursday': 'četvrtak',
+            'Friday': 'petak',
+            'Saturday': 'subota',
+            'Sunday': 'nedjelja'
+        }
+
+        day = days_map.get(date.strftime('%A'), 'ERROR')
+
+        return f'{day}, {date.strftime("%d. %m.")}'
+
+    def get(self, request):
+        events = models.Event.objects \
+            .select_related('articles') \
+            .annotate(all_articles_count=Count('articles')) \
+            .values('uri', 'title', 'all_articles_count', 'date') \
+            .filter(is_promoted=True) \
+            .order_by('-all_articles_count')
+
+        def articles_for_event_slant(event, slant):
+            return models.Article.objects \
+                .select_related('medium') \
+                .annotate(social_score=Count('tweets')) \
+                .values('url', 'image', 'title', 'medium__title', 'social_score') \
+                .filter(event_id=event.get('uri'), medium__slant=slant) \
+                .order_by('-medium__reliability')
+
+        # events
+        eventsData = [{
+            'title': event.get('title', ''),
+            'date': self.get_locale_date(event.get('date', datetime.today())),
+            'uri': event.get('uri', ''),
+            'articles_slant_1': [article for article in articles_for_event_slant(event, 1)[:1]],
+            'articles_slant_3': [article for article in articles_for_event_slant(event, 3)[:1]],
+            'all_articles_slant_1': [article for article in articles_for_event_slant(event, 1)],
+            'all_articles_slant_2': [article for article in articles_for_event_slant(event, 2)],
+            'all_articles_slant_3': [article for article in articles_for_event_slant(event, 3)],
+        } for event in events]
+
+        return Response(eventsData)
 
 
 class NewsletterView(TemplateView):
