@@ -34,7 +34,7 @@ class EventForm(forms.ModelForm):
 
 class EventAdmin(admin.ModelAdmin):
     form = EventForm
-    list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count']
+    list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count', 'tweet_count']
     search_fields = ['title', 'summary']
     list_filter = ['date', 'is_promoted']
     list_editable = ('is_promoted',)
@@ -73,6 +73,13 @@ class EventAdmin(admin.ModelAdmin):
                     distinct=True
                 ),
                 IntegerField()
+            ),
+            _tweet_count=Cast(
+                Count(
+                    'articles__tweets',
+                    distinct=True
+                ),
+                IntegerField()
             )
         )
 
@@ -87,6 +94,9 @@ class EventAdmin(admin.ModelAdmin):
 
     def right_count(self, obj):
         return obj._right_count
+
+    def tweet_count(self, obj):
+        return obj._tweet_count
 
     def merge_to_oldest(self, request, queryset):
         first_event = queryset.earliest('date')
@@ -162,14 +172,31 @@ class EventAdmin(admin.ModelAdmin):
     left_count.admin_order_field = '_left_count'
     neutral_count.admin_order_field = '_neutral_count'
     right_count.admin_order_field = '_right_count'
+    tweet_count.admin_order_field = '_tweet_count'
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'event', 'medium']
+    list_display = ['title', 'event', 'tweet_count', 'medium']
     search_fields = ['title', 'content']
-    list_filter = ['event', 'medium']
+    list_filter = ['medium']
     list_select_related = ('medium',)
     autocomplete_fields = ['event']
+
+    def get_queryset(self, request):
+        return models.Article.objects.all().annotate(
+            _tweet_count=Cast(
+                Count(
+                    'tweets',
+                    distinct=True
+                ),
+                IntegerField()
+            )
+        )
+
+    def tweet_count(self, obj):
+        return obj._tweet_count
+
+    tweet_count.admin_order_field = '_tweet_count'
 
 
 class NewsletterForm(forms.ModelForm):
