@@ -5,6 +5,7 @@
         <tr>
             <th>Article title</th>
             <th>Medium</th>
+            <th>Tweets</th>
             <th>Slant</th>
             <th>URL</th>
         </tr>
@@ -12,6 +13,7 @@
         <tr>
             <td><b>{{ article.title }}</b></td>
             <td>{{ article.medium.title }}</td>
+            <td>{{ article.tweets.count }}</td>
             <td>{{ article.medium.slant }}</td>
             <td><a target="_blank" href="{{ article.url }}">{{ article.url }}</a></td>
         </tr>

@@ -43,7 +43,7 @@ def get_most_popular_events_with_articles(slant: int = Orientations.NEUTRAL):
             articles_for_output.append(article_for_output)
         event['articles'] = articles_for_output[:3]
         event['articles_count'] = articles.count()
-        event['social_score'] = Tweet.objects.filter(article__in=articles).count()
+        event['social_score'] = Tweet.objects.filter(article__event=event.get('uri')).count()
         if len(articles):
             d = datetime.utcnow() - articles[0].datetime.replace(tzinfo=None)
             hours = int(d.total_seconds() // 3600)

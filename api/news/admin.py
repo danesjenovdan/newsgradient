@@ -4,6 +4,7 @@ from django.db.models.functions import Cast
 from django.template.response import TemplateResponse
 from django.utils.translation import ngettext
 from django.utils.safestring import mark_safe
+from django.utils.crypto import get_random_string
 from django import forms
 
 from datetime import datetime, timedelta
@@ -28,12 +29,12 @@ class EventForm(forms.ModelForm):
                 uri=kwargs['instance'].uri
             ).articles.all()
         else:
-            self.fields['og_image_article'].queryset = models.Event.objects.none()
+            self.fields['og_image_article'].queryset = models.Article.objects.none()
 
 
 class EventAdmin(admin.ModelAdmin):
     form = EventForm
-    list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count']
+    list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count', 'tweet_count']
     search_fields = ['title', 'summary']
     list_filter = ['date', 'is_promoted']
     list_editable = ('is_promoted',)
@@ -72,6 +73,13 @@ class EventAdmin(admin.ModelAdmin):
                     distinct=True
                 ),
                 IntegerField()
+            ),
+            _tweet_count=Cast(
+                Count(
+                    'articles__tweets',
+                    distinct=True
+                ),
+                IntegerField()
             )
         )
 
@@ -86,6 +94,9 @@ class EventAdmin(admin.ModelAdmin):
 
     def right_count(self, obj):
         return obj._right_count
+
+    def tweet_count(self, obj):
+        return obj._tweet_count
 
     def merge_to_oldest(self, request, queryset):
         first_event = queryset.earliest('date')
@@ -149,6 +160,10 @@ class EventAdmin(admin.ModelAdmin):
 
             #  add events to the newsletter
             newsletter.events.add(obj)
+
+        if (not obj.uri):
+            obj.uri = get_random_string(length=32)
+
         super().save_model(request, obj, form, change)
 
     actions = [merge_to_oldest, merge_to_most_popular]
@@ -157,22 +172,42 @@ class EventAdmin(admin.ModelAdmin):
     left_count.admin_order_field = '_left_count'
     neutral_count.admin_order_field = '_neutral_count'
     right_count.admin_order_field = '_right_count'
+    tweet_count.admin_order_field = '_tweet_count'
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'event', 'medium']
+    list_display = ['title', 'event', 'tweet_count', 'medium']
     search_fields = ['title', 'content']
-    list_filter = ['event', 'medium']
+    list_filter = ['medium']
     list_select_related = ('medium',)
     autocomplete_fields = ['event']
+
+    def get_queryset(self, request):
+        return models.Article.objects.all().annotate(
+            _tweet_count=Cast(
+                Count(
+                    'tweets',
+                    distinct=True
+                ),
+                IntegerField()
+            )
+        )
+
+    def tweet_count(self, obj):
+        return obj._tweet_count
+
+    tweet_count.admin_order_field = '_tweet_count'
 
 
 class NewsletterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['events'].queryset = models.Newsletter.objects.get(
-            id=kwargs['instance'].id
-        ).events.all()
+        if kwargs.get('instance', None):
+            self.fields['events'].queryset = models.Newsletter.objects.get(
+                id=kwargs['instance'].id
+            ).events.all()
+        else:
+            self.fields['events'].queryset = models.Event.objects.none()
 
 
 class NewsletterAdmin(admin.ModelAdmin):
@@ -181,8 +216,13 @@ class NewsletterAdmin(admin.ModelAdmin):
         ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'style': 'margin-right: 10px'})},
     }
 
+
+class TweetAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['article']
+
+
 admin.site.register(models.Medium, MediumAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.Tweet)
+admin.site.register(models.Tweet, TweetAdmin)
 admin.site.register(models.Newsletter, NewsletterAdmin)

@@ -16,7 +16,11 @@ RUN pip install -r requirements.txt
 # install twint
 # this is done with pip, because the --system
 # flag in pipenv can't be used on single dependencies
-RUN pip install git+https://github.com/twintproject/twint.git#egg=twint
+# RUN pip install git+https://github.com/twintproject/twint.git#egg=twint
+
+# install a fork of twint, since the original is broken after twitter made changes
+# see changes here: https://github.com/twintproject/twint/compare/master...rupert-jha:158f40fd799471dc205a7929fc0aaaaaf76645f7
+RUN pip install git+https://github.com/rupert-jha/twint.git@158f40fd799471dc205a7929fc0aaaaaf76645f7#egg=twint
 
 COPY . /app
 
