@@ -15,7 +15,7 @@ resources:
 images:
   - name: newsgradient-api
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-api
-    newTag: '143ea4ca8ff06984961c12abf52b40fbdc9d19e2'
+    newTag: '5889564c2390b3d061dcac4da5954be3e9588428'
   - name: newsgradient-pwa
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-pwa
-    newTag: '143ea4ca8ff06984961c12abf52b40fbdc9d19e2'
+    newTag: '5889564c2390b3d061dcac4da5954be3e9588428'
