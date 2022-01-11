@@ -153,7 +153,7 @@ class EventAdmin(admin.ModelAdmin):
 
         if (not obj.uri):
             obj.uri = get_random_string(length=32)
-        
+
         super().save_model(request, obj, form, change)
 
     actions = [merge_to_oldest, merge_to_most_popular]
@@ -189,8 +189,13 @@ class NewsletterAdmin(admin.ModelAdmin):
         ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'style': 'margin-right: 10px'})},
     }
 
+
+class TweetAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['article']
+
+
 admin.site.register(models.Medium, MediumAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.Tweet)
+admin.site.register(models.Tweet, TweetAdmin)
 admin.site.register(models.Newsletter, NewsletterAdmin)
