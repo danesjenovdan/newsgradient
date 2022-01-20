@@ -4,7 +4,7 @@
 
     <div class="container--fluid">
       <div v-if="!isMobile" class="flex flex-align--center flex-justify--center">
-        <h1>Prijavi se na newsletter</h1>
+        <h1>Prijavi se na Newsgradient pregled sedmice!</h1>
       </div>
     </div>
 
@@ -13,20 +13,29 @@
     <div class="container my-4">
       <b-row>
         <div class="col-12">
-          <div class="newsletter-bar">
+          <div class="newsletter-bar p-lg-5">
             <div v-if="!submitted" class="text-center">
-              <h2>Želiš li uvijek biti u toku sa pregledom objava?</h2>
-              <p>Prijavi se na newsletter tako što ćeš unijeti svoj email!</p>
+              <h2 v-if="showSubscribe">
+                Želiš li uvijek biti u toku s najaktualnijim vijestima iz bosanskohercegovačkih medija, grupisanih prema
+                ideološkoj orijentaciji?
+              </h2>
+              <h2 v-if="!showSubscribe">Uređivanje prijave</h2>
+              <p v-if="showSubscribe">
+                Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u Bosni i
+                Hercegovini. Unesi svoj e-mail kako bi pratio/la kako o tim događajima izvještavaju mediji razvrstani na
+                skali lijevo-desno!
+              </p>
+              <p v-if="!showSubscribe">Prijavljen/a si na newsletter. Ako želiš, možeš se odjaviti ispod.</p>
               <form @submit.prevent="onSubmit">
                 <input
                   v-if="showSubscribe"
                   v-model="email"
                   type="email"
-                  placeholder="email"
+                  placeholder="E-mail"
                   required
                   :disabled="submitting"
                 />
-                <input v-if="showSubscribe" type="submit" value="Prijavi se" :disabled="submitting" />
+                <input v-if="showSubscribe" type="submit" value="Prijavi se!" :disabled="submitting" />
                 <div v-if="error">Nekaj je šlo narobe, poskusite ponovno :(</div>
               </form>
               <input
@@ -37,13 +46,18 @@
                 @click="unsubscribe()"
               />
             </div>
-            <div v-else class="text-center">Hvala na prijavi. Za potvrdu registracije provjerite Vaš e-mail.</div>
+            <div v-else class="text-center">
+              Hvala na prijavi. Potvrdu registracije poslali smo na Vašu e-mail adresu.
+            </div>
           </div>
         </div>
       </b-row>
       <b-row class="justify-content-center">
         <div class="col-8 text-center my-5">
-          <h4>Sneak peak nekaj najbolj branih novih prejšnjega tedna, ki so bile vključene v newsletter:</h4>
+          <h4>
+            U nastavku pogledaj kako su tri najaktuelnija medijska događaja iz protekle sedmice predstavljena u
+            Newsgradient pregledu.
+          </h4>
         </div>
       </b-row>
       <b-row>
@@ -142,6 +156,39 @@ export default {
     Divider,
     NewsletterEventArticle,
     NewsletterEventMedia,
+  },
+  head: {
+    title: 'Newsgradient pregled sedmice',
+    meta: [
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Newsgradient pregled sedmice',
+      },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Newsgradient pregled sedmice',
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+    ],
   },
   async asyncData({ $axios }) {
     const response = await $axios.get(API.news.newsletter)
@@ -243,6 +290,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/style/variables';
+
 h1 {
   text-align: center;
   font-style: italic;
@@ -312,6 +361,11 @@ h4 {
     input[type='email'] {
       width: 300px;
       margin-right: -40px;
+
+      @media (max-width: $medium) {
+        width: 100%;
+        margin-right: 0;
+      }
     }
 
     input[type='submit'] {
@@ -321,6 +375,10 @@ h4 {
       text-transform: uppercase;
       font-weight: 900;
       letter-spacing: 0.9px;
+
+      @media (max-width: $medium) {
+        margin-top: 10px;
+      }
     }
 
     input[disabled],
