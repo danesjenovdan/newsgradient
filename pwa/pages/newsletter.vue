@@ -55,13 +55,13 @@
       <b-row class="justify-content-center">
         <div class="col-8 text-center my-5">
           <h4>
-            U nastavku pogledaj kako su tri najaktuelnija medijska događaja iz protekle sedmice predstavljena u
+            U nastavku pogledaj kako su četiri najaktuelnija medijska događaja iz protekle sedmice predstavljena u
             Newsgradient pregledu.
           </h4>
         </div>
       </b-row>
       <b-row>
-        <div v-for="event in events" :key="event.uri" class="col-lg-4 event-wrapper">
+        <div v-for="event in events" :key="event.uri" class="col-lg-6 event-wrapper">
           <div style="background-image: linear-gradient(to right, #0076fe 0%, #e50001 100%); height: 5px"></div>
           <div class="event">
             <a

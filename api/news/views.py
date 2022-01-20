@@ -174,7 +174,7 @@ class NewsletterApiView(APIView):
             .annotate(all_articles_count=Count('articles')) \
             .values('uri', 'title', 'all_articles_count', 'date') \
             .filter(is_promoted=True) \
-            .order_by('-all_articles_count')[:3]
+            .order_by('-all_articles_count')[:4]
 
         def articles_for_event_slant(event, slant):
             return models.Article.objects \
