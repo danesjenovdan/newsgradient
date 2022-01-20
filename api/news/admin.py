@@ -24,6 +24,7 @@ class MediumAdmin(admin.ModelAdmin):
 class NewsletterEventsInline(admin.TabularInline):
     model = models.Newsletter.events.through
     extra = 0
+    autocomplete_fields = ['event']
 
 
 class EventForm(forms.ModelForm):
