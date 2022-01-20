@@ -21,6 +21,11 @@ class MediumAdmin(admin.ModelAdmin):
     list_editable = ('slant',)
 
 
+class NewsletterEventsInline(admin.TabularInline):
+    model = models.Newsletter.events.through
+    extra = 0
+
+
 class EventForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,10 +40,11 @@ class EventForm(forms.ModelForm):
 class EventAdmin(admin.ModelAdmin):
     form = EventForm
     list_display = ['title', 'date', 'number_of_articles', 'is_promoted', 'left_count', 'neutral_count', 'right_count', 'tweet_count']
-    search_fields = ['title', 'summary']
+    search_fields = ['title']
     list_filter = ['date', 'is_promoted']
     list_editable = ('is_promoted',)
     exclude = ['uri', 'images']
+
 
     def get_queryset(self, request):
         return models.Event.objects.prefetch_related('articles').all().annotate(
@@ -197,24 +203,13 @@ class ArticleAdmin(admin.ModelAdmin):
         return obj._tweet_count
 
     tweet_count.admin_order_field = '_tweet_count'
-
-
-class NewsletterForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if kwargs.get('instance', None):
-            self.fields['events'].queryset = models.Newsletter.objects.get(
-                id=kwargs['instance'].id
-            ).events.all()
-        else:
-            self.fields['events'].queryset = models.Event.objects.none()
-
+       
 
 class NewsletterAdmin(admin.ModelAdmin):
-    form = NewsletterForm
-    formfield_overrides = {
-        ManyToManyField: {'widget': forms.CheckboxSelectMultiple(attrs={'style': 'margin-right: 10px'})},
-    }
+    inlines = [
+        NewsletterEventsInline,
+    ]
+    exclude = ('events',)
 
 
 class TweetAdmin(admin.ModelAdmin):
