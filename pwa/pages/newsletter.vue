@@ -157,39 +157,6 @@ export default {
     NewsletterEventArticle,
     NewsletterEventMedia,
   },
-  head: {
-    title: 'Newsgradient pregled sedmice',
-    meta: [
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        content: 'Newsgradient pregled sedmice',
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        content:
-          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
-      },
-      {
-        hid: 'twitter:title',
-        name: 'twitter:title',
-        content: 'Newsgradient pregled sedmice',
-      },
-      {
-        hid: 'twitter:description',
-        name: 'twitter:description',
-        content:
-          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
-      },
-    ],
-  },
   async asyncData({ $axios }) {
     const response = await $axios.get(API.news.newsletter)
     const events = response.data
@@ -285,6 +252,49 @@ export default {
           this.showSubscribe = true
         })
     },
+  },
+  head: {
+    title: 'Newsgradient pregled sedmice',
+    meta: [
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Newsgradient pregled sedmice',
+      },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+      {
+        hid: 'twitter:title',
+        name: 'twitter:title',
+        content: 'Newsgradient pregled sedmice',
+      },
+      {
+        hid: 'twitter:description',
+        name: 'twitter:description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Prijavi se na Newsgradient newsletter i svake sedmice prati pregled najvažnijih događaja u medijima raspoređenim prema ideološkoj orijentaciji.',
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://newsgradient.org/ng-og-prijava.jpg',
+      },
+      {
+        hid: 'twitter:image',
+        name: 'twitter:image',
+        content: 'https://newsgradient.org/ng-og-prijava.jpg',
+      },
+    ],
   },
 }
 </script>
