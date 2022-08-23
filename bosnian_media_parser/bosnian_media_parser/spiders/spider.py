@@ -15,7 +15,7 @@ class CustomSpider(scrapy.Spider):
 
   # HOMEPAGE
   # a list of css classes we use to select which DOM elements to parse
-  allowed_home_page_div_classes = ['class1', 'class2']
+  allowed_home_page_div_classes = ['div.class1', 'div.class2']
 
   # ARTICLE PAGE
   # css selector used to find the DOM element containing article title
@@ -35,7 +35,7 @@ class CustomSpider(scrapy.Spider):
 
     # sparsaj vse linke iz specifičnih div-ov iz home page-a
     for cls in self.allowed_home_page_div_classes:
-        home_links = response.css(f'div.{cls} a')
+        home_links = response.css(f'{cls}')
         yield from response.follow_all(home_links, self.parse_news)
 
 
@@ -95,6 +95,7 @@ class CustomSpider(scrapy.Spider):
                 texts[i] = ''
 
     content = ' '.join(map(str.strip, texts))
-    if self.skip_after in content:
+
+    if self.skip_after and self.skip_after in content:
         content = content[:content.index(self.skip_after)]
     return content

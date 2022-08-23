@@ -9,7 +9,7 @@ class N1infoSpider(CustomSpider):
     medium_id = 1
 
     # HOMEPAGE
-    allowed_home_page_div_classes = ['featured-zone-homepage', 'content-zone']
+    allowed_home_page_div_classes = ['div.featured-zone-homepage  a', 'div.content-zone  a']
     
     # ARTICLE PAGE
     news_title_class = 'h1.entry-title::text'
