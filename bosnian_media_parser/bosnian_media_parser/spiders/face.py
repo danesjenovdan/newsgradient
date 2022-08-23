@@ -10,15 +10,15 @@ class N1infoSpider(CustomSpider):
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'div.standard-article-card-wrapper>a'
+        '.article > a'
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.title::text'
-    news_content_class = 'div.article-content ::text'
-    ignore_starts_words = []
+    news_title_class = 'div.main-article-headline::text'
+    news_content_class = 'div.main-article-text-wrapper ::text'
+    ignore_starts_words = ['var mpi_wi']
     skip_after = ''
-    date_element = '.article-time::text'
+    date_element = '.main-article-info>span.main-article-info-span::text'
 
     def parse_date(self, date_strings):
         """
@@ -30,5 +30,5 @@ class N1infoSpider(CustomSpider):
         print(date_strings)
         date = date_strings[0].strip()
 
-        formated_date = datetime.strptime(date, '%d. %B %Y, %H:%M')
+        formated_date = datetime.strptime(date, '%d. %m. %Y. u %H:%M')
         return formated_date
