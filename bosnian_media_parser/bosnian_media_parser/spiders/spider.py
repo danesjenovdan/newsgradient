@@ -43,7 +43,7 @@ class CustomSpider(scrapy.Spider):
     """ Parses the article page and yields the data. """
 
     # pridobi naslov in vsebino novice
-    title = response.css(f'{self.news_title_class}').get()
+    title = response.css(f'{self.news_title_class}').get().strip()
     content_list = response.css(f'{self.news_content_class}').getall()
 
     # prečišči besedilo
