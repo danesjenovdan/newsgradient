@@ -50,9 +50,12 @@ class CustomSpider(scrapy.Spider):
     cleard_content = self.skip_items_and_merge(content_list)
 
     # parsanje datuma
-    date_strings = response.css(f'{self.date_element}').getall()
+    if self.date_element:
+        date_strings = response.css(f'{self.date_element}').getall()
 
-    formated_date = self.parse_date(date_strings)
+        formated_date = self.parse_date(date_strings)
+    else:
+        formated_date = None
 
     yield {
         'title': title,
