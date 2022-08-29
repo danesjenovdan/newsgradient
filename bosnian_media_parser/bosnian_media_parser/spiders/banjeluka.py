@@ -2,28 +2,29 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
-import re
 
-class DnevnikSpider(CustomSpider):
+class BanjelukaSpider(CustomSpider):
 
-    name = 'dnevnik'
+    name = 'banjaluka'
 
-    allowed_domains = ['dnevnik.ba']
-    start_urls = ['https://www.dnevnik.ba/']
+    allowed_domains = ['banjaluka.com']
+    start_urls = ['https://www.banjaluka.com/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'article > a',
+        'article>a',
+        'div.large-home>a',
+        'div.medium-home>a',
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.item__title::text'
-    news_content_class = 'div.itemFullText>p::text'
+    news_title_class = 'h1.single-news-title::text'
+    news_content_class = 'div.clanak p ::text'
     ignore_starts_words = []
     skip_after = ''
-    date_element = 'span.card__time::text'
+    date_element = 'p.datum ::text'
 
     def parse_date(self, date_strings):
         """
@@ -32,6 +33,6 @@ class DnevnikSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[0].strip().replace(u'\xa0', u'').replace('/','')
-        formated_date = datetime.strptime(date, '%d.%m.%Y., %H:%Mh')
+        date = date_strings[0].replace('Objavljeno: ', '')
+        formated_date = datetime.strptime(date, '%d. %m. %Y u %H:%Mh')
         return formated_date

@@ -2,26 +2,27 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
-class BljesakSpider(CustomSpider):
 
-    name = 'bljesak'
+class HaberSpider(CustomSpider):
 
-    allowed_domains = ['bljesak.info']
-    start_urls = ['https://bljesak.info/']
+    name = 'haber'
+
+    allowed_domains = ['haber.ba']
+    start_urls = ['https://haber.ba/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'article > a',
+        'a[rel="bookmark"]',
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.title::text'
-    news_content_class = 'div.rte>p::text'
+    news_title_class = 'h1.post-title::text'
+    news_content_class = 'div#content-main>p ::text'
     ignore_starts_words = []
     skip_after = ''
-    date_element = 'div.info>span::text'
+    date_element = 'meta[itemprop="dateModified"]::attr(content)'
 
     def parse_date(self, date_strings):
         """
@@ -30,9 +31,6 @@ class BljesakSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[4].strip()
-        formated_date = datetime.strptime(date, '%d. %m. %Y. u %H:%M')
+        date = date_strings[0]
+        formated_date = datetime.strptime(date, '%Y-%m-%d')
         return formated_date
-
-
-
