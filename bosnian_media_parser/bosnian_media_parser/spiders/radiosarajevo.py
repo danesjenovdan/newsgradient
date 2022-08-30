@@ -2,7 +2,7 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
-class N1infoSpider(CustomSpider):
+class RadiosarajevoSpider(CustomSpider):
 
     name = 'radiosarajevo'
     allowed_domains = ['radiosarajevo.ba']

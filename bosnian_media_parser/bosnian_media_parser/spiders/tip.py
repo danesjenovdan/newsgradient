@@ -2,25 +2,27 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
-class KlixSpider(CustomSpider):
+class TipSpider(CustomSpider):
 
-    name = 'klix'
-    allowed_domains = ['klix.ba']
-    start_urls = ['https://www.klix.ba/']
+    name = 'tip'
+
+    allowed_domains = ['tip.ba']
+    start_urls = ['https://tip.ba/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'body>div>div.container div.relative>a',
+        'section#grid_4x4>a',
+        'h2.posttitle>a'
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.font-title::text'
-    news_content_class = '#text ::text'
+    news_title_class = 'h1.entry-title::text'
+    news_content_class = 'div.post>p ::text'
     ignore_starts_words = []
-    skip_after = None
-    date_element = 'meta[name="publish-date"]::attr(content)'
+    skip_after = ''
+    date_element = 'span#post-date::text'
 
     def parse_date(self, date_strings):
         """
@@ -29,8 +31,8 @@ class KlixSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[0]
-        formated_date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ")
+        date = date_strings[0].strip()
+        formated_date = datetime.strptime(date, '%d.%m.%Y %H:%M')
         return formated_date
 
 

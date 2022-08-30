@@ -3,26 +3,29 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
 
 
-class HercegovinaSpider(CustomSpider):
+class DepoSpider(CustomSpider):
 
-    name = 'hercegovina'
+    name = 'depo'
 
-    allowed_domains = ['hercegovina.info']
-    start_urls = ['https://www.hercegovina.info/']
+    allowed_domains = ['depo.ba']
+    start_urls = ['https://depo.ba/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'figure > a',
+        'ul.slides > li > a',
+        'div.media > a',
+        'a.media',
+        'div.sliderBlockArticle > a'
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.post-title::text'
-    news_content_class = 'div.entry-content>p::text'
+    news_title_class = 'h1.mainHeader::text'
+    news_content_class = 'div.articleContent>p ::text'
     ignore_starts_words = []
     skip_after = ''
-    date_element = 'time::attr(datetime)'
+    date_element = 'p.writtenBy::text'
 
     def parse_date(self, date_strings):
         """
@@ -31,7 +34,7 @@ class HercegovinaSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[0]
+        date = date_strings[0].strip()
 
-        formated_date = datetime.strptime(date, '%d.%m.%Y %H:%M')
+        formated_date = datetime.strptime(date, '%d.%m.%y, %H:%Mh')
         return formated_date

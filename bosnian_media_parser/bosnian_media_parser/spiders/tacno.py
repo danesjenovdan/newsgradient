@@ -2,27 +2,27 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
+class TacnoSpider(CustomSpider):
 
-class ZenitSpider(CustomSpider):
+    name = 'tacno'
 
-    name = 'zenit'
-
-    allowed_domains = ['zenit.ba']
-    start_urls = ['https://www.zenit.ba/']
+    allowed_domains = ['tacno.net']
+    start_urls = ['https://www.tacno.net/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'div.td-module-thumb > a',
+        'div.article-content>h4>a',
+        'div.article-content>h2>a',
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.tdb-title-text::text'
-    news_content_class = 'div.tdb_single_content > div.td-fix-index>p ::text'
-    ignore_starts_words = []
+    news_title_class = 'div.article-title>h1::text'
+    news_content_class = 'div.paragraph-row>div.column9>p ::text'
+    ignore_starts_words = ['foto:', 'Foto:']
     skip_after = ''
-    date_element = 'time::attr(datetime)'
+    date_element = 'meta[property="article:published_time"]::attr(content)'
 
     def parse_date(self, date_strings):
         """
@@ -31,6 +31,9 @@ class ZenitSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[0].split('+')[0]
+        date = date_strings[0].strip().split('+')[0]
         formated_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
         return formated_date
+
+
+

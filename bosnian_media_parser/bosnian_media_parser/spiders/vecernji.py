@@ -3,7 +3,7 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
 
 
-class N1infoSpider(CustomSpider):
+class VecernjiSpider(CustomSpider):
 
     name = 'vecernji'
 

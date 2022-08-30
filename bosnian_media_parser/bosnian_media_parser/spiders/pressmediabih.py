@@ -2,30 +2,27 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
+class PressmediabihSpider(CustomSpider):
 
-class N1infoSpider(CustomSpider):
+    name = 'pressmediabih'
 
-    name = 'depo'
-
-    allowed_domains = ['depo.ba']
-    start_urls = ['https://depo.ba/']
+    allowed_domains = ['pressmediabih.com']
+    start_urls = ['https://pressmediabih.com/']
 
     medium_id = 1
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'ul.slides > li > a',
-        'div.media > a',
-        'a.media',
-        'div.sliderBlockArticle > a'
+        'div.text-block>h5>a',
+        'div.sidebar-text>a',
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.mainHeader::text'
-    news_content_class = 'div.articleContent>p ::text'
+    news_title_class = 'h1.entry-title::text'
+    news_content_class = 'div.entry-content>p ::text'
     ignore_starts_words = []
     skip_after = ''
-    date_element = 'p.writtenBy::text'
+    date_element = 'span.datum ::text'
 
     def parse_date(self, date_strings):
         """
@@ -34,7 +31,9 @@ class N1infoSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        date = date_strings[0].strip()
-
-        formated_date = datetime.strptime(date, '%d.%m.%y, %H:%Mh')
+        date = date_strings[0].split(',')[1].strip()
+        formated_date = datetime.strptime(date, '%d.%m.%Y.')
         return formated_date
+
+
+

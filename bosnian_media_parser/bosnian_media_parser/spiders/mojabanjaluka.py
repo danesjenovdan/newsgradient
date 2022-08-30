@@ -6,7 +6,7 @@ import locale
 locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 
-class BanjalukaSpider(CustomSpider):
+class MojabanjalukaSpider(CustomSpider):
 
     name = 'mojabanjaluka'
 

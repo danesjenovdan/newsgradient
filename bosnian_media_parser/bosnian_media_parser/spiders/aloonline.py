@@ -5,7 +5,7 @@ from datetime import datetime
 import json
 
 
-class BhindexSpider(CustomSpider):
+class AloOnlineSpider(CustomSpider):
 
     name = 'aloonline'
 

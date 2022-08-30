@@ -1,6 +1,6 @@
 from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
-class N1infoSpider(CustomSpider):
+class HayatSpider(CustomSpider):
 
     name = 'hayat'
     allowed_domains = ['hayat.ba']

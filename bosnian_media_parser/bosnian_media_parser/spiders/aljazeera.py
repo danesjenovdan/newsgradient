@@ -2,7 +2,7 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 
 from datetime import datetime
 
-class N1infoSpider(CustomSpider):
+class AljazeeraSpider(CustomSpider):
 
     name = 'aljazeera'
     allowed_domains = ['aljazeera.net']

@@ -3,9 +3,9 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
 
 
-class N1infoSpider(CustomSpider):
+class SlobodnabosnaSpider(CustomSpider):
 
-    name = 'slobodna-bosna'
+    name = 'slobodnabosna'
 
     allowed_domains = ['slobodna-bosna.ba']
     start_urls = ['https://www.slobodna-bosna.ba/']

@@ -1,6 +1,6 @@
 from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
-class N1infoSpider(CustomSpider):
+class NezavisneSpider(CustomSpider):
 
     name = 'nezavisne'
     allowed_domains = ['nezavisne.com']

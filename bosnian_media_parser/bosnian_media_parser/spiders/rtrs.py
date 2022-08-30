@@ -4,7 +4,7 @@ from datetime import datetime
 
 import re
 
-class N1infoSpider(CustomSpider):
+class RtrsSpider(CustomSpider):
 
     name = 'rtrs'
 
