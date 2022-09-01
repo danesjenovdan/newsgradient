@@ -1,5 +1,5 @@
 # we have to use python 3.8 since Lemmagen does not support 3.9
-FROM rg.fr-par.scw.cloud/djnd/newsgradient:latest
+FROM rg.fr-par.scw.cloud/djnd/newsgradient-api:latest
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
