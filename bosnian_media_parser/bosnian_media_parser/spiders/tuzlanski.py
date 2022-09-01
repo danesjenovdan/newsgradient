@@ -9,7 +9,7 @@ class TuzlanskiSpider(CustomSpider):
     allowed_domains = ['tuzlanski.ba']
     start_urls = ['https://tuzlanski.ba/']
 
-    medium_id = 1
+    medium_id = 45
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

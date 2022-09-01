@@ -9,7 +9,7 @@ class OslobodjenjeSpider(CustomSpider):
     allowed_domains = ['oslobodjenje.ba']
     start_urls = ['https://www.oslobodjenje.ba/']
 
-    medium_id = 1
+    medium_id = 30
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

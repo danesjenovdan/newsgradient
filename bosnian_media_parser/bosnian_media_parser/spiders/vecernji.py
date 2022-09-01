@@ -10,7 +10,7 @@ class VecernjiSpider(CustomSpider):
     allowed_domains = ['vecernji.ba']
     start_urls = ['https://www.vecernji.ba/']
 
-    medium_id = 1
+    medium_id = 46
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

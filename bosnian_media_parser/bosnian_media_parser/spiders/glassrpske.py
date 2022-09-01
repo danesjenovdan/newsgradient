@@ -10,7 +10,7 @@ class GlassrpskeSpider(CustomSpider):
     allowed_domains = ['glassrpske.com']
     start_urls = ['http://glassrpske.com/']
 
-    medium_id = 1
+    medium_id = 19
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

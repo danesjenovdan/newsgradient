@@ -9,7 +9,7 @@ class RtvbnSpider(CustomSpider):
     allowed_domains = ['rtvbn.com']
     start_urls = ['https://www.rtvbn.com/']
 
-    medium_id = 1
+    medium_id = 37
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -6,7 +6,7 @@ class FokusSpider(CustomSpider):
     allowed_domains = ['fokus.ba']
     start_urls = ['https://www.fokus.ba/']
 
-    medium_id = 1
+    medium_id = 18
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

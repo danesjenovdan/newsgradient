@@ -6,7 +6,7 @@ class BukaSpider(CustomSpider):
     allowed_domains = ['6yka.com']
     start_urls = ['https://6yka.com/']
 
-    medium_id = 1
+    medium_id = 11
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

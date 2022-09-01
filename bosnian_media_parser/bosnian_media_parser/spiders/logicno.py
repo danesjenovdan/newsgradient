@@ -9,7 +9,7 @@ class LogicnoSpider(CustomSpider):
     allowed_domains = ['logicno.com']
     start_urls = ['https://www.logicno.com/']
 
-    medium_id = 1
+    medium_id = 25
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

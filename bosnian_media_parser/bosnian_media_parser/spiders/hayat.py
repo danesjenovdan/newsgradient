@@ -6,7 +6,7 @@ class HayatSpider(CustomSpider):
     allowed_domains = ['hayat.ba']
     start_urls = ['https://hayat.ba/']
 
-    medium_id = 1
+    medium_id = 21
 
     # HOMEPAGE
     allowed_home_page_div_classes = ['div.td-main-content-wrap div.wpb_row>div.tdc-column>div.wpb_wrapper div.td-module-thumb>a']

@@ -10,7 +10,7 @@ class BosnaInfoSpider(CustomSpider):
     allowed_domains = ['bosnainfo.ba']
     start_urls = ['https://bosnainfo.ba/']
 
-    medium_id = 1
+    medium_id = 10
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

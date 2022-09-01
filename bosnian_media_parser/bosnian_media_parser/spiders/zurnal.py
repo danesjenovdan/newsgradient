@@ -9,7 +9,7 @@ class ZurnalSpider(CustomSpider):
     allowed_domains = ['zurnal.info']
     start_urls = ['https://zurnal.info/']
 
-    medium_id = 1
+    medium_id = 49
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

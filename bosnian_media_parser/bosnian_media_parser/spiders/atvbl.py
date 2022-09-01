@@ -10,7 +10,7 @@ class AtvblSpider(CustomSpider):
     allowed_domains = ['atvbl.rs']
     start_urls = ['https://www.atvbl.rs/']
 
-    medium_id = 1
+    medium_id = 3
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

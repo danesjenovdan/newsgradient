@@ -10,7 +10,7 @@ class JabukaSpider(CustomSpider):
     allowed_domains = ['jabuka.tv']
     start_urls = ['https://www.jabuka.tv/']
 
-    medium_id = 1
+    medium_id = 23
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

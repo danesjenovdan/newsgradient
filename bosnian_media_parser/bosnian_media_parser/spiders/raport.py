@@ -10,7 +10,7 @@ class RaportSpider(CustomSpider):
     allowed_domains = ['raport.ba']
     start_urls = ['https://raport.ba/']
 
-    medium_id = 1
+    medium_id = 34
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

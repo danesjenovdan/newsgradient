@@ -10,7 +10,7 @@ class SrpskainfoSpider(CustomSpider):
     allowed_domains = ['srpskainfo.com']
     start_urls = ['https://srpskainfo.com/']
 
-    medium_id = 1
+    medium_id = 41
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

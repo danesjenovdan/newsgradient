@@ -9,7 +9,7 @@ class PoskokSpider(CustomSpider):
     allowed_domains = ['poskok.info']
     start_urls = ['https://poskok.info/']
 
-    medium_id = 1
+    medium_id = 31
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

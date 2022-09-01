@@ -10,7 +10,7 @@ class BlportalSpider(CustomSpider):
     allowed_domains = ['bl-portal.com']
     start_urls = ['https://www.bl-portal.com/']
 
-    medium_id = 1
+    medium_id = 9
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

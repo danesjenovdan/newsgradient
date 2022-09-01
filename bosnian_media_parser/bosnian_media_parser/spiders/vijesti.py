@@ -9,7 +9,7 @@ class VijestiSpider(CustomSpider):
     allowed_domains = ['vijesti.ba']
     start_urls = ['https://vijesti.ba/']
 
-    medium_id = 1
+    medium_id = 47
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -9,7 +9,7 @@ class TacnoSpider(CustomSpider):
     allowed_domains = ['tacno.net']
     start_urls = ['https://www.tacno.net/']
 
-    medium_id = 1
+    medium_id = 43
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

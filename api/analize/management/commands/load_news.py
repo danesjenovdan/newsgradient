@@ -22,8 +22,7 @@ class Command(BaseCommand):
         f = open (file_path, "r")
         data = json.loads(f.read())
 
-        domain_name = urlparse(data[0]['url']).netloc.split('.')[-2]
-        media = Media.objects.get(name=domain_name)
+        media = Media.objects.get(id=data[0]['medium_id'])
         for news in data:
             ex_news = News.objects.filter(link=news['url'])
             if ex_news:

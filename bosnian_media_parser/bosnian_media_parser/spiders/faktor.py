@@ -9,7 +9,7 @@ class FaktorSpider(CustomSpider):
     allowed_domains = ['faktor.ba']
     start_urls = ['https://faktor.ba/']
 
-    medium_id = 1
+    medium_id = 16
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

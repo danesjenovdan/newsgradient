@@ -10,7 +10,7 @@ class BhindexSpider(CustomSpider):
     allowed_domains = ['bh-index.info']
     start_urls = ['https://www.bh-index.info/']
 
-    medium_id = 1
+    medium_id = 5
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

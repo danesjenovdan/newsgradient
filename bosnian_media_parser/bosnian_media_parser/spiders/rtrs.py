@@ -11,7 +11,7 @@ class RtrsSpider(CustomSpider):
     allowed_domains = ['rtrs.tv']
     start_urls = ['https://www.rtrs.tv/']
 
-    medium_id = 1
+    medium_id = 36
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

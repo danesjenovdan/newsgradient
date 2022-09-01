@@ -9,7 +9,7 @@ class SaffSpider(CustomSpider):
     allowed_domains = ['saff.ba']
     start_urls = ['https://saff.ba/']
 
-    medium_id = 1
+    medium_id = 38
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -8,7 +8,7 @@ class KlixSpider(CustomSpider):
     allowed_domains = ['klix.ba']
     start_urls = ['https://www.klix.ba/']
 
-    medium_id = 1
+    medium_id = 24
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

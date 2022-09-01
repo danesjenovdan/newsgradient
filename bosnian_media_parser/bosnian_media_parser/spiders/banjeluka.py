@@ -10,7 +10,7 @@ class BanjelukaSpider(CustomSpider):
     allowed_domains = ['banjaluka.com']
     start_urls = ['https://www.banjaluka.com/']
 
-    medium_id = 1
+    medium_id = 4
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

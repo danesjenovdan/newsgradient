@@ -10,7 +10,7 @@ class HercegovinaSpider(CustomSpider):
     allowed_domains = ['hercegovina.info']
     start_urls = ['https://www.hercegovina.info/']
 
-    medium_id = 1
+    medium_id = 22
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

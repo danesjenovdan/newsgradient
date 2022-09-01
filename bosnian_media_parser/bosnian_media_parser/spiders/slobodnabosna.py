@@ -10,7 +10,7 @@ class SlobodnabosnaSpider(CustomSpider):
     allowed_domains = ['slobodna-bosna.ba']
     start_urls = ['https://www.slobodna-bosna.ba/']
 
-    medium_id = 1
+    medium_id = 39
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

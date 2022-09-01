@@ -6,7 +6,7 @@ class NezavisneSpider(CustomSpider):
     allowed_domains = ['nezavisne.com']
     start_urls = ['https://www.nezavisne.com/']
 
-    medium_id = 1
+    medium_id = 29
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
