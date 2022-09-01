@@ -60,7 +60,7 @@ class MembersNewsMention(models.Model):
 class News(models.Model):
     title = models.TextField(verbose_name=_('Title'))
     content = models.TextField(verbose_name=_('Content'))
-    link = models.URLField(null=True, blank=True, verbose_name=_('News link'))
+    link = models.URLField(null=True, blank=True, verbose_name=_('News link'), max_length=512)
     html = models.TextField(verbose_name=_('Html content'))
     media = models.ForeignKey('Media', on_delete=models.CASCADE, verbose_name=_('Media'))
     published_at = models.DateTimeField(null=True, blank=True, verbose_name=_('Published at'))

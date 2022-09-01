@@ -45,6 +45,7 @@ class BhrtSpider(CustomSpider):
             'medium_id': self.medium_id,
             'url': response.url,
             'date': formated_date,
+            'html': ''
         }
 
 
