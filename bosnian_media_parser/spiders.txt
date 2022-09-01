@@ -48,4 +48,5 @@ vecernji
 vijesti
 zenit
 zurnal
-https://novi.ba/
+novi
+avaz

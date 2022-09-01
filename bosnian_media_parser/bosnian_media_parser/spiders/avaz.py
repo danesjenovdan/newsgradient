@@ -8,7 +8,7 @@ class AvazSpider(CustomSpider):
     allowed_domains = ['avaz.ba']
     start_urls = ['https://avaz.ba/']
 
-    medium_id = 24
+    medium_id = 51
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
