@@ -12,10 +12,14 @@ resources:
   - pwa/deployment.yaml
   - pwa/service.yaml
   - pwa/ingress.yaml
+  - parser/cronjob.yaml
 images:
   - name: newsgradient-api
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-api
     newTag: 'b042e086be97334fe5d857201b8b9adf756c8644'
   - name: newsgradient-pwa
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-pwa
-    newTag: 'b042e086be97334fe5d857201b8b9adf756c8644'
+    newTag: 'latest'
+  - name: newsgradient-bosna-parser
+    newName: rg.fr-par.scw.cloud/djnd/newsgradient-bosna-parser
+    newTag: 'latest'
