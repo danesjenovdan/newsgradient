@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'news',
     'backoffice',
     'blog',
+    'analize',
 ]
 
 MIDDLEWARE = [

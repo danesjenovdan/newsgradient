@@ -26,6 +26,7 @@ class BosnianMediumParserPipeline:
             'medium_id',
             'url',
             'date',
+            'html',
         ]
 
         item_keys = list(item.keys())
