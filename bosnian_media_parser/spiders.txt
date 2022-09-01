@@ -1,7 +1,7 @@
 aljazeera
 aloonline
 atvbl
-banjeluka
+banjaluka
 bhindex
 bhrt
 biscani
@@ -32,7 +32,7 @@ poskok
 pressmediabih
 radiosarajevo
 raport
-rediokameleon
+radiokameleon
 rtrs
 rtvbn
 saff
@@ -48,3 +48,4 @@ vecernji
 vijesti
 zenit
 zurnal
+https://novi.ba/

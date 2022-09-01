@@ -3,9 +3,9 @@ from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
 
 
-class HercegovinaSpider(CustomSpider):
+class HercegovinaInfoSpider(CustomSpider):
 
-    name = 'hercegovina'
+    name = 'hercegovinainfo'
 
     allowed_domains = ['hercegovina.info']
     start_urls = ['https://www.hercegovina.info/']

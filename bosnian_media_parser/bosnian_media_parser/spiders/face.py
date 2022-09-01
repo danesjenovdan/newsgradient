@@ -14,7 +14,7 @@ class FaceSpider(CustomSpider):
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'div.main-article-headline::text'
+    news_title_class = '.main-article-headline::text'
     news_content_class = 'div.main-article-text-wrapper ::text'
     ignore_starts_words = ['var mpi_wi']
     skip_after = ''
