@@ -6,7 +6,7 @@ mediums = [
     'aljazeera',
     'aloonline',
     'atvbl',
-    'banjeluka',
+    'banjaluka',
     'bhindex',
     'bhrt',
     'biscani',
@@ -52,6 +52,7 @@ mediums = [
     'vijesti',
     'zenit',
     'zurnal',
+    'avaz'
 ]
 
 parties = [
