@@ -5,24 +5,24 @@ from datetime import datetime
 
 class VecernjiSpider(CustomSpider):
 
-    name = 'vecernji'
+    name = 'novi'
 
-    allowed_domains = ['vecernji.ba']
-    start_urls = ['https://www.vecernji.ba/']
+    allowed_domains = ['novi.ba']
+    start_urls = ['https://novi.ba/']
 
-    medium_id = 46
+    medium_id = 50
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
-        'div.card > a',
+        'a.pjax-article',
     ]
 
     # ARTICLE PAGE
-    news_title_class = 'h1.article__title::text'
-    news_content_class = 'div.article__body--main_content>p ::text'
+    news_title_class = 'div.head_article>h1::text'
+    news_content_class = 'div.content>p ::text'
     ignore_starts_words = []
     skip_after = ''
-    date_element = 'meta[itemprop="datePublished"]::attr(content)'
+    date_element = 'div.date_published::text'
 
     def parse_date(self, date_strings):
         """
@@ -32,5 +32,5 @@ class VecernjiSpider(CustomSpider):
         if not date_strings:
             return
         date = date_strings[0].strip()
-        formated_date = datetime.strptime(date, '%Y-%m-%d')
+        formated_date = datetime.strptime(date, '%d.%m.%Y - %H:%M')
         return formated_date

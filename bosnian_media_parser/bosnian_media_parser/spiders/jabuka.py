@@ -34,4 +34,4 @@ class JabukaSpider(CustomSpider):
             return
         date = date_strings[0].strip()
 
-        return datetime.now()
+        return None
