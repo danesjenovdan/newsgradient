@@ -12,7 +12,7 @@ class AloOnlineSpider(CustomSpider):
     allowed_domains = ['aloonline.ba']
     start_urls = ['https://aloonline.ba/']
 
-    medium_id = 1
+    medium_id = 2
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

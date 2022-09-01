@@ -10,7 +10,7 @@ class SourceSpider(CustomSpider):
     allowed_domains = ['source.ba']
     start_urls = ['https://source.ba/']
 
-    medium_id = 1
+    medium_id = 40
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

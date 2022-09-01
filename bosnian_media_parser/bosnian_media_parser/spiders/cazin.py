@@ -9,7 +9,7 @@ class CazinSpider(CustomSpider):
     allowed_domains = ['cazin.net']
     start_urls = ['https://www.cazin.net/']
 
-    medium_id = 1
+    medium_id = 12
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -10,7 +10,7 @@ class HaberSpider(CustomSpider):
     allowed_domains = ['haber.ba']
     start_urls = ['https://haber.ba/']
 
-    medium_id = 1
+    medium_id = 20
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

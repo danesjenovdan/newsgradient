@@ -12,7 +12,7 @@ class BhrtSpider(CustomSpider):
     allowed_domains = ['bhrt.ba']
     start_urls = ['https://bhrt.ba/api/?lng=null']
 
-    medium_id = 1
+    medium_id = 6
 
 
     def parse(self, response):

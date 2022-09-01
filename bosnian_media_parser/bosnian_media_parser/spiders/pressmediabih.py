@@ -9,7 +9,7 @@ class PressmediabihSpider(CustomSpider):
     allowed_domains = ['pressmediabih.com']
     start_urls = ['https://pressmediabih.com/']
 
-    medium_id = 1
+    medium_id = 32
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -10,7 +10,7 @@ class ZenitSpider(CustomSpider):
     allowed_domains = ['zenit.ba']
     start_urls = ['https://www.zenit.ba/']
 
-    medium_id = 1
+    medium_id = 48
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

@@ -9,7 +9,7 @@ class TipSpider(CustomSpider):
     allowed_domains = ['tip.ba']
     start_urls = ['https://tip.ba/']
 
-    medium_id = 1
+    medium_id = 44
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

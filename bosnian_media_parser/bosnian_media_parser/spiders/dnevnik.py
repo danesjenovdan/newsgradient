@@ -11,7 +11,7 @@ class DnevnikSpider(CustomSpider):
     allowed_domains = ['dnevnik.ba']
     start_urls = ['https://www.dnevnik.ba/']
 
-    medium_id = 1
+    medium_id = 14
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

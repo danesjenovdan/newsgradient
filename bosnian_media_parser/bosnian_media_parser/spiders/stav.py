@@ -10,7 +10,7 @@ class StavSpider(CustomSpider):
     allowed_domains = ['stav.ba']
     start_urls = ['https://stav.ba/']
 
-    medium_id = 1
+    medium_id = 42
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

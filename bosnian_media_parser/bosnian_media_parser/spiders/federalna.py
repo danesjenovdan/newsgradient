@@ -9,7 +9,7 @@ class FederalnaSpider(CustomSpider):
     allowed_domains = ['federalna.ba']
     start_urls = ['https://federalna.ba/']
 
-    medium_id = 1
+    medium_id = 17
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

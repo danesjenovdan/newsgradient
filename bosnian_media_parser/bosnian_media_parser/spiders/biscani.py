@@ -6,7 +6,7 @@ class BiscaniSpider(CustomSpider):
     allowed_domains = ['biscani.net']
     start_urls = ['https://www.biscani.net/']
 
-    medium_id = 1
+    medium_id = 7
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

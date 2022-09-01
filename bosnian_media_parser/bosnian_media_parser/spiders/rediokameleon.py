@@ -11,7 +11,7 @@ class RadiokameleonSpider(CustomSpider):
     allowed_domains = ['radiokameleon.ba']
     start_urls = ['https://radiokameleon.ba/']
 
-    medium_id = 1
+    medium_id = 35
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

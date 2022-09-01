@@ -6,7 +6,7 @@ class FaceSpider(CustomSpider):
     allowed_domains = ['face.ba']
     start_urls = ['https://www.face.ba/']
 
-    medium_id = 1
+    medium_id = 15
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

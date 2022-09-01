@@ -9,7 +9,7 @@ class BljesakSpider(CustomSpider):
     allowed_domains = ['bljesak.info']
     start_urls = ['https://bljesak.info/']
 
-    medium_id = 1
+    medium_id = 8
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

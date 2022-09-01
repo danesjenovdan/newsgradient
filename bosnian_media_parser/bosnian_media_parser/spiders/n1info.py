@@ -6,7 +6,7 @@ class N1infoSpider(CustomSpider):
     allowed_domains = ['n1info.com']
     start_urls = ['https://ba.n1info.com/']
 
-    medium_id = 1
+    medium_id = 27
 
     # HOMEPAGE
     allowed_home_page_div_classes = ['div.featured-zone-homepage  a', 'div.content-zone  a']

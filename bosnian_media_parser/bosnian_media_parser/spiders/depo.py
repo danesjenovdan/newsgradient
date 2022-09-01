@@ -10,7 +10,7 @@ class DepoSpider(CustomSpider):
     allowed_domains = ['depo.ba']
     start_urls = ['https://depo.ba/']
 
-    medium_id = 1
+    medium_id = 13
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

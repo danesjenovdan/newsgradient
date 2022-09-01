@@ -8,7 +8,7 @@ class RadiosarajevoSpider(CustomSpider):
     allowed_domains = ['radiosarajevo.ba']
     start_urls = ['https://radiosarajevo.ba/']
 
-    medium_id = 1
+    medium_id = 33
 
     # HOMEPAGE
     allowed_home_page_div_classes = [

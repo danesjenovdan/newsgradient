@@ -10,7 +10,7 @@ class NapSpider(CustomSpider):
     allowed_domains = ['nap.ba']
     start_urls = ['https://nap.ba/']
 
-    medium_id = 1
+    medium_id = 28
 
     # HOMEPAGE
     allowed_home_page_div_classes = [
