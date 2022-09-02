@@ -17,7 +17,7 @@ class KlixSpider(CustomSpider):
 
     # ARTICLE PAGE
     news_title_class = 'h1.font-title::text'
-    news_content_class = '#text ::text'
+    news_content_class = '#text>p ::text, #text::text'
     ignore_starts_words = []
     skip_after = None
     date_element = 'meta[name="publish-date"]::attr(content)'

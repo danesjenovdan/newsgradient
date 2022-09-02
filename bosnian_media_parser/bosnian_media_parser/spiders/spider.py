@@ -64,7 +64,7 @@ class CustomSpider(scrapy.Spider):
         'medium_id': self.medium_id,
         'url': response.url,
         'date': formated_date,
-        'html': response.text
+        'html': ""
     }
 
 
