@@ -16,10 +16,10 @@ resources:
 images:
   - name: newsgradient-api
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-api
-    newTag: 'bc686025190ebe6e5b831df84df4abe3939e6314'
+    newTag: 'b9ad4f44acd7a3559c02d2063d2b5ba941a071b9'
   - name: newsgradient-pwa
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-pwa
-    newTag: 'bc686025190ebe6e5b831df84df4abe3939e6314'
+    newTag: 'b9ad4f44acd7a3559c02d2063d2b5ba941a071b9'
   - name: newsgradient-bosna-parser
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-bosna-parser
-    newTag: 'bc686025190ebe6e5b831df84df4abe3939e6314'
+    newTag: 'b9ad4f44acd7a3559c02d2063d2b5ba941a071b9'
