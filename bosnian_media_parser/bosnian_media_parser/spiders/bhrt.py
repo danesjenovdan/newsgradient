@@ -18,14 +18,11 @@ class BhrtSpider(CustomSpider):
     def parse(self, response):
         data = response.json()
         for key, category in data.items():
-            print(category)
             if category == 'LAT' or not 'data' in category.keys():
                 continue
             if not isinstance(category['data'], list):
                 continue
             for item in category['data']:
-                print("ITEM", type(item))
-                print(item)
                 if 'url' in item.keys():
                     yield scrapy.Request(
                         url=f'https://bhrt.ba/api/{item["url"]}',
@@ -35,7 +32,6 @@ class BhrtSpider(CustomSpider):
     def parse_item(self, response):
         to_clean = re.compile('<.*?>')
         data = response.json()[0]
-        print(data['DTPublished'])
         formated_date = datetime.strptime(data['DTPublished'].split('.')[0], '%Y-%m-%dT%H:%M:%S')
         cleantext = re.sub(to_clean, '', data['Content'])
         yield {

@@ -49,7 +49,6 @@ class JabukaSpider(CustomSpider):
         if not date_strings:
             return
         date_str = date_strings[0].strip().split(' ')
-        print(date_str)
         date_str[1] = months[date_str[1]]
         date = ' '.join(date_str)
         formated_date = datetime.strptime(date, '%d. %m %Y.')

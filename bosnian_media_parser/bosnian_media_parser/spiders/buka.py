@@ -27,7 +27,6 @@ class BukaSpider(CustomSpider):
         # preskoči page če nima datuma
         if not date_strings:
             return
-        print(date_strings)
         date = date_strings[0].strip()
 
         formated_date = datetime.strptime(date, '%d. %B %Y, %H:%M')
