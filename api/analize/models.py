@@ -62,7 +62,7 @@ class News(models.Model):
     content = models.TextField(verbose_name=_('Content'))
     link = models.URLField(null=True, blank=True, verbose_name=_('News link'), max_length=512)
     html = models.TextField(verbose_name=_('Html content'))
-    media = models.ForeignKey('Media', on_delete=models.CASCADE, verbose_name=_('Media'))
+    media = models.ForeignKey('Media', on_delete=models.CASCADE, verbose_name=_('Media'), related_name='news')
     published_at = models.DateTimeField(null=True, blank=True, verbose_name=_('Published at'))
     parsed_at = models.DateTimeField(null=True, blank=True, verbose_name=_('Parsed at'))
     last_parsed_at = models.DateTimeField(null=True, blank=True, verbose_name=_('Last parsed at'))

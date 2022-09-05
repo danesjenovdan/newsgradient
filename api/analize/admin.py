@@ -1,6 +1,8 @@
 from django.contrib import admin
 from analize.models import News, Media, Party, Member
 
+from datetime import datetime, timedelta
+
 # Register your models here.
 
 class NewsAdmin(admin.ModelAdmin):
@@ -16,8 +18,16 @@ class NewsAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
     list_display = [
         'name',
-        'location'
+        'location',
+        'news_count',
+        'news_count_last_day',
     ]
+
+    def news_count(self, obj):
+        return obj.news.count()
+
+    def news_count_last_day(self, obj):
+        return obj.news.filter(parsed_at__gte=datetime.now()-timedelta(days=1)).count()
 
 
 class PartyAdmin(admin.ModelAdmin):
