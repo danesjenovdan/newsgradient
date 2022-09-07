@@ -1,5 +1,7 @@
 from bosnian_media_parser.spiders.spider import CustomSpider
 from datetime import datetime
+import locale
+
 class BukaSpider(CustomSpider):
 
     name = 'buka'
@@ -24,6 +26,7 @@ class BukaSpider(CustomSpider):
         """
         Parses string date format '%d. %b %Y %H:%M' to datetime.
         """
+        locale.setlocale(locale.LC_ALL, "bs_BA.UTF-8")
         # preskoči page če nima datuma
         if not date_strings:
             return
