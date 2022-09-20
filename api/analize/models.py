@@ -30,18 +30,21 @@ class Media(models.Model):
 
 class Actor(models.Model):
     name = models.TextField(verbose_name=_('Name'))
-    parser_names = models.TextField(verbose_name=_('Parser names divided with |'))
+    parser_names = models.TextField(verbose_name=_('Parser names separated with |'))
 
     def __str__(self):
         return self.name
 
 
 class Party(Actor):
-    pass
+    def get_search_terms(self):
+        members_search_terms = [member.parser_names.split('|') for member in self.members.all()]
+        search_terms = [item for sublist in members_search_terms for item in sublist]
+        return search_terms + self.parser_names.split('|')
 
 
 class Member(Actor):
-    pass
+    in_party = models.ForeignKey('Party', on_delete=models.CASCADE, null=True, blank=True, related_name='members', verbose_name=_('Party'))
 
 
 class PartyNewsMention(models.Model):
