@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - name: newsgradient-fetch-tweets
+        - name: newsgradient-export-bosnian-news
           image: newsgradient-api
           env:
             - name: DJANGO_SETTINGS_MODULE
@@ -14,9 +14,16 @@ spec:
           envFrom:
             - secretRef:
                 name: newsgradient-api-credentials
-        command:
-          - python
-          - manage.py
-          - export_news
+          command:
+            - python
+            - manage.py
+            - export_news
+          resources:
+            requests:
+              memory: 500Mi
+              cpu: 200m
+            limits:
+              memory: 500Mi
+              cpu: 200m
       restartPolicy: Never
   backoffLimit: 1
