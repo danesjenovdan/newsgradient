@@ -49,11 +49,11 @@ spec:
                 name: newsgradient-api-credentials
           resources:
             requests:
-              memory: 400Mi
-              cpu: 100m
+              memory: 1000Mi
+              cpu: 200m
             limits:
-              memory: 400Mi
-              cpu: 100m
+              memory: 1000Mi
+              cpu: 200m
       containers:
         - name: newsgradient-api
           image: newsgradient-api
