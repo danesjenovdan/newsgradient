@@ -8,7 +8,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-
         file_path='analize/files/ng_party_members.xlsx'
         book = xlrd.open_workbook(file_path)
         for sheet in book.sheets():
@@ -16,8 +15,8 @@ class Command(BaseCommand):
             members = []
             for row_i in range(sheet.nrows):
                 row = sheet.row(row_i)
-                party_names.append(row[0].value)
-                members.append(row[1].value)
+                party_names.append(row[0].value.strip())
+                members.append(row[1].value.strip())
 
             print(party_names)
             print(members)
@@ -33,6 +32,7 @@ class Command(BaseCommand):
         party.save()
         for member in members:
             if member:
-                Member(name=member, parser_names=member, in_party=party).save()
+                parser_names = ' '.join([word[0:-1] for word in member.split(' ')])
+                Member(name=member, parser_names=parser_names, in_party=party).save()
 
 

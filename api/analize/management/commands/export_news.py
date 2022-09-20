@@ -12,7 +12,6 @@ class Command(BaseCommand):
     help = 'Export news'
 
     def handle(self, *args, **options):
-        search_strings = options['search_strings']
         media = Media.objects.all()
         parties = Party.objects.all()
 
@@ -22,10 +21,26 @@ class Command(BaseCommand):
                 search_strings = party.get_search_terms()
                 q_news_objects = Q()
                 for search_string in search_strings:
+                    if search_string.isupper():
+                        # exact word matching for allcaps words (acronyms)
+                        # contains
+                        search_q_object = Q(content__contains=search_string)
+                    else:
+                        # query each word from parser name
+                        # icontains
+                        search_q_object = Q()
+                        sub_strings = search_string.split(' ')
+                        for sub_string in sub_strings:
+                            search_q_object.add(
+                                Q(content__icontains=sub_string),
+                                Q.AND
+                            )
+
                     q_news_objects.add(
-                        Q(content__contains=search_string),
+                        search_q_object,
                         Q.OR
                     )
+
                 articles = medium.news.filter(q_news_objects)
                 if articles:
                     self.write_file(articles, medium.name, f'{party.name}_{medium.name}_sample.csv')
