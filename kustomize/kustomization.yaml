@@ -13,7 +13,8 @@ resources:
   - pwa/deployment.yaml
   - pwa/service.yaml
   - pwa/ingress.yaml
-  - parser/cronjob.yaml
+  # no more parsing of bosnian media
+  # - parser/cronjob.yaml
 images:
   - name: newsgradient-api
     newName: rg.fr-par.scw.cloud/djnd/newsgradient-api
