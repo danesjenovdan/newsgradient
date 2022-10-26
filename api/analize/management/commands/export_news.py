@@ -11,9 +11,22 @@ import csv
 class Command(BaseCommand):
     help = 'Export news'
 
+    @staticmethod
+    def filter_article(article):
+        # filter severina
+        if 'Severina' in article.content:
+            return False
+        if 'GSS' in article.content:
+            return False
+        if 'KCUS' in article.content:
+            return False
+        return True
+
     def handle(self, *args, **options):
         media = Media.objects.all()
+        # media = Media.objects.filter(name="klix")
         parties = Party.objects.all()
+        all_articles = []
 
         for medium in media:
             print(medium)
@@ -21,29 +34,54 @@ class Command(BaseCommand):
                 search_strings = party.get_search_terms()
                 q_news_objects = Q()
                 for search_string in search_strings:
-                    if search_string.isupper():
-                        # exact word matching for allcaps words (acronyms)
-                        # contains
-                        search_q_object = Q(content__contains=search_string)
+                    pattern = ''
+                    if len(search_string.strip().split(' ')) > 1:
+                        # print('#######')
+                        # print(search_string)
+                        for ss in search_string.strip().split(' '):
+                            pattern += f'{ss}% '
                     else:
-                        # query each word from parser name
-                        # icontains
-                        search_q_object = Q()
-                        sub_strings = search_string.split(' ')
-                        for sub_string in sub_strings:
-                            search_q_object.add(
-                                Q(content__icontains=sub_string),
-                                Q.AND
-                            )
-
+                        pattern = search_string
                     q_news_objects.add(
-                        search_q_object,
+                        Q(content__contains=pattern.strip()),
                         Q.OR
                     )
+                    # print(pattern.strip())
+                    # if search_string.isupper():
+                    #     # exact word matching for allcaps words (acronyms)
+                    #     # contains
+                    #     search_q_object = Q(content__contains=search_string)
+                    # else:
+                    #     # query each word from parser name
+                    #     # icontains
+                    #     # TODO - če je ime in priimek, iščemo samo priimek
+                    #     # TODO - isto se dogaja s strankami, mora biti celo ime, ne samo ena beseda
+                    #     search_q_object = Q()
+                    #     sub_strings = search_string.split(' ')[1:]
+                    #     for sub_string in sub_strings:
+                    #         search_q_object.add(
+                    #             Q(content__contains=sub_string),
+                    #             Q.AND
+                    #         )
 
-                articles = medium.news.filter(q_news_objects)
+                    # q_news_objects.add(
+                    #     search_q_object,
+                    #     Q.OR
+                    # )
+                
+                # q_news_objects.add(
+                #     Q(published_at__date=datetime.strptime('2022-09-10', '%Y-%m-%d')),
+                #     Q.AND
+                # )
+                articles = medium.news.filter(
+                    q_news_objects
+                )
                 if articles:
-                    self.write_file(articles, medium.name, f'{party.name}_{medium.name}_sample.csv')
+                    filtered_articles = list(filter(self.filter_article, articles))
+                    self.write_file(filtered_articles, medium.name, f'{party.name}_{medium.name}.csv')
+                    all_articles += filtered_articles
+
+        print(len(all_articles))
 
     def write_file(self, articles, folder, file_name):
         os.makedirs(f'exports', exist_ok=True)
@@ -63,4 +101,3 @@ class Command(BaseCommand):
                     article.parsed_at.strftime('%Y-%m-%d'),
                     str(True),
                 ])
-
