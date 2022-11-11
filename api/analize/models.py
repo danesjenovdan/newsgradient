@@ -38,9 +38,21 @@ class Actor(models.Model):
 
 class Party(Actor):
     def get_search_terms(self):
-        members_search_terms = [member.parser_names.split('|') for member in self.members.all()]
-        search_terms = [item for sublist in members_search_terms for item in sublist]
-        return search_terms + self.parser_names.split('|')
+        members_search_terms = []
+        for parser_names in [
+            member.parser_names.split('|') for member in self.members.all()
+        ]:
+            members_search_terms += [
+                parser_name.split(' ')[-1] + '%' for parser_name in parser_names
+            ]
+        # search_terms = [item for sublist in members_search_terms for item in sublist]
+        search_terms = members_search_terms
+        truncated_parser_names = [
+            ' '.join(
+                [name[:-1] for name in parser_name.split(' ')]
+            ) for parser_name in self.parser_names.split('|') if ' ' in parser_name and len(parser_name) > 7
+        ] + [parser_name for parser_name in self.parser_names.split('|') if ' ' not in parser_name] + [parser_name for parser_name in self.parser_names.split('|') if ' ' not in parser_name or len(parser_name) < 8]
+        return search_terms + truncated_parser_names
 
 
 class Member(Actor):

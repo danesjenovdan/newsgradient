@@ -1,3 +1,4 @@
+import csv
 import scrapy
 from datetime import datetime
 import locale
@@ -30,20 +31,43 @@ class CustomSpider(scrapy.Spider):
   date_element = 'selector-example .post-time'
 
 
-  def parse(self, response):
-    """ Parses the medium home page and calls function parse_news on all found links to articles. """
+  # UNCOMMENT THE PARSE FUNCTION YOU WANT TO USE
+  
+  # def parse(self, response):
+  #   """ Parses the medium home page and calls function parse_news on all found links to articles. """
 
-    # sparsaj vse linke iz specifičnih div-ov iz home page-a
-    for cls in self.allowed_home_page_div_classes:
-        home_links = response.css(f'{cls}')
-        yield from response.follow_all(home_links, self.parse_news)
+  #   # sparsaj vse linke iz specifičnih div-ov iz home page-a
+  #   for cls in self.allowed_home_page_div_classes:
+  #       home_links = response.css(f'{cls}')
+  #       yield from response.follow_all(home_links, self.parse_news)
+
+
+  def parse(self, response):
+    """ Reads article links from csv files and calls function parse_news on them. """
+    
+    filename = f"bosnian_media_parser/generated_csv/{self.name}.csv"
+
+    with open(filename, newline='') as csvfile:
+      reader = csv.reader(csvfile)
+      
+      for row in reader:
+        link = row[0]
+        yield from response.follow_all([link], callback=self.parse_news, errback=self.savenotfound)
+
+
+  def savenotfound(self, failure):
+    with open(f"exports-errors/{self.name}.csv", 'a', newline='') as f:
+      f.write(failure.request.url + "\n")
 
 
   def parse_news(self, response):
     """ Parses the article page and yields the data. """
 
     # pridobi naslov in vsebino novice
-    title = response.css(f'{self.news_title_class}').get().strip()
+    try:
+      title = response.css(f'{self.news_title_class}').get().strip()
+    except:
+      title = "Unable to parse"
     content_list = response.css(f'{self.news_content_class}').getall()
 
     # prečišči besedilo

@@ -10,8 +10,8 @@ class MojabanjalukaSpider(CustomSpider):
 
     name = 'mojabanjaluka'
 
-    allowed_domains = ['mojabanjaluka.com']
-    start_urls = ['http://mojabanjaluka.com/']
+    allowed_domains = ['mojabanjaluka.com', 'mojabanjaluka.info']
+    start_urls = ['http://mojabanjaluka.com/', 'http://mojabanjaluka.info/']
 
     medium_id = 26
 

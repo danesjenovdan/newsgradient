@@ -5,8 +5,8 @@ from datetime import datetime
 class AljazeeraSpider(CustomSpider):
 
     name = 'aljazeera'
-    allowed_domains = ['aljazeera.net']
-    start_urls = ['https://balkans.aljazeera.net/']
+    allowed_domains = ['aljazeera.net', 'ajb.me']
+    start_urls = ['https://balkans.aljazeera.net/', 'https://ajb.me/']
 
     medium_id = 1
 

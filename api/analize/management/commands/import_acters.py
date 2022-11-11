@@ -32,7 +32,7 @@ class Command(BaseCommand):
         party.save()
         for member in members:
             if member:
-                parser_names = ' '.join([word[0:-1] for word in member.split(' ')])
+                parser_names = ' '.join([word for word in member.split(' ')[1:]])
                 Member(name=member, parser_names=parser_names, in_party=party).save()
 
 

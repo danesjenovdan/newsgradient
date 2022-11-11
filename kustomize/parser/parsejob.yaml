@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: Job
+metadata:
+  name: newsgradient-bih-parser
+spec:
+  template:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: newsgradient-bih-parser
+            image: newsgradient-bosna-parser
+            env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: newsgradient.settings
+            envFrom:
+              - secretRef:
+                  name: newsgradient-api-credentials
+            resources:
+              requests:
+                memory: 400Mi
+                cpu: 1000m
+              limits:
+                memory: 400Mi
+                cpu: 1000m
+          restartPolicy: Never
