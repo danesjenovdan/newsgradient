@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 
 COPY . /parser
 
-CMD bash runner.sh
+CMD bash runner_from_csv.sh

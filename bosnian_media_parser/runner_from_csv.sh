@@ -5,7 +5,7 @@ for t in ${SPIDERS[@]}; do
   FILE_NAME="exports/$t.json"
   echo $FILE_NAME
   scrapy crawl $t -o $FILE_NAME
-  python /app/manage.py load_parsed_news --file "$FILE_NAME"
+  python /app/manage.py load_parsed_news --file "/parser/$FILE_NAME"
 done
 
 echo 'Done runnings spiders'
