@@ -22,15 +22,13 @@ class Command(BaseCommand):
         f = open (file_path, "r")
         data = json.loads(f.read())
 
-        print(Media.objects.all())
         for medium in data:
-          m = Media.objects.get(id=medium["id"])
           try:
             m = Media.objects.get(id=medium["id"])
             m.link = medium["domain"]
             m.save()
           except:
-            print("Not found: ", medium)
+            print("Created: ", medium)
             m = Media(name=medium["name"], link=medium["domain"])
             m.save()
 

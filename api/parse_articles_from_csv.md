@@ -4,7 +4,7 @@
 ## To sort articles by media outlet
 First we need to add missing domains to media objects in the database.
 
-`python manage.py load_media`
+`python manage.py load_media --file media_url_mapping.json`
 
 Then run the command to sort articles.
 
