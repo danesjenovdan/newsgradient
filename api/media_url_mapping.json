@@ -1,0 +1,268 @@
+
+[
+  {
+    "name": "aljazeera",
+    "id": "53",
+    "domain": "ajb.me"
+  },
+  {
+    "name": "mojabanjaluka",
+    "id": "52",
+    "domain": "mojabanjaluka.info"
+  },
+  {
+    "name": "avaz",
+    "id": "51",
+    "domain": "https://avaz.ba/"
+  },
+  {
+    "name": "novi",
+    "id": "50",
+    "domain": "https://novi.ba/"
+  },
+  {
+    "name": "zurnal",
+    "id": "49",
+    "domain": "zurnal.info"
+  },
+  {
+    "name": "zenit",
+    "id": "48",
+    "domain": "zenit.ba"
+  },
+  {
+    "name": "vijesti",
+    "id": "47",
+    "domain": "vijesti.ba"
+  },
+  {
+    "name": "vecernji",
+    "id": "46",
+    "domain": "vecernji.ba"
+  },
+  {
+    "name": "tuzlanski",
+    "id": "45",
+    "domain": "tuzlanski.ba"
+  },
+  {
+    "name": "tip",
+    "id": "44",
+    "domain": "tip.ba"
+  },
+  {
+    "name": "tacno",
+    "id": "43",
+    "domain": "tacno.net"
+  },
+  {
+    "name": "stav",
+    "id": "42",
+    "domain": "stav.ba"
+  },
+  {
+    "name": "srpskainfo",
+    "id": "41",
+    "domain": "srpskainfo.com"
+  },
+  {
+    "name": "source",
+    "id": "40",
+    "domain": "source.ba"
+  },
+  {
+    "name": "slobodnabosna",
+    "id": "39",
+    "domain": "slobodna-bosna.ba"
+  },
+  {
+    "name": "saff",
+    "id": "38",
+    "domain": "saff.ba"
+  },
+  {
+    "name": "rtvbn",
+    "id": "37",
+    "domain": "rtvbn.com"
+  },
+  {
+    "name": "rtrs",
+    "id": "36",
+    "domain": "rtrs.tv"
+  },
+  {
+    "name": "rediokameleon",
+    "id": "35",
+    "domain": "radiokameleon.ba"
+  },
+  {
+    "name": "raport",
+    "id": "34",
+    "domain": "raport.ba"
+  },
+  {
+    "name": "radiosarajevo",
+    "id": "33",
+    "domain": "radiosarajevo.ba"
+  },
+  {
+    "name": "pressmediabih",
+    "id": "32",
+    "domain": "pressmediabih.com"
+  },
+  {
+    "name": "poskok",
+    "id": "31",
+    "domain": "poskok.info"
+  },
+  {
+    "name": "oslobodjenje",
+    "id": "30",
+    "domain": "oslobodjenje.ba"
+  },
+  {
+    "name": "nezavisne",
+    "id": "29",
+    "domain": "nezavisne.com"
+  },
+  {
+    "name": "nap",
+    "id": "28",
+    "domain": "nap.ba"
+  },
+  {
+    "name": "n1info",
+    "id": "27",
+    "domain": "n1info.com"
+  },
+  {
+    "name": "mojabanjaluka",
+    "id": "26",
+    "domain": "mojabanjaluka.com"
+  },
+  {
+    "name": "logicno",
+    "id": "25",
+    "domain": "logicno.com"
+  },
+  {
+    "name": "klix",
+    "id": "24",
+    "domain": "klix.ba"
+  },
+  {
+    "name": "jabuka",
+    "id": "23",
+    "domain": "jabuka.tv"
+  },
+  {
+    "name": "hercegovinainfo",
+    "id": "22",
+    "domain": "hercegovina.info"
+  },
+  {
+    "name": "hayat",
+    "id": "21",
+    "domain": "hayat.ba"
+  },
+  {
+    "name": "haber",
+    "id": "20",
+    "domain": "haber.ba"
+  },
+  {
+    "name": "glassrpske",
+    "id": "19",
+    "domain": "glassrpske.com"
+  },
+  {
+    "name": "fokus",
+    "id": "18",
+    "domain": "fokus.ba"
+  },
+  {
+    "name": "federalna",
+    "id": "17",
+    "domain": "federalna.ba"
+  },
+  {
+    "name": "faktor",
+    "id": "16",
+    "domain": "faktor.ba"
+  },
+  {
+    "name": "face",
+    "id": "15",
+    "domain": "face.ba"
+  },
+  {
+    "name": "dnevnik",
+    "id": "14",
+    "domain": "dnevnik.ba"
+  },
+  {
+    "name": "depo",
+    "id": "13",
+    "domain": "depo.ba"
+  },
+  {
+    "name": "cazin",
+    "id": "12",
+    "domain": "cazin.net"
+  },
+  {
+    "name": "buka",
+    "id": "11",
+    "domain": "6yka.com"
+  },
+  {
+    "name": "bosnainfo",
+    "id": "10",
+    "domain": "bosnainfo.ba"
+  },
+  {
+    "name": "blportal",
+    "id": "9",
+    "domain": "bl-portal.com"
+  },
+  {
+    "name": "bljesak",
+    "id": "8",
+    "domain": "bljesak.info"
+  },
+  {
+    "name": "biscani",
+    "id": "7",
+    "domain": "biscani.net"
+  },
+  {
+    "name": "bhrt",
+    "id": "6",
+    "domain": "bhrt.ba"
+  },
+  {
+    "name": "bhindex",
+    "id": "5",
+    "domain": "bh-index.info"
+  },
+  {
+    "name": "banjaluka",
+    "id": "4",
+    "domain": "banjaluka.com"
+  },
+  {
+    "name": "atvbl",
+    "id": "3",
+    "domain": "atvbl.rs"
+  },
+  {
+    "name": "aloonline",
+    "id": "2",
+    "domain": "aloonline.ba"
+  },
+  {
+    "name": "aljazeera",
+    "id": "1",
+    "domain": "aljazeera.net"
+  }
+]
