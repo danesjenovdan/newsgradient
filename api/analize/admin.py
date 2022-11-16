@@ -18,6 +18,7 @@ class NewsAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
     list_display = [
         'name',
+        'link',
         'location',
         'news_count',
         'news_count_last_day',
