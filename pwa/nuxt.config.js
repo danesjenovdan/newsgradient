@@ -4,6 +4,7 @@ const OG_DESCRIPTION =
 const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.jpg'
 
 export default {
+  telemetry: false,
   mode: 'universal',
   /*
    ** Headers of the page
