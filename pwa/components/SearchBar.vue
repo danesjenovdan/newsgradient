@@ -42,6 +42,8 @@ export default {
 .search-bar {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: 18px 32px;
   border: 4px solid #fff;
 
@@ -59,6 +61,8 @@ export default {
   }
 
   form {
+    display: flex;
+    justify-content: center;
     margin: 10px;
 
     input {
