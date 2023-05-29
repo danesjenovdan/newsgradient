@@ -43,14 +43,16 @@ services:
       - db
       - cache
 
-  # pwa:
-  #   build: ./pwa
-  #   environment:
-  #     COMPOSE_HTTP_TIMEOUT: 300
-  #     NODE_ENV: production
-  #   command: sh -c "yarn build && yarn start"
-  #   ports:
-  #     - "3000:3000"
+  pwa:
+    build: ./pwa
+    environment:
+      COMPOSE_HTTP_TIMEOUT: 300
+      # NODE_ENV: production
+    command: sh -c "yarn dev"
+    volumes:
+      - ./pwa:/app
+    ports:
+      - "3000:3000"
 
   # ns:
   #   build: ./nativescript-app
