@@ -5,10 +5,15 @@
       <div v-if="isMobile" class="description-container">
         Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.
       </div>
-      <div class="col col-12 mb30">
-        <NewsletterBar />
+      <div class="row">
+        <div class="col col-8 mb30">
+          <NewsletterBar />
+        </div>
+        <div class="col col-4 mb30">
+          <SearchBar />
+        </div>
       </div>
-      <div v-if="!isMobile" class="flex flex--wrap">
+      <div v-if="!isMobile" class="row flex flex--wrap">
         <div v-for="(event, index) in topEvents" :key="event.id" class="col-xl-8 col-12 mb30">
           <EventWrapper
             :title="event.title"
@@ -63,6 +68,7 @@ import Selector from '../components/Selector'
 import MobileEvent from '../components/MobileEvent'
 import Header from '../components/Header'
 import NewsletterBar from '../components/NewsletterBar'
+import SearchBar from '../components/SearchBar'
 
 export default {
   components: {
@@ -71,6 +77,7 @@ export default {
     Selector,
     EventWrapper,
     NewsletterBar,
+    SearchBar,
   },
   async asyncData({ store, route }) {
     const slant = ['1', '2', '3'].includes(route.query.slant)
