@@ -57,14 +57,14 @@
       </div>
     </div>
     <div v-if="!isMobile">
-      <Selector @change="slantChanged" />
+      <SelectorNew @change="slantChanged" />
     </div>
   </div>
 </template>
 
 <script>
 import EventWrapper from '../components/EventWrapper'
-import Selector from '../components/Selector'
+import SelectorNew from '../components/SelectorNew'
 import MobileEvent from '../components/MobileEvent'
 import Header from '../components/Header'
 import NewsletterBar from '../components/NewsletterBar'
@@ -74,7 +74,7 @@ export default {
   components: {
     Header,
     MobileEvent,
-    Selector,
+    SelectorNew,
     EventWrapper,
     NewsletterBar,
     SearchBar,
