@@ -6,10 +6,10 @@
         Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.
       </div>
       <div class="row">
-        <div class="col col-8 mb30">
+        <div class="col col-12 col-md-6 col-lg-8 mb30">
           <NewsletterBar />
         </div>
-        <div class="col col-4 mb30">
+        <div class="col col-12 col-md-6 col-lg-4 mb30">
           <SearchBar />
         </div>
       </div>

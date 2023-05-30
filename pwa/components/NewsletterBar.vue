@@ -85,6 +85,8 @@ export default {
   }
 
   form {
+    display: flex;
+    justify-content: center;
     margin: 10px;
 
     input {
