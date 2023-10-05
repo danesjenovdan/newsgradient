@@ -1,5 +1,5 @@
 from django.contrib import admin
-from analize.models import News, Media, Party, Member
+from analize.models import News, Media, Party, Member, PartyMediaScore
 
 from datetime import datetime, timedelta
 
@@ -45,7 +45,19 @@ class MemberAdmin(admin.ModelAdmin):
     ]
 
 
+class PartyMediaScoreAdmin(admin.ModelAdmin):
+    list_display = [
+        'party',
+        'media',
+        'score',
+        'neutral_score'
+    ]
+    list_filter = ['party', 'media']
+    list_editable = ['score', 'neutral_score']
+
+
 admin.site.register(News, NewsAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Party, PartyAdmin)
 admin.site.register(Member, MemberAdmin)
+admin.site.register(PartyMediaScore, PartyMediaScoreAdmin)

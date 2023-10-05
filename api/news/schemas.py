@@ -1,6 +1,7 @@
 from marshmallow import Schema
 from marshmallow import fields
 from marshmallow import validate
+from marshmallow import exceptions
 
 from constants import Orientations
 from constants import TimeRange
@@ -43,6 +44,14 @@ class EventSchema(Schema):
     all_articles_count = fields.Int(dump_only=True, data_key='allArticlesCount')
     social_score = fields.Integer(dump_only=True)
 
+class DelimitedListField(fields.List):
+    def _deserialize(self, value, attr, data, **kwargs):
+        try:
+            return value.split(",")
+        except AttributeError:
+            raise exceptions.ValidationError(
+                f"{attr} is not a delimited list it has a non string value {value}."
+            )
 
 class TopEventQPSchema(Schema):
     # timerange = fields.String(default=TimeRange.LAST_MONTH,
@@ -53,3 +62,14 @@ class TopEventQPSchema(Schema):
                        load_only=True,
                        required=False,
                        validate=validate.OneOf([t.value for t in Orientations]))
+
+class FilteredQPSchema(Schema):
+    positive = DelimitedListField(fields.Int(
+        required=False,
+    ), required=False)
+    negative = DelimitedListField(fields.Int(
+        required=False,
+    ), required=False)
+    locations = DelimitedListField(fields.String(
+        required=False,
+    ), required=False)

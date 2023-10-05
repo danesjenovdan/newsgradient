@@ -28,10 +28,10 @@ from news import models
 from news import serializers
 from news.schemas import EventArticlesSchema
 from news.schemas import EventSchema
-from news.schemas import TopEventQPSchema
+from news.schemas import TopEventQPSchema, FilteredQPSchema
 from news.services import get_event
 from news.services import get_event_articles
-from news.services import get_most_popular_events_with_articles
+from news.services import get_most_popular_events_with_articles, get_most_popular_events_with_filtered_articles
 
 
 class EventViewSet(viewsets.ModelViewSet):
@@ -136,6 +136,34 @@ class TopEventsView(SuperAPIView):
         # schema = EventSchema(many=True)
         # data = schema.dump(events)
         # return Response(data)
+
+
+class TopFilteredEventsView(SuperAPIView):
+    permission_classes = (AllowAny,)
+    qp_schema = FilteredQPSchema
+
+    def get(self, request):
+        # time_range = self.cleaned_qp.get('timerange')
+        positive_party_score = self.cleaned_qp.get('positive', [])
+        negative_party_score = self.cleaned_qp.get('negative', [])
+        locations = self.cleaned_qp.get('locations', [])
+
+        positive_party_score.sort()
+        negative_party_score.sort()
+
+        cache_key = f'{CacheKeys.TOP_EVENTS}::{positive_party_score}::{negative_party_score}::{locations}'
+        cached_value = cache.get(cache_key)
+        if not cached_value:
+            events: typing.List[typing.Dict] = get_most_popular_events_with_filtered_articles(
+                positive_party_score,
+                negative_party_score,
+                locations
+            )
+            schema = EventSchema(many=True)
+            data = schema.dump(events)
+            cache.set(cache_key, data)
+            return Response(data)
+        return Response(cached_value)
 
 
 class EventDetailView(APIView):

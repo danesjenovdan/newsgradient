@@ -23,6 +23,7 @@ class Media(models.Model):
     )
     fb_link = models.URLField(null=True, blank=True, verbose_name=_('Facebook link'))
     tw_link = models.URLField(null=True, blank=True, verbose_name=_('Twitter link'))
+    partyscore = models.ManyToManyField('Party', related_name='medias', through='PartyMediaScore', verbose_name=_('Party score'))
 
     def __str__(self):
         return self.name
@@ -53,10 +54,18 @@ class Party(Actor):
             ) for parser_name in self.parser_names.split('|') if ' ' in parser_name and len(parser_name) > 7
         ] + [parser_name for parser_name in self.parser_names.split('|') if ' ' not in parser_name] + [parser_name for parser_name in self.parser_names.split('|') if ' ' not in parser_name or len(parser_name) < 8]
         return search_terms + truncated_parser_names
+    mediascore = models.ManyToManyField('Media', related_name='parties', through='PartyMediaScore', verbose_name=_('Media score'))
 
 
 class Member(Actor):
     in_party = models.ForeignKey('Party', on_delete=models.CASCADE, null=True, blank=True, related_name='members', verbose_name=_('Party'))
+
+
+class PartyMediaScore(models.Model):
+    party = models.ForeignKey('Party', on_delete=models.CASCADE, related_name='partymediascore', verbose_name=_('Party'))
+    media = models.ForeignKey('Media', on_delete=models.CASCADE, related_name='partymediascore', verbose_name=_('Media'))
+    score = models.DecimalField(max_digits=10, decimal_places=7,null=True, blank=True, verbose_name=_('Score'))
+    neutral_score = models.DecimalField(max_digits=10, decimal_places=7,null=True, blank=True, verbose_name=_('Neutral score'))
 
 
 class PartyNewsMention(models.Model):
