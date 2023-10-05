@@ -15,7 +15,7 @@ from news import models
 # Register your models here.
 
 class MediumAdmin(admin.ModelAdmin):
-    list_display = ['title', 'uri', 'slant', 'favicon']
+    list_display = ['title', 'uri', 'slant', 'favicon', 'location']
     search_fields = ['title', 'uri']
     list_filter = ['slant']
     list_editable = ('slant',)
@@ -217,8 +217,21 @@ class TweetAdmin(admin.ModelAdmin):
     autocomplete_fields = ['article']
 
 
+class PartyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'parser_names']
+    search_fields = ['name']
+
+
+class PartyMediumScoreAdmin(admin.ModelAdmin):
+    list_display = ['party', 'medium', 'score']
+    search_fields = ['party__name', 'medium__title']
+    list_filter = ['party', 'medium']
+
+
 admin.site.register(models.Medium, MediumAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Article, ArticleAdmin)
 admin.site.register(models.Tweet, TweetAdmin)
 admin.site.register(models.Newsletter, NewsletterAdmin)
+admin.site.register(models.Party, PartyAdmin)
+admin.site.register(models.PartyMediumScore, PartyMediumScoreAdmin)

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.cache import cache
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 from constants import CacheKeys, Orientations
@@ -12,6 +13,20 @@ class Medium(models.Model):
         (Orientations.NEUTRAL.value, 'Neutral'),
         (Orientations.RIGHT.value, 'Right'),
     )
+    class Locations(models.TextChoices):
+        FBIH = 'FBIH', _('FBIH')
+        HBZ = 'HBŽ', _('HBŽ')
+        SZ = 'SŽ', _('SŽ')
+        ZZH = 'ŽZH', _('ŽZH')
+        ZDZ = 'ZDŽ', _('ZDŽ')
+        USZ = 'USŽ', _('USŽ')
+        HNZ = 'HNŽ', _('HNŽ')
+        ZSB = 'ŽSB', _('ŽSB')
+        BPZ = 'BPŽ', _('BPŽ')
+        TZ = 'TŽ', _('TŽ')
+        RS = 'RS', _('RS')
+        BRCKO = 'Brčko', _('Brčko')
+
     title = models.CharField(max_length=128)
     uri = models.CharField(max_length=128, db_index=True)
     favicon = models.URLField(
@@ -26,6 +41,13 @@ class Medium(models.Model):
     )
     is_embeddable = models.BooleanField(default=True)
     reliability = models.PositiveSmallIntegerField()
+    partyscore = models.ManyToManyField('Party', related_name='medias', through='PartyMediumScore', verbose_name=_('Party score'))
+    location = models.CharField(
+        max_length=5,
+        choices=Locations.choices,
+        default=Locations.FBIH,
+        verbose_name=_('Media\'s location')
+    )
 
     def __str__(self):
         return self.title
@@ -145,3 +167,18 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.date.strftime('%-d. %-m. %Y')
+
+class Party(models.Model):
+    name = models.TextField(verbose_name=_('Name'))
+    parser_names = models.TextField(verbose_name=_('Parser names separated with |'))
+    mediumscore = models.ManyToManyField('Medium', related_name='parties', through='PartyMediumScore', verbose_name=_('Medium score'))
+
+    def __str__(self):
+        return self.name
+
+
+class PartyMediumScore(models.Model):
+    party = models.ForeignKey('Party', on_delete=models.CASCADE, related_name='partymediumscore', verbose_name=_('Party'))
+    medium = models.ForeignKey('Medium', on_delete=models.CASCADE, related_name='partymediumscore', verbose_name=_('Medium'))
+    score = models.DecimalField(max_digits=10, decimal_places=7,null=True, blank=True, verbose_name=_('Score'))
+    neutral_score = models.DecimalField(max_digits=10, decimal_places=7,null=True, blank=True, verbose_name=_('Neutral score'))
