@@ -57,7 +57,7 @@
       </div>
     </div>
     <div v-if="!isMobile">
-      <SelectorNew @change="slantChanged" />
+      <SelectorNew @changeLocations="locationsChanged" @changeParties="partiesChanged" />
     </div>
   </div>
 </template>
@@ -84,7 +84,13 @@ export default {
       ? Number(route.query.slant)
       : store.state.carousel.selectedSlant
     await store.dispatch('carousel/setSlant', slant)
-    await store.dispatch('events/getTopEvents', { slant, timerange: store.state.events.timerange })
+    await store.dispatch('events/getTopFilteredEvents', {
+      slant,
+      locations: store.state.events.locations,
+      positive: store.state.events.positive,
+      negative: store.state.events.negative,
+      // timerange: store.state.events.timerange,
+    })
   },
   computed: {
     topEvents() {
@@ -104,9 +110,32 @@ export default {
     this.updateSlantUrl()
   },
   methods: {
+    locationsChanged(locations) {
+      this.$store.dispatch(
+        'events/setLocations',
+        locations.map((t) => t.name)
+      )
+
+      this.slantChanged()
+    },
+    partiesChanged(parties) {
+      const positive = parties.filter((p) => p.slant === 3).map((p) => p.id)
+      const negative = parties.filter((p) => p.slant === 1).map((p) => p.id)
+      this.$store.dispatch('events/setPositiveParties', positive)
+      this.$store.dispatch('events/setNegativeParties', negative)
+
+      this.slantChanged()
+    },
     slantChanged(slant) {
-      this.$store.dispatch('carousel/setSlant', slant)
-      this.$store.dispatch('events/getTopEvents', { slant, timerange: this.$store.state.events.timerange })
+      // this.$store.dispatch('carousel/setSlant', slant)
+      this.$store.dispatch('events/getTopFilteredEvents', {
+        // slant,
+        locations: this.$store.state.events.locations,
+        positive: this.$store.state.events.positive,
+        negative: this.$store.state.events.negative,
+        // timerange: this.$store.state.events.timerange,
+      })
+
       this.updateSlantUrl()
     },
     updateSlantUrl() {
