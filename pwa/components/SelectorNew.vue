@@ -184,7 +184,7 @@ export default {
       territories: TERRITORIES.map((group, gi) =>
         group.map((t, i) => ({ name: t.name, selected: false, svgIndex: t.svgIndex }))
       ),
-      parties: PARTIES.map((p) => ({ name: p, slant: 2 })),
+      parties: PARTIES.map((p) => ({ name: p.name, id: p.id, slant: 2 })),
     }
   },
   computed: {
@@ -197,6 +197,8 @@ export default {
   },
   watch: {
     selectedTerritories(values) {
+      this.$emit('changeLocations', values)
+
       const shapes = document.querySelectorAll('.map-container svg > g')
 
       for (const o of shapes) {
@@ -206,6 +208,9 @@ export default {
       for (const v of values) {
         shapes[v.svgIndex]?.classList.add('selected')
       }
+    },
+    selectedParties(values) {
+      this.$emit('changeParties', values)
     },
   },
 }

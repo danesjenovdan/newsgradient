@@ -8,6 +8,9 @@ export const state = () => ({
   eventTitle: '',
   eventDescription: '',
   eventImage: '',
+  locations: [],
+  positive: [],
+  negative: [],
 })
 
 export const mutations = {
@@ -29,6 +32,15 @@ export const mutations = {
   SET_EVENT_IMAGE(state, payload) {
     state.eventImage = payload
   },
+  SET_LOCATIONS(state, payload) {
+    state.locations = payload
+  },
+  SET_POSITIVE_PARTIES(state, payload) {
+    state.positive = payload
+  },
+  SET_NEGATIVE_PARTIES(state, payload) {
+    state.negative = payload
+  },
 }
 
 export const actions = {
@@ -38,6 +50,28 @@ export const actions = {
       const qp = {}
       if (payload.slant) {
         qp.slant = payload.slant
+      }
+      const params = new URLSearchParams(qp).toString()
+      if (params) {
+        url += '?' + params
+      }
+
+      const response = await this.$axios.get(url)
+      context.commit('SET_TOP_EVENTS', response.data)
+    } catch (e) {}
+  },
+  async getTopFilteredEvents(context, payload = {}) {
+    try {
+      let url = API.news.topFilteredEvents
+      const qp = {}
+      if (payload.locations) {
+        qp.locations = payload.locations.join(',')
+      }
+      if (payload.positive) {
+        qp.positive = payload.positive.join(',')
+      }
+      if (payload.negative) {
+        qp.negative = payload.negative.join(',')
       }
       const params = new URLSearchParams(qp).toString()
       if (params) {
@@ -72,5 +106,14 @@ export const actions = {
   },
   setTimerange(context, payload) {
     context.commit('SET_TIMERANGE', payload)
+  },
+  setLocations(context, payload) {
+    context.commit('SET_LOCATIONS', payload)
+  },
+  setPositiveParties(context, payload) {
+    context.commit('SET_POSITIVE_PARTIES', payload)
+  },
+  setNegativeParties(context, payload) {
+    context.commit('SET_NEGATIVE_PARTIES', payload)
   },
 }
