@@ -47,7 +47,8 @@ class EventSchema(Schema):
 class DelimitedListField(fields.List):
     def _deserialize(self, value, attr, data, **kwargs):
         try:
-            return value.split(",")
+            values = value.split(",")
+            return [i for i in values if i]
         except AttributeError:
             raise exceptions.ValidationError(
                 f"{attr} is not a delimited list it has a non string value {value}."
