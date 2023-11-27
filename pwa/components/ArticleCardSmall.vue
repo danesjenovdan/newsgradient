@@ -77,7 +77,7 @@ export default {
       return this.mediumName.replace('Oslobo?enje', 'Oslobođenje')
     },
     fixedImageUrl() {
-      let imageUrl = this.imageUrl
+      let imageUrl = this.imageUrl || ''
       if (imageUrl.includes('balkans.aljazeera.net') || imageUrl.includes('federalna.ba')) {
         imageUrl = imageUrl.replace('https://', 'http://')
       }
