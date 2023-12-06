@@ -2,14 +2,14 @@
   <div class="ng-header container--fluid">
     <div class="flex flex-justify--space-between flex-wrap flex-lg-nowrap w-90 mx-auto px-3">
       <div class="flex header-container">
-        <nuxt-link to="/" class="flex mr8">
+        <nuxt-link to="/" class="flex">
           <h1 hidden>NEWSGRADIENT</h1>
           <img src="@/assets/svg/logo-text.svg" class="logo-image" />
         </nuxt-link>
-        <h2 class="ng-header__text">
+        <!-- <h2 class="ng-header__text">
           Najaktuelnije vijesti u izvještajima bosanskohercegovačkih <br />
           medija grupisane po ideološkoj orijentaciji.
-        </h2>
+        </h2> -->
       </div>
       <div class="links-container">
         <!-- <nuxt-link :class="['link', { 'link--active': '/' === $route.path }]" to="/" class="link events-link">
@@ -21,9 +21,9 @@
         <nuxt-link :class="['link', { 'link--active': '/about' === $route.path }]" to="/about" class="link">
           Više o
         </nuxt-link>
-        <a href="https://play.google.com/store/apps/details?id=org.newsgradient.app" class="link events-link">
+        <!-- <a href="https://play.google.com/store/apps/details?id=org.newsgradient.app" class="link events-link">
           Android aplikacija
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -103,14 +103,15 @@ h2 {
 
 .links-container {
   display: flex;
-  justify-content: space-between;
+  gap: 2rem;
+  justify-content: flex-end;
   align-items: center;
   max-width: 450px;
   min-width: 350px;
 
-  // @media (max-width: $medium) {
-  //   justify-content: flex-end;
-  // }
+  @media (max-width: $small) {
+    justify-content: center;
+  }
 
   @media (max-width: $large) {
     max-width: 100%;
