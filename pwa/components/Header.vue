@@ -12,9 +12,9 @@
         </h2> -->
       </div>
       <div class="links-container">
-        <!-- <nuxt-link :class="['link', { 'link--active': '/' === $route.path }]" to="/" class="link events-link">
+        <nuxt-link :class="['link', { 'link--active': '/' === $route.path }]" to="/" class="link events-link">
           Vijesti
-        </nuxt-link> -->
+        </nuxt-link>
         <nuxt-link :class="['link', { 'link--active': '/blog' === $route.path }]" to="/blog" class="link">
           Blog
         </nuxt-link>
