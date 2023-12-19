@@ -209,7 +209,7 @@ def get_event_filtered_articles(
         mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
     # print(mediums)
 
-    articles = Article.objects.select_related('medium').filter(event_id=event_uri).annotate(social_score=Count('tweets')).values()
+    articles = Article.objects.select_related('medium').filter(event_id=event_uri, medium_id__in=list(mediums.keys())).annotate(social_score=Count('tweets')).values()
     for article in articles:
         article['medium'] = mediums.get(article.get('medium_id'))
 
