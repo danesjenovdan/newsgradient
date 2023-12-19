@@ -44,22 +44,22 @@ export const mutations = {
 }
 
 export const actions = {
-  async getTopEvents(context, payload = {}) {
-    try {
-      let url = API.news.topEvents
-      const qp = {}
-      if (payload.slant) {
-        qp.slant = payload.slant
-      }
-      const params = new URLSearchParams(qp).toString()
-      if (params) {
-        url += '?' + params
-      }
+  // async getTopEvents(context, payload = {}) {
+  //   try {
+  //     let url = API.news.topEvents
+  //     const qp = {}
+  //     if (payload.slant) {
+  //       qp.slant = payload.slant
+  //     }
+  //     const params = new URLSearchParams(qp).toString()
+  //     if (params) {
+  //       url += '?' + params
+  //     }
 
-      const response = await this.$axios.get(url)
-      context.commit('SET_TOP_EVENTS', response.data)
-    } catch (e) {}
-  },
+  //     const response = await this.$axios.get(url)
+  //     context.commit('SET_TOP_EVENTS', response.data)
+  //   } catch (e) {}
+  // },
   async getTopFilteredEvents(context, payload = {}) {
     try {
       let url = API.news.topFilteredEvents
@@ -82,23 +82,49 @@ export const actions = {
       context.commit('SET_TOP_EVENTS', response.data)
     } catch (e) {}
   },
-  async getEventArticles(context, { eventId }) {
+  // async getEventArticles(context, { eventId }) {
+  //   try {
+  //     // debugger
+  //     const url = API.news.articles + eventId + '/'
+  //     const response = await this.$axios.get(url)
+  //     const data = response.data
+  //     const result = {
+  //       1: [],
+  //       2: [],
+  //       3: [],
+  //       4: [],
+  //       5: [],
+  //     }
+  //     data.articles.forEach((article) => {
+  //       result[parseInt(article.medium.slant)].push(article)
+  //     })
+  //     context.commit('SET_ARTICLES', result)
+  //     context.commit('SET_EVENT_TITLE', data.title)
+  //     context.commit('SET_EVENT_DESCRIPTION', data.description)
+  //     context.commit('SET_EVENT_IMAGE', data.og_image)
+  //   } catch (e) {}
+  // },
+  async getEventFilteredArticles(context, payload = {}) {
     try {
-      // debugger
-      const url = API.news.articles + eventId + '/'
+      let url = API.news.filteredArticles + payload.eventId + '/'
+      const qp = {}
+      if (payload.locations) {
+        qp.locations = payload.locations.join(',')
+      }
+      if (payload.positive) {
+        qp.positive = payload.positive.join(',')
+      }
+      if (payload.negative) {
+        qp.negative = payload.negative.join(',')
+      }
+      const params = new URLSearchParams(qp).toString()
+      if (params) {
+        url += '?' + params
+      }
+
       const response = await this.$axios.get(url)
       const data = response.data
-      const result = {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-      }
-      data.articles.forEach((article) => {
-        result[parseInt(article.medium.slant)].push(article)
-      })
-      context.commit('SET_ARTICLES', result)
+      context.commit('SET_ARTICLES', data.articles)
       context.commit('SET_EVENT_TITLE', data.title)
       context.commit('SET_EVENT_DESCRIPTION', data.description)
       context.commit('SET_EVENT_IMAGE', data.og_image)

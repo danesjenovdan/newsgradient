@@ -87,16 +87,16 @@ def get_most_popular_events_with_filtered_articles(
             )
         else:
             mediums_qs = Medium.objects.all()
-        print(mediums_qs)
-        print(locations)
+        # print(mediums_qs)
+        # print(locations)
         if locations:
             mediums_qs = mediums_qs.filter(location__in=locations)
-        print(mediums_qs)
+        # print(mediums_qs)
         mediums = {medium.get('id'): medium for medium in  mediums_qs.values()}
-
     else:
         mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
-    print(mediums)
+    # print(mediums)
+
     promoted_events = Event.objects \
         .select_related('articles') \
         .annotate(all_articles_count=Count('articles')) \
@@ -161,6 +161,54 @@ def get_event_articles(event_uri):
     except Event.DoesNotExist:
         raise NotFound
     mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
+    articles = Article.objects.select_related('medium').filter(event_id=event_uri).annotate(social_score=Count('tweets')).values()
+    for article in articles:
+        article['medium'] = mediums.get(article.get('medium_id'))
+
+    og_image = None
+    if event.get('og_image_article'):
+        og_image_article = Article.objects.values('image').get(uri=event.get('og_image_article'))
+        og_image = og_image_article.get('image')
+
+    data = {
+        'title': event.get('title'),
+        'description': event.get('description'),
+        'og_image': og_image,
+        'articles': list(articles)
+    }
+    return data
+
+def get_event_filtered_articles(
+        event_uri,
+        positive_party_scores,
+        negative_party_scores,
+        locations
+    ):
+    try:
+        event = Event.objects.values('title', 'description', 'og_image_article').get(uri=event_uri)
+    except Event.DoesNotExist:
+        raise NotFound
+
+    if positive_party_scores or negative_party_scores or locations:
+        if positive_party_scores or negative_party_scores:
+            mediums_qs = Medium.objects.filter(
+                Q(partymediumscore__score__lt=0,
+                partymediumscore__party__in=negative_party_scores) |
+                Q(partymediumscore__score__gt=0,
+                partymediumscore__party__in=positive_party_scores)
+            )
+        else:
+            mediums_qs = Medium.objects.all()
+        # print(mediums_qs)
+        # print(locations)
+        if locations:
+            mediums_qs = mediums_qs.filter(location__in=locations)
+        # print(mediums_qs)
+        mediums = {medium.get('id'): medium for medium in  mediums_qs.values()}
+    else:
+        mediums = {medium.get('id'): medium for medium in Medium.objects.all().values()}
+    # print(mediums)
+
     articles = Article.objects.select_related('medium').filter(event_id=event_uri).annotate(social_score=Count('tweets')).values()
     for article in articles:
         article['medium'] = mediums.get(article.get('medium_id'))

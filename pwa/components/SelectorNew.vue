@@ -111,6 +111,7 @@
             <div v-for="party in parties" :key="party.name" class="selector-party" :class="`slant-${party.slant}`">
               <div class="line">
                 <div class="line-left" @click="party.slant = 1"></div>
+                <div v-if="party.slant !== 2" class="line-center" @click="party.slant = 2"></div>
                 <div class="line-right" @click="party.slant = 3"></div>
               </div>
               <div class="selector-party-name" @click="party.slant = 2">
@@ -297,6 +298,7 @@ export default {
         z-index: 1;
 
         .line-left,
+        .line-center,
         .line-right {
           position: absolute;
           left: 0;
@@ -306,6 +308,11 @@ export default {
           background: #333;
           border-radius: 50%;
           cursor: pointer;
+        }
+
+        .line-center {
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .line-right {

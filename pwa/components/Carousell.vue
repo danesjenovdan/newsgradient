@@ -2,13 +2,13 @@
   <transition :name="slideDirection ? 'slide-left' : 'slide-right'">
     <div :key="selectedSlantString" class="carousel__container flex flex-justify--center flex-align--center">
       <template v-if="!isMobile">
-        <div v-if="$store.state.carousel.selectedSlant !== 1" class="carousel__subitem carousel__item--left">
+        <!-- <div v-if="$store.state.carousel.selectedSlant !== 1" class="carousel__subitem carousel__item--left">
           <CarousellItem
             :articles="getArticles($store.state.carousel.selectedSlant - 1)"
             class="carousel-item-selector"
           />
-        </div>
-        <div class="carousel__arrow carousel__arrow--left" @click="decrement">
+        </div> -->
+        <!-- <div class="carousel__arrow carousel__arrow--left" @click="decrement">
           <svg
             v-if="$store.state.carousel.selectedSlant !== 1"
             xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@
           <span v-if="$store.state.carousel.selectedSlant !== 1">
             {{ getLeftArrowText }}
           </span>
-        </div>
+        </div> -->
         <div :class="{ 'carousel__item--empty': noArticles }" class="carousel__item">
           <template v-if="noArticles">
             <div class="flex flex--column flex-justify--center flex-align--center empty__holder--main">
@@ -53,7 +53,7 @@
             class="carousel-item-selector"
           />
         </div>
-        <div class="carousel__arrow carousel__arrow--right" @click="increment">
+        <!-- <div class="carousel__arrow carousel__arrow--right" @click="increment">
           <svg
             v-if="$store.state.carousel.selectedSlant !== 3"
             xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +85,13 @@
           <span v-if="$store.state.carousel.selectedSlant !== 3">
             {{ getRightArrowText }}
           </span>
-        </div>
-        <div v-if="$store.state.carousel.selectedSlant !== 3" class="carousel__subitem carousel__item--right">
+        </div> -->
+        <!-- <div v-if="$store.state.carousel.selectedSlant !== 3" class="carousel__subitem carousel__item--right">
           <CarousellItem
             :articles="getArticles($store.state.carousel.selectedSlant + 1)"
             class="carousel-item-selector-item"
           />
-        </div>
+        </div> -->
       </template>
       <template v-else>
         <div class="carousel__item">
@@ -149,11 +149,12 @@ export default {
       return SLANTS[this.$store.state.carousel.selectedSlant + 1]
     },
     noArticles() {
-      const slant = this.$store.state.carousel.selectedSlant
-      if (!this.$store.state.events.articles[slant]) {
-        return false
-      }
-      return this.$store.state.events.articles[slant].length === 0
+      // const slant = this.$store.state.carousel.selectedSlant
+      // if (!this.$store.state.events.articles[slant]) {
+      //   return false
+      // }
+      // return this.$store.state.events.articles[slant].length === 0
+      return !this.$store.state.events.articles?.length
     },
     selectedSlantString() {
       const slant = this.$store.state.carousel.selectedSlant
@@ -175,7 +176,8 @@ export default {
       // if (slant - 1 < 1 || slant + 1 > 3) {
       //   return []
       // }
-      return this.$store.state.events.articles[slant]
+      // return this.$store.state.events.articles[slant]
+      return this.$store.state.events.articles
     },
   },
 }
