@@ -27,14 +27,14 @@
     </div>
     <b-row>
       <b-col>
-        <Selector @change="slantChanged" />
+        <SelectorNew @changeLocations="locationsChanged" @changeParties="partiesChanged" />
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import Selector from '../../components/Selector'
+import SelectorNew from '../../components/SelectorNew'
 import Carousell from '../../components/Carousell'
 import SubHeader from '../../components/SubHeader'
 import Header from '../../components/Header'
@@ -46,41 +46,26 @@ export default {
     Header,
     SubHeader,
     Carousell,
-    Selector,
+    SelectorNew,
   },
   async asyncData({ store, route }) {
-    const slant = ['1', '2', '3'].includes(route.query.slant)
-      ? Number(route.query.slant)
-      : store.state.carousel.selectedSlant
-    await store.dispatch('carousel/setSlant', slant)
-    await store.dispatch('events/getEventArticles', { eventId: route.params.id })
-  },
-  computed: {
-    isMobile() {
-      return this.$store.state.sizing.windowWidth <= 768
-    },
-  },
-  mounted() {
-    this.updateSlantUrl()
-  },
-  methods: {
-    slantChanged(slant) {
-      this.$store.dispatch('carousel/setSlant', slant)
-      this.updateSlantUrl()
-    },
-    updateSlantUrl() {
-      const slant = this.$store.state.carousel.selectedSlant
-      const url = new URL(window.location)
-      if (!url.searchParams.has('slant') || url.searchParams.get('slant') !== String(slant)) {
-        url.searchParams.set('slant', slant)
-        window.history.replaceState(null, '', `${url.pathname}${url.search}`)
-      }
-    },
+    // const slant = ['1', '2', '3'].includes(route.query.slant)
+    //   ? Number(route.query.slant)
+    //   : store.state.carousel.selectedSlant
+    // await store.dispatch('carousel/setSlant', slant)
+    await store.dispatch('events/getEventFilteredArticles', {
+      eventId: route.params.id,
+      // slant,
+      locations: store.state.events.locations,
+      positive: store.state.events.positive,
+      negative: store.state.events.negative,
+      // timerange: store.state.events.timerange,
+    })
   },
   head() {
     const title = this.$store.state.events.eventTitle
     const description = this.$store.state.events.eventDescription
-    const image = this.$store.state.events.eventImage || this.$store.state.events.articles['2']?.[0]?.image
+    const image = this.$store.state.events.eventImage || this.$store.state.events.articles?.[0]?.image
     return {
       title,
       meta: [
@@ -92,6 +77,53 @@ export default {
         { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],
     }
+  },
+  computed: {
+    isMobile() {
+      return this.$store.state.sizing.windowWidth <= 768
+    },
+  },
+  mounted() {
+    // this.updateSlantUrl()
+  },
+  methods: {
+    locationsChanged(locations) {
+      this.$store.dispatch(
+        'events/setLocations',
+        locations.map((t) => t.name)
+      )
+
+      this.slantChanged()
+    },
+    partiesChanged(parties) {
+      const positive = parties.filter((p) => p.slant === 3).map((p) => p.id)
+      const negative = parties.filter((p) => p.slant === 1).map((p) => p.id)
+      this.$store.dispatch('events/setPositiveParties', positive)
+      this.$store.dispatch('events/setNegativeParties', negative)
+
+      this.slantChanged()
+    },
+    slantChanged(slant) {
+      // this.$store.dispatch('carousel/setSlant', slant)
+      this.$store.dispatch('events/getEventFilteredArticles', {
+        eventId: this.$route.params.id,
+        // slant,
+        locations: this.$store.state.events.locations,
+        positive: this.$store.state.events.positive,
+        negative: this.$store.state.events.negative,
+        // timerange: this.$store.state.events.timerange,
+      })
+
+      // this.updateSlantUrl()
+    },
+    updateSlantUrl() {
+      const slant = this.$store.state.carousel.selectedSlant
+      const url = new URL(window.location)
+      if (!url.searchParams.has('slant') || url.searchParams.get('slant') !== String(slant)) {
+        url.searchParams.set('slant', slant)
+        window.history.replaceState(null, '', `${url.pathname}${url.search}`)
+      }
+    },
   },
 }
 </script>

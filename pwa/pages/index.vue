@@ -80,12 +80,12 @@ export default {
     SearchBar,
   },
   async asyncData({ store, route }) {
-    const slant = ['1', '2', '3'].includes(route.query.slant)
-      ? Number(route.query.slant)
-      : store.state.carousel.selectedSlant
-    await store.dispatch('carousel/setSlant', slant)
+    // const slant = ['1', '2', '3'].includes(route.query.slant)
+    //   ? Number(route.query.slant)
+    //   : store.state.carousel.selectedSlant
+    // await store.dispatch('carousel/setSlant', slant)
     await store.dispatch('events/getTopFilteredEvents', {
-      slant,
+      // slant,
       locations: store.state.events.locations,
       positive: store.state.events.positive,
       negative: store.state.events.negative,
@@ -107,7 +107,7 @@ export default {
     },
   },
   mounted() {
-    this.updateSlantUrl()
+    // this.updateSlantUrl()
   },
   methods: {
     locationsChanged(locations) {
@@ -136,7 +136,7 @@ export default {
         // timerange: this.$store.state.events.timerange,
       })
 
-      this.updateSlantUrl()
+      // this.updateSlantUrl()
     },
     updateSlantUrl() {
       const slant = this.$store.state.carousel.selectedSlant

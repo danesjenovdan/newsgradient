@@ -30,7 +30,7 @@ from news.schemas import EventArticlesSchema
 from news.schemas import EventSchema
 from news.schemas import TopEventQPSchema, FilteredQPSchema
 from news.services import get_event
-from news.services import get_event_articles
+from news.services import get_event_articles, get_event_filtered_articles
 from news.services import get_most_popular_events_with_articles, get_most_popular_events_with_filtered_articles
 
 
@@ -105,6 +105,33 @@ class ArticleView(APIView):
         cached_value = cache.get(cache_key)
         if not cached_value:
             service_response: typing.List[typing.Dict] = get_event_articles(event_id)
+            schema = EventArticlesSchema()
+            data = schema.dump(service_response)
+            cache.set(cache_key, data)
+            return Response(data)
+        return Response(cached_value)
+
+
+class FilteredArticleView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, event_id):
+        positive_party_score = self.cleaned_qp.get('positive', [])
+        negative_party_score = self.cleaned_qp.get('negative', [])
+        locations = self.cleaned_qp.get('locations', [])
+
+        positive_party_score.sort()
+        negative_party_score.sort()
+
+        cache_key = f'{CacheKeys.EVENT_ARTICLES}::{event_id}::{positive_party_score}::{negative_party_score}::{locations}'
+        cached_value = cache.get(cache_key)
+        if not cached_value:
+            service_response: typing.List[typing.Dict] = get_event_filtered_articles(
+                event_id,
+                positive_party_score,
+                negative_party_score,
+                locations
+            )
             schema = EventArticlesSchema()
             data = schema.dump(service_response)
             cache.set(cache_key, data)
