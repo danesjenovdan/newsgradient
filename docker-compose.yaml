@@ -34,6 +34,7 @@ services:
       DJANGO_DATABASE_USER: postgres
       DJANGO_DATABASE_PASSWORD: postgres
       #ER_API_KEY=bffa61a3-e09e-46de-bf9c-6966615bac71
+      DJANGO_DEBUG: "True"
     ports:
       - "8000:8000"
     depends_on:
