@@ -112,8 +112,9 @@ class ArticleView(APIView):
         return Response(cached_value)
 
 
-class FilteredArticleView(APIView):
+class FilteredArticleView(SuperAPIView):
     permission_classes = (AllowAny,)
+    qp_schema = FilteredQPSchema
 
     def get(self, request, event_id):
         positive_party_score = self.cleaned_qp.get('positive', [])
