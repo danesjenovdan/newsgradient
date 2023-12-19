@@ -42,9 +42,7 @@
           <template v-else>
             <div class="flex flex--column flex-justify--center flex-align--center empty__holder--main">
               <img src="@/assets/svg/missing-icon.svg" class="missing-icon" />
-              <span class="empty__text">
-                Ni jedan {{ selectedSlantString }} medij nije izvijestio o ovom dogadjaju.
-              </span>
+              <span class="empty__text">Ni jedan odabrani medij nije izvijestio o ovom dogadjaju.</span>
             </div>
           </template>
         </div>
@@ -69,9 +67,7 @@
           <template v-else>
             <div class="flex flex--column flex-justify--center flex-align--center empty__holder">
               <img src="@/assets/svg/missing-icon.svg" class="missing-icon" />
-              <span class="empty__text">
-                Ni jedan {{ selectedSlantString }} medij nije izvijestio o ovom dogadjaju.
-              </span>
+              <span class="empty__text">Ni jedan odabrani medij nije izvijestio o ovom dogadjaju.</span>
             </div>
           </template>
         </div>

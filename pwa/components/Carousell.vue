@@ -44,14 +44,10 @@
           <template v-if="noArticles">
             <div class="flex flex--column flex-justify--center flex-align--center empty__holder--main">
               <img src="@/assets/svg/missing-icon.svg" class="missing-icon" />
-              <span class="empty__text">Ni jedan {{ selectedSlantString }} medij nije izvijestio o ovom dogadjaju.</span>
+              <span class="empty__text">Ni jedan odabrani medij nije izvijestio o ovom dogadjaju.</span>
             </div>
           </template>
-          <CarousellItem
-            v-else
-            :articles="getArticles($store.state.carousel.selectedSlant)"
-            class="carousel-item-selector"
-          />
+          <CarousellItem v-else :articles="filteredArticles" class="carousel-item-selector" />
         </div>
         <!-- <div class="carousel__arrow carousel__arrow--right" @click="increment">
           <svg
@@ -98,13 +94,10 @@
           <template v-if="noArticles">
             <div class="flex flex--column flex-justify--center flex-align--center empty__holder--main">
               <img src="@/assets/svg/missing-icon.svg" class="missing-icon" />
-              <span class="empty__text">Ni jedan {{ selectedSlantString }} medij nije izvijestio o ovom dogadjaju.</span>
+              <span class="empty__text">Ni jedan odabrani medij nije izvijestio o ovom dogadjaju.</span>
             </div>
           </template>
-          <CarousellItemMobile
-            :articles="getArticles($store.state.carousel.selectedSlant)"
-            class="carousel-item-selector"
-          />
+          <CarousellItemMobile :articles="filteredArticles" class="carousel-item-selector" />
         </div>
       </template>
     </div>
@@ -156,6 +149,9 @@ export default {
       // return this.$store.state.events.articles[slant].length === 0
       return !this.$store.state.events.articles?.length
     },
+    filteredArticles() {
+      return this.$store.state.events.articles
+    },
     selectedSlantString() {
       const slant = this.$store.state.carousel.selectedSlant
       return slant === 2 ? 'neutralan' : slant < 2 ? 'lijevo orijentiran' : 'desno orijentiran'
@@ -172,13 +168,13 @@ export default {
       this.$store.commit('carousel/INCREMENT_ITEM')
       this.$emit('change', this.$store.state.carousel.selectedSlant)
     },
-    getArticles(slant) {
-      // if (slant - 1 < 1 || slant + 1 > 3) {
-      //   return []
-      // }
-      // return this.$store.state.events.articles[slant]
-      return this.$store.state.events.articles
-    },
+    // getArticles(slant) {
+    //   // if (slant - 1 < 1 || slant + 1 > 3) {
+    //   //   return []
+    //   // }
+    //   // return this.$store.state.events.articles[slant]
+    //   return this.$store.state.events.articles
+    // },
   },
 }
 </script>
