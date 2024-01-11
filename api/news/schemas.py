@@ -71,6 +71,15 @@ class FilteredQPSchema(Schema):
     negative = DelimitedListField(fields.Int(
         required=False,
     ), required=False)
+    slightly_positive = DelimitedListField(fields.Int(
+        required=False,
+    ), required=False)
+    slightly_negative = DelimitedListField(fields.Int(
+        required=False,
+    ), required=False)
+    neutral = DelimitedListField(fields.Int(
+        required=False,
+    ), required=False)
     locations = DelimitedListField(fields.String(
         required=False,
     ), required=False)
