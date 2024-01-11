@@ -58,6 +58,9 @@ export default {
       // slant,
       locations: store.state.events.locations,
       positive: store.state.events.positive,
+      slightlyPositive: store.state.events.slightlyPositive,
+      neutral: store.state.events.neutral,
+      slightlyNegative: store.state.events.slightlyNegative,
       negative: store.state.events.negative,
       // timerange: store.state.events.timerange,
     })
@@ -96,9 +99,15 @@ export default {
       this.slantChanged()
     },
     partiesChanged(parties) {
-      const positive = parties.filter((p) => p.slant === 3).map((p) => p.id)
+      const positive = parties.filter((p) => p.slant === 5).map((p) => p.id)
+      const slightlyPositive = parties.filter((p) => p.slant === 4).map((p) => p.id)
+      const neutral = parties.filter((p) => p.slant === 3).map((p) => p.id)
+      const slightlyNegative = parties.filter((p) => p.slant === 2).map((p) => p.id)
       const negative = parties.filter((p) => p.slant === 1).map((p) => p.id)
       this.$store.dispatch('events/setPositiveParties', positive)
+      this.$store.dispatch('events/setSlightlyPositiveParties', slightlyPositive)
+      this.$store.dispatch('events/setNeutralParties', neutral)
+      this.$store.dispatch('events/setSlightlyNegativeParties', slightlyNegative)
       this.$store.dispatch('events/setNegativeParties', negative)
 
       this.slantChanged()
@@ -110,6 +119,9 @@ export default {
         // slant,
         locations: this.$store.state.events.locations,
         positive: this.$store.state.events.positive,
+        slightlyPositive: this.$store.state.events.slightlyPositive,
+        neutral: this.$store.state.events.neutral,
+        slightlyNegative: this.$store.state.events.slightlyNegative,
         negative: this.$store.state.events.negative,
         // timerange: this.$store.state.events.timerange,
       })

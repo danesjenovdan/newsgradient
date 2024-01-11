@@ -108,14 +108,18 @@
               <span>Negativno</span>
               <span>Pozitivno</span>
             </div>
-            <div v-for="party in parties" :key="party.name" class="selector-party" :class="`slant-${party.slant}`">
-              <div class="line">
-                <div class="line-left" @click="party.slant = 1"></div>
-                <div v-if="party.slant !== 2" class="line-center" @click="party.slant = 2"></div>
-                <div class="line-right" @click="party.slant = 3"></div>
-              </div>
-              <div class="selector-party-name" @click="party.slant = 2">
-                {{ party.name }}
+            <div class="selector-parties">
+              <div v-for="party in parties" :key="party.name" class="selector-party" :class="`slant-${party.slant}`">
+                <div class="line">
+                  <div class="line-left" @click="party.slant = 1"></div>
+                  <div class="line-mid-left" @click="party.slant = 2"></div>
+                  <div v-if="party.slant !== 3" class="line-center" @click="party.slant = 3"></div>
+                  <div class="line-mid-right" @click="party.slant = 4"></div>
+                  <div class="line-right" @click="party.slant = 5"></div>
+                </div>
+                <div class="selector-party-name" @click="party.slant = 3">
+                  {{ party.name }}
+                </div>
               </div>
             </div>
             <div class="confirm">
@@ -148,18 +152,18 @@
             </div>
             <div>
               <span v-for="party in selectedParties" :key="party.name" class="selected-party">
-                <svg v-if="party.slant === 1" class="thumbs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+                <svg v-if="party.slant < 3" class="thumbs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
                   <path
                     d="M120 153.49h261.82v523.63H120zm959.6 342.05c-3.8 37.85-38.46 65.22-76.5 65.22h-24.95c42.64 0 76.7 36.7 72.35 80.23-3.8 37.85-38.46 65.22-76.5 65.22H728.38c-15.91 0-28.73 12.83-29.07 28.74-3.24 145.79-26.5 223.64-33.69 253.48-8.15 33.79-27.98 60.82-63.32 57.85-30.1-2.53-52.78-29.28-52.84-59.5-.3-175.8-48.53-251.1-91.08-305.07l.27.03c-11.49-12.87-18.67-29.66-18.67-48.24V226.22a72.73 72.73 0 0 1 72.72-72.73h433.71c33.4 0 64.5 21.37 72.89 53.7 6.78 26.09-.91 50.2-16.23 67.33 27.84 10.2 47.8 36.7 47.8 68.06a72.73 72.73 0 0 1-72.73 72.73h29.1a72.75 72.75 0 0 1 72.35 80.23z"
                   />
                 </svg>
-                <svg v-if="party.slant === 3" class="thumbs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+                <svg v-if="party.slant > 3" class="thumbs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
                   <path
                     d="M120 522.88h261.82v523.63H120zm959.6 181.58c-3.8-37.85-38.46-65.22-76.5-65.22h-24.95c42.64 0 76.7-36.7 72.35-80.23-3.8-37.85-38.46-65.22-76.5-65.22H728.38c-15.91 0-28.73-12.83-29.07-28.74-3.24-145.79-26.5-223.64-33.69-253.48-8.15-33.79-27.98-60.82-63.32-57.85-30.1 2.53-52.78 29.28-52.84 59.5-.3 175.8-48.53 251.1-91.08 305.07l.27-.03c-11.49 12.87-18.67 29.66-18.67 48.24v407.27a72.73 72.73 0 0 0 72.73 72.73h433.7c33.41 0 64.5-21.37 72.9-53.7 6.77-26.09-.92-50.2-16.24-67.33 27.84-10.2 47.8-36.7 47.8-68.06a72.73 72.73 0 0 0-72.72-72.73h29.09a72.74 72.74 0 0 0 72.35-80.23z"
                   />
                 </svg>
                 {{ party.name }}
-                <svg class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" @click="party.slant = 2">
+                <svg class="close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" @click="party.slant = 3">
                   <path
                     fill="#0153b2"
                     d="M1170.6 1057.9a36.76 36.76 0 0 1 0 51.8l-60.84 60.82a36.74 36.74 0 0 1-51.8 0L600.02 712.58l-457.94 457.94a36.74 36.74 0 0 1-51.8 0l-60.82-60.82a36.74 36.74 0 0 1 0-51.8L487.4 599.96 29.46 142.02a36.73 36.73 0 0 1 0-51.8L90.28 29.4a36.74 36.74 0 0 1 51.8 0l457.94 457.94L1057.96 29.4a36.73 36.73 0 0 1 51.8 0l60.84 60.83a36.77 36.77 0 0 1 0 51.8L712.65 599.96z"
@@ -185,12 +189,12 @@ export default {
       territories: TERRITORIES.map((group, gi) =>
         group.map((t, i) => ({ name: t.name, selected: false, svgIndex: t.svgIndex }))
       ),
-      parties: PARTIES.map((p) => ({ name: p.name, id: p.id, slant: 2 })),
+      parties: PARTIES.map((p) => ({ name: p.name, id: p.id, slant: 3 })),
     }
   },
   computed: {
     selectedParties() {
-      return this.parties.filter((p) => p.slant !== 2)
+      return this.parties.filter((p) => p.slant !== 3)
     },
     selectedTerritories() {
       return this.territories.flat().filter((t) => t.selected)
@@ -211,7 +215,8 @@ export default {
       }
     },
     selectedParties(values) {
-      this.$emit('changeParties', values)
+      // this.$emit('changeParties', values)
+      this.$emit('changeParties', this.parties) // just emit all
     },
   },
 }
@@ -227,8 +232,8 @@ export default {
   width: 100%;
   background-color: white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
   z-index: 99999;
   padding: 20px 0;
 
@@ -273,6 +278,16 @@ export default {
     border: 1px solid #a8a5a9;
     border-radius: 6px;
 
+    .selector-parties {
+      max-height: 75vh;
+      overflow-y: auto;
+      margin-block: 0.5rem;
+      padding-inline: 1rem;
+      padding-block: 0.25rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+    }
+
     .labels {
       display: flex;
       justify-content: space-between;
@@ -298,7 +313,9 @@ export default {
         z-index: 1;
 
         .line-left,
+        .line-mid-left,
         .line-center,
+        .line-mid-right,
         .line-right {
           position: absolute;
           left: 0;
@@ -313,6 +330,17 @@ export default {
         .line-center {
           left: 50%;
           transform: translateX(-50%);
+        }
+
+        .line-mid-left {
+          left: 25%;
+          transform: translateX(-50%);
+        }
+
+        .line-mid-right {
+          left: auto;
+          right: 25%;
+          transform: translateX(50%);
         }
 
         .line-right {
@@ -340,7 +368,29 @@ export default {
         }
       }
 
-      &.slant-3 {
+      &.slant-2 {
+        justify-content: flex-start;
+
+        .selector-party-name {
+          left: 25%;
+          transform: translateX(-50%);
+          background-color: #0153b2;
+          color: #fff;
+        }
+      }
+
+      &.slant-4 {
+        justify-content: flex-end;
+
+        .selector-party-name {
+          right: 25%;
+          transform: translateX(50%);
+          background-color: #0153b2;
+          color: #fff;
+        }
+      }
+
+      &.slant-5 {
         justify-content: flex-end;
 
         .selector-party-name {
