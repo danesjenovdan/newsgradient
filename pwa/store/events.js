@@ -10,6 +10,9 @@ export const state = () => ({
   eventImage: '',
   locations: [],
   positive: [],
+  slightlyPositive: [],
+  neutral: [],
+  slightlyNegative: [],
   negative: [],
 })
 
@@ -37,6 +40,15 @@ export const mutations = {
   },
   SET_POSITIVE_PARTIES(state, payload) {
     state.positive = payload
+  },
+  SET_SLIGHTLY_POSITIVE_PARTIES(state, payload) {
+    state.slightlyPositive = payload
+  },
+  SET_NEUTRAL_PARTIES(state, payload) {
+    state.neutral = payload
+  },
+  SET_SLIGHTLY_NEGATIVE_PARTIES(state, payload) {
+    state.slightlyNegative = payload
   },
   SET_NEGATIVE_PARTIES(state, payload) {
     state.negative = payload
@@ -69,6 +81,15 @@ export const actions = {
       }
       if (payload.positive) {
         qp.positive = payload.positive.join(',')
+      }
+      if (payload.slightlyPositive) {
+        qp.slightly_positive = payload.slightlyPositive.join(',')
+      }
+      if (payload.neutral) {
+        qp.neutral = payload.neutral.join(',')
+      }
+      if (payload.slightlyNegative) {
+        qp.slightly_negative = payload.slightlyNegative.join(',')
       }
       if (payload.negative) {
         qp.negative = payload.negative.join(',')
@@ -114,6 +135,15 @@ export const actions = {
       if (payload.positive) {
         qp.positive = payload.positive.join(',')
       }
+      if (payload.slightlyPositive) {
+        qp.slightly_positive = payload.slightlyPositive.join(',')
+      }
+      if (payload.neutral) {
+        qp.neutral = payload.neutral.join(',')
+      }
+      if (payload.slightlyNegative) {
+        qp.slightly_negative = payload.slightlyNegative.join(',')
+      }
       if (payload.negative) {
         qp.negative = payload.negative.join(',')
       }
@@ -138,6 +168,15 @@ export const actions = {
   },
   setPositiveParties(context, payload) {
     context.commit('SET_POSITIVE_PARTIES', payload)
+  },
+  setSlightlyPositiveParties(context, payload) {
+    context.commit('SET_SLIGHTLY_POSITIVE_PARTIES', payload)
+  },
+  setNeutralParties(context, payload) {
+    context.commit('SET_NEUTRAL_PARTIES', payload)
+  },
+  setSlightlyNegativeParties(context, payload) {
+    context.commit('SET_SLIGHTLY_NEGATIVE_PARTIES', payload)
   },
   setNegativeParties(context, payload) {
     context.commit('SET_NEGATIVE_PARTIES', payload)
