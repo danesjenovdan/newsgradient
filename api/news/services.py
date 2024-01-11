@@ -87,13 +87,13 @@ def get_most_popular_events_with_filtered_articles(
                 partymediumscore__party__in=negative_party_scores) |
                 Q(partymediumscore__score__range=(0.7, 1),
                 partymediumscore__party__in=positive_party_scores) |
-                Q(partymediumscore__score__range=(0,3, 0.7),
+                Q(partymediumscore__score__range=(0.3, 0.7),
                 partymediumscore__party__in=slightly_positive_party_score) |
-                Q(partymediumscore__score__range=(-0.7, -0,3),
+                Q(partymediumscore__score__range=(-0.7, -0.3),
                 partymediumscore__party__in=slightly_negative_party_score) |
-                Q(partymediumscore__score__range=(-0.3, 0,3),
+                Q(partymediumscore__score__range=(-0.3, 0.3),
                 partymediumscore__party__in=neutral_party_scores)
-            ).distinct()
+            )
         else:
             mediums_qs = Medium.objects.all()
         # print(mediums_qs)
@@ -191,6 +191,9 @@ def get_event_filtered_articles(
         event_uri,
         positive_party_scores,
         negative_party_scores,
+        slightly_positive_party_score,
+        slightly_negative_party_score,
+        neutral_party_scores,
         locations
     ):
     try:
@@ -198,13 +201,19 @@ def get_event_filtered_articles(
     except Event.DoesNotExist:
         raise NotFound
 
-    if positive_party_scores or negative_party_scores or locations:
-        if positive_party_scores or negative_party_scores:
+    if positive_party_scores or negative_party_scores or slightly_positive_party_score or slightly_negative_party_score or neutral_party_scores or locations:
+        if positive_party_scores or negative_party_scores or slightly_positive_party_score or slightly_negative_party_score or neutral_party_scores:
             mediums_qs = Medium.objects.filter(
-                Q(partymediumscore__score__lt=0,
+                Q(partymediumscore__score__range=(-1, -0.7),
                 partymediumscore__party__in=negative_party_scores) |
-                Q(partymediumscore__score__gt=0,
-                partymediumscore__party__in=positive_party_scores)
+                Q(partymediumscore__score__range=(0.7, 1),
+                partymediumscore__party__in=positive_party_scores) |
+                Q(partymediumscore__score__range=(0.3, 0.7),
+                partymediumscore__party__in=slightly_positive_party_score) |
+                Q(partymediumscore__score__range=(-0.7, -0.3),
+                partymediumscore__party__in=slightly_negative_party_score) |
+                Q(partymediumscore__score__range=(-0.3, 0.3),
+                partymediumscore__party__in=neutral_party_scores)
             )
         else:
             mediums_qs = Medium.objects.all()
