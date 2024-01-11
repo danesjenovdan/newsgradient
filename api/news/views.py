@@ -174,17 +174,25 @@ class TopFilteredEventsView(SuperAPIView):
         # time_range = self.cleaned_qp.get('timerange')
         positive_party_score = self.cleaned_qp.get('positive', [])
         negative_party_score = self.cleaned_qp.get('negative', [])
+        slightly_positive_party_score = self.cleaned_qp.get('slightly-positive', [])
+        slightly_negative_party_score = self.cleaned_qp.get('slightly-negative', [])
+        neutral_party_scores = self.cleaned_qp.get('neutral', [])
         locations = self.cleaned_qp.get('locations', [])
 
         positive_party_score.sort()
         negative_party_score.sort()
+        slightly_positive_party_score.sort()
+        slightly_negative_party_score.sort()
 
-        cache_key = f'{CacheKeys.TOP_EVENTS}::{positive_party_score}::{negative_party_score}::{locations}'
+        cache_key = f'{CacheKeys.TOP_EVENTS}::{positive_party_score}::{negative_party_score}::{slightly_positive_party_score}::{slightly_negative_party_score}::{neutral_party_scores}::{locations}'
         cached_value = cache.get(cache_key)
         if not cached_value:
             events: typing.List[typing.Dict] = get_most_popular_events_with_filtered_articles(
                 positive_party_score,
                 negative_party_score,
+                slightly_positive_party_score,
+                slightly_negative_party_score,
+                neutral_party_scores,
                 locations
             )
             schema = EventSchema(many=True)
