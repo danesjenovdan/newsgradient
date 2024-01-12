@@ -27,14 +27,14 @@ export default {
     onSubmit(e) {
       this.submitting = true
 
-      fetch('https://podpri.djnd.si/api/subscribe/', {
+      fetch('https://podpri.lb.djnd.si/api/subscribe/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: this.email,
-          segment: 19,
+          segment_id: 20,
         }),
       })
         .then((res) => {
