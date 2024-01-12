@@ -279,7 +279,7 @@ export default {
     border-radius: 6px;
 
     .selector-parties {
-      max-height: 75vh;
+      max-height: 180px;
       overflow-y: auto;
       margin-block: 0.5rem;
       padding-inline: 1rem;
