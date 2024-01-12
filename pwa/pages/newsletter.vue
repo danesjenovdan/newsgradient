@@ -190,14 +190,14 @@ export default {
     onSubmit(e) {
       this.submitting = true
 
-      fetch('https://podpri.djnd.si/api/subscribe/', {
+      fetch('https://podpri.lb.djnd.si/api/subscribe/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: this.email,
-          segment: 19,
+          segment_id: 20,
         }),
       })
         .then((res) => {
@@ -219,14 +219,14 @@ export default {
         })
     },
     isSubscribed() {
-      const endpoint = `https://podpri.djnd.si/api/segments/my?token=${this.subscribedToken}&email=${this.subscribedEmail}`
+      const endpoint = `https://podpri.lb.djnd.si/api/segments/my?token=${this.subscribedToken}&email=${this.subscribedEmail}&campaign=newsgradient`
       this.submitting = true
       fetch(endpoint)
         .then((response) => {
           return response.json()
         })
         .then((json) => {
-          if (json.segments.filter((segment) => segment.id === 19).length > 0) {
+          if (json.segments.filter((segment) => segment.id === 20).length > 0) {
             this.showSubscribe = false
           }
           this.submitting = false
@@ -240,7 +240,7 @@ export default {
     },
     unsubscribe() {
       this.submitting = true
-      const reqUrl = `https://podpri.djnd.si/api/segments/newsgradient/contact/?email=${this.subscribedEmail}&token=${this.subscribedToken}`
+      const reqUrl = `https://podpri.lb.djnd.si/api/segments/20/contact/?email=${this.subscribedEmail}&token=${this.subscribedToken}`
       fetch(reqUrl, {
         method: 'DELETE',
       })
