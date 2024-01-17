@@ -101,13 +101,13 @@ class Command(BaseCommand):
 
         if settings.MAUTIC_SECRET:
             response = requests.post(
-                'https://podpri.djnd.si/api/create-and-send-custom-email/',
+                'https://podpri.lb.djnd.si/api/create-and-send-custom-email/',
                 headers={'Authorization': settings.MAUTIC_SECRET},
                 json={
                     'title': f'{context["title"]} {context["subtitle"]} {context["date"]}',
                     'description': f'{context["title"]} {context["subtitle"]} {context["date"]}',
                     'content': html_content,
-                    'segments': [19],
+                    'segments': [20],
                     'fromName': 'Newsgradient'
                 },
             )
