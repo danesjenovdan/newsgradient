@@ -94,7 +94,7 @@
             </div>
             <div class="confirm">
               <button type="button" @click="territoriesOpen = false">
-                Potrdi
+                Potvrdi
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 1200 1200">
                   <path
                     d="M600 0C268.65 0 0 268.65 0 600s268.65 600 600 600 600-268.65 600-600S931.35 0 600 0zm-75 823.8L299.48 598.27l106.05-106.05L525 611.7l269.48-269.48 106.05 106.05z"
@@ -124,7 +124,7 @@
             </div>
             <div class="confirm">
               <button type="button" @click="partiesOpen = false">
-                Potrdi
+                Potvrdi
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 1200 1200">
                   <path
                     d="M600 0C268.65 0 0 268.65 0 600s268.65 600 600 600 600-268.65 600-600S931.35 0 600 0zm-75 823.8L299.48 598.27l106.05-106.05L525 611.7l269.48-269.48 106.05 106.05z"
