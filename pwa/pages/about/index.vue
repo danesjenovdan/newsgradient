@@ -5,9 +5,9 @@
         <div class="flex flex-align--center">
           <div class="flex--1">
             <img
-              @click="$router.push('/')"
               src="@/assets/svg/carousel/right-arrow.svg"
               class="back-button back-button--header"
+              @click="$router.push('/')"
             />
           </div>
           <div class="flex--5 text--center header--title">About Newsgradient</div>
@@ -17,7 +17,7 @@
       <Header v-else />
     </div>
     <div :class="{ container: !isMobile, 'container--fluid': isMobile }">
-      <div class="flex flex-justify--space-evenly mt40">
+      <!-- <div class="flex flex-justify--space-evenly mt40">
         <div class="flex flex--column text--center title-holder">
           <span class="text--uppercase tab-title mb4">Karta medija</span>
           <div src="@/assets/svg/underline-gradient.svg" class="gradient-underline"></div>
@@ -29,7 +29,7 @@
             ><img src="/Media-Bias-Chart-Bosnia-2.jpg" class="w-100 img-fluid"
           /></a>
         </div>
-      </div>
+      </div> -->
       <div class="flex flex-justify--space-evenly mt64">
         <div class="flex flex--column text--center title-holder">
           <span class="text--uppercase tab-title mb4">Šta je Newsgradient?</span>
@@ -38,27 +38,23 @@
       </div>
       <div class="card flex flex--column">
         <p class="subtitle mb-0">
-          Newsgradient je online platforma koja nam omogućava da vidimo kako su mediji iz BiH, grupisani prema svojoj
-          ideološkoj orijentaciji, izvještavali o pojedinim događajima i temama.
+          Newsgradient je online platforma koja omogućava uvid u to kako online mediji iz BiH, grupisani prema ideološkoj
+          orijentaciji, izvještavaju o pojedinim događajima i temama na javnoj sceni u BiH.
         </p>
       </div>
       <div class="flex flex-justify--space-evenly mt64">
         <div class="flex flex--column text--center title-holder">
-          <span class="text--uppercase tab-title mb4">Kako je određena ideološka orijentacija medija?</span>
+          <span class="text--uppercase tab-title mb4">Kako je određena metodologija?</span>
           <div src="@/assets/svg/underline-gradient.svg" class="gradient-underline"></div>
         </div>
       </div>
       <div class="card flex flex--column">
         <p class="subtitle">
-          Koristeći jedinstvenu metodologiju koju je razvila Vanessa Otero, osnivačica
-          <a href="https://www.adfontesmedia.com/" target="_blank">Ad Fontes Media</a>, ocijenili smo pouzdanost i
-          ideološku orijentaciju medija u BiH. Tim analitičara/ki je u periodu od dva mjeseca pratio i ocjenjivao uzorak
-          medijskih izvještaja odabranih medija prema spomenutoj metodologiji. Na ovaj način su dobijeni ukupni rezultati
-          i izračunate ocjene 1) pouzdanosti 2) ideološke orijentacije svakog medija iz uzorka.
-        </p>
-        <p class="subtitle mb-0">
-          Više o metodologiji ocjenjivanja medija možete saznati
-          <a href="https://www.adfontesmedia.com/how-ad-fontes-ranks-news-sources/" target="_blank">ovdje</a>.
+          Platforma je bazirana na istraživanju koje je provedeno na uzorku tekstova prikupljenih tokom izborne kampanje
+          za Opće izbore u BiH koja je trajala od 2. do 30. septembra 2022. godine. Metodologija istraživanja
+          podrazumijevala je analizu članaka objavljenih u najpopularnijim online medijima u BiH prema više parametara
+          kao što su: sjedište medija, informacije o autoru i izvoru, tip članka, akter i funkcija u kojoj se akter
+          pojavljuje, način na koji su politička partija ili akter prikazani u tekstu, kao i sam ton članka.
         </p>
       </div>
       <div class="flex flex-justify--space-evenly mt64">
@@ -69,13 +65,11 @@
       </div>
       <div class="card flex flex--column">
         <p class="subtitle mb-0">
-          Prikupljamo članke iz odabranih bosanskohercegovačih medija uz pomoć naših saradnika i prijatelja iz
-          <a href="https://eventregistry.org/" target="_blank">Event Registry</a>. Novinski članci o istoj temi ili
-          događaju se grupiraju. Teme ili događaji o kojima se najviše izvještavalo u proteklom danu su prikazani na
-          početnoj stranici. Mediji su, prema ideološkoj orijentaciji, grupisani u tri grupe: lijevo orijentisani mediji,
-          neutralni/uravnoteženi mediji i desno orijentisani mediji. Granica koja dijeli ove tri kategorije je
-          postavljena prema smjernicama postavljenim od strane autorke metodologije, uvažavajući lokalni kontekst i
-          realnost medijske scene u BiH.
+          Newsgradient svakodnevno prikuplja članke iz najpopularnijih bosanskohercegovačkih medija obuhvaćenih
+          istraživanjem. Novinski članci o istoj temi ili događaju se grupiraju, a teme ili događaji o kojima se najviše
+          izvještavalo u proteklom danu prikazani su na početnoj stranici. U svom izborniku platforma daje mogućnost
+          grupisanja medija prema njihovom sjedištu te prema naklonjenosti ili kritičnosti spram određene političke
+          opcije.
         </p>
       </div>
       <div class="flex flex-justify--space-evenly mt40">
@@ -114,12 +108,7 @@
             </div>
             <div class="row">
               <div
-                class="
-                  col-12 col-md-4 col-lg-6
-                  d-flex
-                  align-items-center
-                  justify-content-center justify-content-md-start
-                "
+                class="col-12 col-md-4 col-lg-6 d-flex align-items-center justify-content-center justify-content-md-start"
               >
                 <a href="https://www.ned.org/" target="_blank" class="d-inline-block mb-4 mb-md-0"
                   ><img src="@/assets/img/ned-logo.png" alt="ned logo" class="img-fluid"
