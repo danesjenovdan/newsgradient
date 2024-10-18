@@ -6,9 +6,9 @@ resources:
   - api/service.yaml
   - api/ingress.yaml
   - api/pvc.yaml
-  - api/refresh_articles.yaml
-  - api/fetch_tweets.yaml
-  - api/send_newsletter.yaml
+  # - api/refresh_articles.yaml
+  # - api/fetch_tweets.yaml
+  # - api/send_newsletter.yaml
   # - api/export_news.yaml
   - pwa/deployment.yaml
   - pwa/service.yaml

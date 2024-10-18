@@ -80,8 +80,8 @@ spec:
               value: newsgradient.settings
           resources:
             requests:
-              memory: 400Mi
-              cpu: 100m
+              memory: 200Mi
+              cpu: 20m
             limits:
               memory: 400Mi
               cpu: 100m
