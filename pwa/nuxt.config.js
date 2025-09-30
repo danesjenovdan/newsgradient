@@ -1,7 +1,7 @@
 const OG_TITLE = 'Newsgradient'
 const OG_DESCRIPTION =
   'Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.'
-const OG_IMAGE = 'https://newsgradient.org/newsgradient-og.jpg'
+const OG_IMAGE = 'https://newsgradient-pwa.lb.djnd.si/newsgradient-og.jpg'
 
 export default {
   telemetry: false,
@@ -24,7 +24,7 @@ export default {
       // { hid: 'og:image:height', property: 'og:image:height', content: '628' },
       { hid: 'og:title', property: 'og:title', content: OG_TITLE },
       { hid: 'og:description', property: 'og:description', content: OG_DESCRIPTION },
-      // { hid: 'og:url', property: 'og:url', content: 'https://newsgradient.org/' },
+      // { hid: 'og:url', property: 'og:url', content: 'https://newsgradient-pwa.lb.djnd.si/' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: OG_TITLE },
       { hid: 'twitter:image', name: 'twitter:image', content: OG_IMAGE },
@@ -38,7 +38,7 @@ export default {
       {
         async: true,
         defer: true,
-        'data-domain': 'newsgradient.org',
+        'data-domain': 'newsgradient-pwa.lb.djnd.si',
         src: 'https://plausible.lb.djnd.si/js/plausible.js',
       },
     ],

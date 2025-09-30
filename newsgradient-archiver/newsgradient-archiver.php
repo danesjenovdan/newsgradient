@@ -2,7 +2,7 @@
 
 /*
 * Plugin Name: Newsgradient Archiver
-* Plugin URI: https://newsgradient.org/plugin
+* Plugin URI: https://newsgradient-pwa.lb.djnd.si/plugin
 * Description: Automatically archives all URLs when saving a post.
 * Version: 0.0.4
 * Requires at least: 5.2
@@ -11,7 +11,7 @@
 * Author URI: https://danesjenovdan.si
 * License: The Unlicense
 * License URI: https://unlicense.org/
-* Update URI: https://newsgradient.org/plugin
+* Update URI: https://newsgradient-pwa.lb.djnd.si/plugin
 * Text Domain: newsgradient-archiver
 * Domain Path: /archiver
 */

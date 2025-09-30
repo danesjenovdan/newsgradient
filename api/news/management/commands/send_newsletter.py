@@ -49,7 +49,7 @@ class Command(BaseCommand):
         context['title'] = 'Newsgradient'
         context['subtitle'] = 'Pregled sedmice'
         context['page_link_label'] = 'Newsgradient'
-        context['page_link_url'] = 'https://newsgradient.org'
+        context['page_link_url'] = 'https://newsgradient-pwa.lb.djnd.si'
 
         # misc
         context['articles_slant_1'] = 'Najpopularniji clanak iz lijevo orientisanih medija'

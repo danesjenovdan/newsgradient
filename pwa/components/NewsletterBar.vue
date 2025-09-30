@@ -1,7 +1,7 @@
 <template>
   <div class="newsletter-bar">
     <div v-if="!submitted" class="text-center">
-      <h2><a href="https://newsgradient.org/newsletter">Želiš li uvijek biti u toku sa pregledom objava?</a></h2>
+      <h2><a href="https://newsgradient-pwa.lb.djnd.si/newsletter">Želiš li uvijek biti u toku sa pregledom objava?</a></h2>
       <p>Prijavi se na newsletter tako što ćeš unijeti svoj email!</p>
       <form @submit.prevent="onSubmit">
         <input v-model="email" type="email" placeholder="email" required :disabled="submitting" />
