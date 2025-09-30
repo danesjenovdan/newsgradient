@@ -11,7 +11,7 @@
         </GridLayout>
         <StackLayout class="content-container">
           <NSImg
-            src="https://newsgradient.org/Media-Bias-Chart-Bosnia-2.jpg"
+            src="https://newsgradient-pwa.lb.djnd.si/Media-Bias-Chart-Bosnia-2.jpg"
             stretch="aspectFit"
             class="karta-medija"
           />

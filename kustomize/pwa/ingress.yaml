@@ -10,20 +10,9 @@ spec:
   tls:
   - hosts:
     - newsgradient-pwa.lb.djnd.si
-    - newsgradient.org
     secretName: newsgradient-pwa-tls
   rules:
   - host: newsgradient-pwa.lb.djnd.si
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: newsgradient-pwa
-            port:
-              number: 80
-  - host: newsgradient.org
     http:
       paths:
       - path: /

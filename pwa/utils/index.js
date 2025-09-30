@@ -10,5 +10,5 @@ export function faviconIcon(url) {
   if (url) {
     return `https://www.google.com/s2/favicons?sz=32&domain_url=${baseUrl(url)}`
   }
-  return 'https://www.google.com/s2/favicons?sz=32&domain_url=https://does.not.exist.newsgradient.org'
+  return 'https://www.google.com/s2/favicons?sz=32&domain_url=https://does.not.exist.newsgradient-pwa.lb.djnd.si'
 }

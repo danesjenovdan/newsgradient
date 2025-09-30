@@ -10,20 +10,9 @@ spec:
   tls:
     - hosts:
         - newsgradient-api.lb.djnd.si
-        - api.newsgradient.org
       secretName: newsgradient-api-tls
   rules:
     - host: newsgradient-api.lb.djnd.si
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: newsgradient-api
-                port:
-                  number: 8000
-    - host: api.newsgradient.org
       http:
         paths:
           - path: /
@@ -50,20 +39,9 @@ spec:
   tls:
     - hosts:
         - files.newsgradient-api.lb.djnd.si
-        - files.newsgradient.org
       secretName: newsgradient-api-nginx-tls
   rules:
     - host: files.newsgradient-api.lb.djnd.si
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: newsgradient-api-nginx
-                port:
-                  number: 80
-    - host: files.newsgradient.org
       http:
         paths:
           - path: /

@@ -12,5 +12,5 @@ def base_url(url):
 @register.filter
 def favicon_url(url):
     if not url or not isinstance(url, str):
-        return 'https://www.google.com/s2/favicons?sz=32&domain_url=https://does.not.exist.newsgradient.org'
+        return 'https://www.google.com/s2/favicons?sz=32&domain_url=https://does.not.exist.newsgradient-pwa.lb.djnd.si'
     return f'https://www.google.com/s2/favicons?sz=32&domain_url={base_url(url)}'

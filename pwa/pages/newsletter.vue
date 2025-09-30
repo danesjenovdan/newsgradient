@@ -65,7 +65,7 @@
           <div style="background-image: linear-gradient(to right, #0076fe 0%, #e50001 100%); height: 5px"></div>
           <div class="event">
             <a
-              :href="`https://newsgradient.org/events/${event.uri}`"
+              :href="`https://newsgradient-pwa.lb.djnd.si/events/${event.uri}`"
               style="color: #222; font-size: 27px; font-weight: 700; font-style: italic; line-height: 1.2"
               >{{ event.title }}</a
             >
@@ -99,7 +99,7 @@
             <hr style="border-color: #222; border-width: 1px 0 0 0; height: 0; width: 100%; margin: 30px 0" />
             <div>
               <a
-                :href="`https://newsgradient.org/events/${event.uri}`"
+                :href="`https://newsgradient-pwa.lb.djnd.si/events/${event.uri}`"
                 style="
                   color: #222;
                   font-size: 18px;
@@ -287,12 +287,12 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://newsgradient.org/ng-og-prijava.jpg',
+        content: 'https://newsgradient-pwa.lb.djnd.si/ng-og-prijava.jpg',
       },
       {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: 'https://newsgradient.org/ng-og-prijava.jpg',
+        content: 'https://newsgradient-pwa.lb.djnd.si/ng-og-prijava.jpg',
       },
     ],
   },
