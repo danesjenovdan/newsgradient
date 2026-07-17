@@ -1,7 +1,7 @@
 const OG_TITLE = 'Newsgradient'
 const OG_DESCRIPTION =
   'Najaktuelnije vijesti u izvještajima bosanskohercegovačkih medija grupisane po ideološkoj orijentaciji.'
-const OG_IMAGE = 'https://newsgradient-pwa.lb.djnd.si/newsgradient-og.jpg'
+const OG_IMAGE = 'https://newsgradient-pwa.ldanesjenovdan.si/newsgradient-og.jpg'
 
 export default {
   telemetry: false,
@@ -24,7 +24,7 @@ export default {
       // { hid: 'og:image:height', property: 'og:image:height', content: '628' },
       { hid: 'og:title', property: 'og:title', content: OG_TITLE },
       { hid: 'og:description', property: 'og:description', content: OG_DESCRIPTION },
-      // { hid: 'og:url', property: 'og:url', content: 'https://newsgradient-pwa.lb.djnd.si/' },
+      // { hid: 'og:url', property: 'og:url', content: 'https://newsgradient-pwa.ldanesjenovdan.si/' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       { hid: 'twitter:title', name: 'twitter:title', content: OG_TITLE },
       { hid: 'twitter:image', name: 'twitter:image', content: OG_IMAGE },
@@ -38,8 +38,8 @@ export default {
       {
         async: true,
         defer: true,
-        'data-domain': 'newsgradient-pwa.lb.djnd.si',
-        src: 'https://plausible.lb.djnd.si/js/plausible.js',
+        'data-domain': 'newsgradient-pwa.ldanesjenovdan.si',
+        src: 'https://plausible.ldanesjenovdan.si/js/plausible.js',
       },
     ],
   },
@@ -77,8 +77,8 @@ export default {
    */
   axios: {
     proxy: false,
-    baseURL: 'https://newsgradient-api.lb.djnd.si/',
-    // baseURL: 'https://cors-anywhere.djnd.si/https://newsgradient-api.lb.djnd.si/',
+    baseURL: 'https://newsgradient-api.ldanesjenovdan.si/',
+    // baseURL: 'https://cors-anywhere.djnd.si/https://newsgradient-api.ldanesjenovdan.si/',
     // baseURL: 'http://localhost:8000/'
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
