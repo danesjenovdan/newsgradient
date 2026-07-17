@@ -297,7 +297,7 @@ class NewsletterView(TemplateView):
         context['title'] = 'Newsgradient'
         context['subtitle'] = 'Pregled sedmice'
         context['page_link_label'] = 'Newsgradient'
-        context['page_link_url'] = 'https://newsgradient-pwa.ldanesjenovdan.si'
+        context['page_link_url'] = 'https://newsgradient-pwa.danesjenovdan.si'
 
         # misc
         context['articles_slant_1'] = 'Najpopularniji clanak iz lijevo orientisanih medija'

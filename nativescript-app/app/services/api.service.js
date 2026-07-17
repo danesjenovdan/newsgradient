@@ -1,4 +1,4 @@
-const apiBase = 'https://newsgradient-api.ldanesjenovdan.si/api/v1';
+const apiBase = 'https://newsgradient-api.danesjenovdan.si/api/v1';
 
 export async function fetchTopEvents(slant = 2) {
   const res = await fetch(`${apiBase}/news/top-events/?slant=${slant}`);
