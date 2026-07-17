@@ -3,16 +3,15 @@ kind: Ingress
 metadata:
   name: newsgradient-pwa
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
   - hosts:
-    - newsgradient-pwa.lb.djnd.si
+    - newsgradient-pwa.danesjenovdan.si
     secretName: newsgradient-pwa-tls
   rules:
-  - host: newsgradient-pwa.lb.djnd.si
+  - host: newsgradient-pwa.danesjenovdan.si
     http:
       paths:
       - path: /

@@ -23,7 +23,7 @@ spec:
         env:
           -
             name: API_BASE_URL
-            value: https://newsgradient-api.lb.djnd.si
+            value: https://newsgradient-api.danesjenovdan.si
         ports:
         - name: http
           containerPort: 3000
