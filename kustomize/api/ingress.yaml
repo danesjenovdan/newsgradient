@@ -1,18 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: enable-cors
+spec:
+  headers:
+    accessControlAllowOriginList:
+      - "https://newsgradient-api.danesjenovdan.si"
+    accessControlAllowMethods:
+      - GET
+      - POST
+      - PUT
+      - OPTIONS
+    accessControlAllowHeaders:
+      - "*"
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: newsgradient-api
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
-    nginx.ingress.kubernetes.io/proxy-body-size: 10m
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     - hosts:
-        - newsgradient-api.lb.djnd.si
+        - newsgradient-api.danesjenovdan.si
       secretName: newsgradient-api-tls
   rules:
-    - host: newsgradient-api.lb.djnd.si
+    - host: newsgradient-api.danesjenovdan.si
       http:
         paths:
           - path: /
@@ -29,19 +44,15 @@ metadata:
   name: newsgradient-api-nginx
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*" # TODO
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    traefik.ingress.kubernetes.io/router.middlewares: newsgradient-enable-cors@kubernetescrd
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
     - hosts:
-        - files.newsgradient-api.lb.djnd.si
+        - files.newsgradient-api.danesjenovdan.si
       secretName: newsgradient-api-nginx-tls
   rules:
-    - host: files.newsgradient-api.lb.djnd.si
+    - host: files.newsgradient-api.danesjenovdan.si
       http:
         paths:
           - path: /
