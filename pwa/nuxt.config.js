@@ -77,8 +77,8 @@ export default {
    */
   axios: {
     proxy: false,
-    baseURL: 'https://newsgradient-api.ldanesjenovdan.si/',
-    // baseURL: 'https://cors-anywhere.djnd.si/https://newsgradient-api.ldanesjenovdan.si/',
+    baseURL: 'https://newsgradient-api.danesjenovdan.si/',
+    // baseURL: 'https://cors-anywhere.djnd.si/https://newsgradient-api.danesjenovdan.si/',
     // baseURL: 'http://localhost:8000/'
     // baseUrl: process.env.API_BASE_URL || 'http://localhost:8000'
   },
